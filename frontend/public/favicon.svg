@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FEE2E2"/>
+      <stop offset="100%" stop-color="#FECACA"/>
+    </linearGradient>
+    <linearGradient id="bubble" x1="2" y1="2" x2="24" y2="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F87171"/>
+      <stop offset="100%" stop-color="#B91C1C"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景圆角方形 -->
+  <rect width="32" height="32" rx="8" fill="url(#bg)"/>
+
+  <!-- 主对话气泡 -->
+  <rect x="3" y="4" width="22" height="14" rx="4" fill="url(#bubble)"/>
+  <!-- 气泡尾巴 -->
+  <path d="M6 18 L3 22 L11 18 Z" fill="#DC2626"/>
+
+  <!-- 气泡内文字线 -->
+  <rect x="6"  y="8"  width="10" height="2" rx="1" fill="white" opacity="0.9"/>
+  <rect x="6"  y="12" width="14" height="2" rx="1" fill="white" opacity="0.7"/>
+
+  <!-- AI 星形（右上角） -->
+  <path d="M26 5 L27.2 8.8 L31 10 L27.2 11.2 L26 15 L24.8 11.2 L21 10 L24.8 8.8 Z"
+        fill="#EF4444"/>
+
+  <!-- 副气泡（AI 回答，右下） -->
+  <rect x="9" y="21" width="20" height="8" rx="3" fill="#EF4444" opacity="0.85"/>
+  <!-- 副气泡尾巴（右侧） -->
+  <path d="M27 21 L30 18 L25 21 Z" fill="#DC2626" opacity="0.85"/>
+
+  <!-- 副气泡内点点（流式输出） -->
+  <circle cx="14" cy="25" r="1.2" fill="white" opacity="0.9"/>
+  <circle cx="18" cy="25" r="1.2" fill="white" opacity="0.6"/>
+  <circle cx="22" cy="25" r="1.2" fill="white" opacity="0.35"/>
+</svg>

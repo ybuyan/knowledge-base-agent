@@ -1,0 +1,26 @@
+{
+  "watch_dirs": [
+    {
+      "path": "c:/D/code/learning/Agent/AI-assistent/backend/docs",
+      "enabled": true,
+      "recursive": true,
+      "extensions": "auto"
+    }
+  ],
+  "processing": {
+    "workers": 4,
+    "batch_size": 10,
+    "retry_times": 3,
+    "retry_delay": 5,
+    "debounce_seconds": 2
+  },
+  "storage": {
+    "state_db": "data/watch_state.db",
+    "log_dir": "data/watch_logs"
+  },
+  "logging": {
+    "level": "INFO",
+    "console": true,
+    "file": true
+  }
+}

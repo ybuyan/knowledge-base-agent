@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "llm": {
+    "provider": "dashscope",
+    "temperature": 0.7,
+    "max_tokens": 4096,
+    "stream": true,
+    "debug": true,
+    "note": "模型配置请在 .env 文件中设置 LLM_MODEL"
+  },
+  "vector_store": {
+    "provider": "chromadb",
+    "persist_dir": "./data/chroma",
+    "collections": {
+      "documents": {
+        "description": "文档知识库",
+        "metadata": {"hnsw:space": "cosine"}
+      },
+      "conversations": {
+        "description": "对话历史",
+        "metadata": {"hnsw:space": "cosine"}
+      }
+    }
+  },
+  "document_processing": {
+    "chunk_size": 500,
+    "chunk_overlap": 50,
+    "max_file_size_mb": 50
+  },
+  "retrieval": {
+    "default_top_k": 5,
+    "score_threshold": 0.7,
+    "rerank_enabled": false
+  },
+  "api": {
+    "host": "127.0.0.1",
+    "port": 8000,
+    "cors_origins": ["*"],
+    "debug": true
+  }
+}

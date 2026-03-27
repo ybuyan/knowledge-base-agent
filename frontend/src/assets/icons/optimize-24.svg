@@ -1,0 +1,9 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 魔法棒主体 - 五角星形状 -->
+  <path d="M12 2L14.5 8.5L22 9L16.5 13.5L18 21L12 17L6 21L7.5 13.5L2 9L9.5 8.5L12 2Z" 
+        fill="currentColor"/>
+  <!-- 闪光效果 -->
+  <circle cx="19.5" cy="4.5" r="1.8" fill="currentColor" opacity="0.8"/>
+  <circle cx="21.75" cy="8.25" r="1.2" fill="currentColor" opacity="0.6"/>
+  <circle cx="20.25" cy="12" r="0.9" fill="currentColor" opacity="0.4"/>
+</svg>

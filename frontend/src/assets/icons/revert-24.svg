@@ -1,0 +1,6 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 返回箭头 -->
+  <path d="M6 7.5L2.25 12L6 16.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 横线 -->
+  <path d="M3.75 12H14.25C17.5637 12 20.25 14.6863 20.25 18V18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>

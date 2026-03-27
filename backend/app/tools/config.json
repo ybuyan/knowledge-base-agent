@@ -1,0 +1,94 @@
+{
+  "version": "1.0",
+  "tools": [
+    {
+      "id": "search_knowledge",
+      "name": "search_knowledge",
+      "description": "在知识库中搜索相关内容",
+      "enabled": true,
+      "category": "retrieval",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "搜索查询"
+          },
+          "top_k": {
+            "type": "integer",
+            "description": "返回结果数量",
+            "default": 5
+          },
+          "collection": {
+            "type": "string",
+            "description": "集合名称",
+            "enum": ["documents", "conversations"],
+            "default": "documents"
+          }
+        },
+        "required": ["query"]
+      },
+      "implementation": "SearchKnowledgeTool"
+    },
+    {
+      "id": "upload_document",
+      "name": "upload_document",
+      "description": "上传并处理文档到知识库",
+      "enabled": true,
+      "category": "document",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "file_path": {
+            "type": "string",
+            "description": "文件路径"
+          },
+          "metadata": {
+            "type": "object",
+            "description": "文档元数据"
+          }
+        },
+        "required": ["file_path"]
+      },
+      "implementation": "UploadDocumentTool"
+    },
+    {
+      "id": "get_system_status",
+      "name": "get_system_status",
+      "description": "获取系统运行状态",
+      "enabled": true,
+      "category": "system",
+      "parameters": {
+        "type": "object",
+        "properties": {}
+      },
+      "implementation": "SystemStatusTool"
+    },
+    {
+      "id": "list_documents",
+      "name": "list_documents",
+      "description": "列出知识库中的文档",
+      "enabled": true,
+      "category": "document",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "default": 1
+          },
+          "page_size": {
+            "type": "integer",
+            "default": 10
+          },
+          "status": {
+            "type": "string",
+            "enum": ["READY", "INDEXING", "ERROR", "all"],
+            "default": "all"
+          }
+        }
+      },
+      "implementation": "ListDocumentsTool"
+    }
+  ]
+}

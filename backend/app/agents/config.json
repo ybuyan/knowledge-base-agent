@@ -1,0 +1,97 @@
+{
+  "version": "1.0",
+  "agents": [
+    {
+      "id": "document_agent",
+      "name": "文档处理Agent",
+      "description": "负责文档上传、解析、切分和向量化存储",
+      "enabled": true,
+      "skills": ["document_upload"],
+      "tools": ["upload_document", "list_documents"],
+      "workflow": {
+        "entry_point": "document_upload",
+        "states": [
+          {
+            "name": "idle",
+            "transitions": ["processing"]
+          },
+          {
+            "name": "processing",
+            "actions": ["parse_document", "split_text", "embed_and_store"],
+            "transitions": ["completed", "error"]
+          },
+          {
+            "name": "completed",
+            "transitions": ["idle"]
+          },
+          {
+            "name": "error",
+            "transitions": ["idle", "processing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "qa_agent",
+      "name": "问答Agent",
+      "description": "负责处理用户问题，检索知识库并生成回答",
+      "enabled": true,
+      "skills": ["qa_rag"],
+      "tools": ["search_knowledge", "get_system_status"],
+      "workflow": {
+        "entry_point": "qa_rag",
+        "states": [
+          {
+            "name": "idle",
+            "transitions": ["understanding"]
+          },
+          {
+            "name": "understanding",
+            "actions": ["embed_query"],
+            "transitions": ["retrieving", "clarifying"]
+          },
+          {
+            "name": "retrieving",
+            "actions": ["retrieve_knowledge", "retrieve_history"],
+            "transitions": ["generating", "no_answer"]
+          },
+          {
+            "name": "generating",
+            "actions": ["build_context", "generate_answer", "store_conversation"],
+            "transitions": ["completed"]
+          },
+          {
+            "name": "clarifying",
+            "actions": ["ask_clarification"],
+            "transitions": ["understanding"]
+          },
+          {
+            "name": "no_answer",
+            "actions": ["respond_no_answer"],
+            "transitions": ["completed"]
+          },
+          {
+            "name": "completed",
+            "transitions": ["idle"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "memory_agent",
+      "name": "记忆检索Agent",
+      "description": "从对话历史向量库中检索语义相关的历史记忆",
+      "enabled": true,
+      "skills": [],
+      "tools": []
+    },
+    {
+      "id": "orchestrator_agent",
+      "name": "编排路由Agent",
+      "description": "纯规则意图识别，将请求路由到 QAAgent 或 MemoryAgent",
+      "enabled": true,
+      "skills": [],
+      "tools": []
+    }
+  ]
+}

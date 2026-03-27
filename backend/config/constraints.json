@@ -1,0 +1,36 @@
+{
+  "constraints": {
+    "retrieval": {
+      "enabled": false,
+      "min_similarity_score": 0.7,
+      "min_relevant_docs": 1,
+      "max_relevant_docs": 5,
+      "content_coverage_threshold": 0.7
+    },
+    "generation": {
+      "strict_mode": false,
+      "allow_general_knowledge": true,
+      "require_citations": false,
+      "max_answer_length": 1000,
+      "forbidden_topics": [],
+      "forbidden_keywords": []
+    },
+    "validation": {
+      "enabled": false,
+      "check_source_attribution": false,
+      "min_confidence_score": 0.7,
+      "hallucination_detection": true
+    },
+    "fallback": {
+      "no_result_message": "未找到相关信息",
+      "suggest_similar": true,
+      "suggest_contact": true,
+      "contact_info": "如有疑问，请联系：\n电话：12345\n邮箱：support@company.com"
+    }
+  },
+  "logging": {
+    "enabled": true,
+    "log_file": "data/logs/constraints.log",
+    "log_level": "INFO"
+  }
+}

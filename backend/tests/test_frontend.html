@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端测试页面</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>前端测试页面</h1>
+    <button onclick="testBackendAPI()">测试后端API</button>
+    <div id="result"></div>
+
+    <script>
+        function testBackendAPI() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '测试中...';
+
+            // 测试后端API
+            axios.get('http://localhost:8000/api/health', {
+                httpsAgent: new (window.require ? window.require('https').Agent : null)({
+                    rejectUnauthorized: false
+                })
+            })
+            .then(response => {
+                resultDiv.innerHTML = `
+                    <h2>后端API测试结果:</h2>
+                    <p>状态码: ${response.status}</p>
+                    <p>响应内容: ${JSON.stringify(response.data)}</p>
+                `;
+            })
+            .catch(error => {
+                resultDiv.innerHTML = `
+                    <h2>后端API测试失败:</h2>
+                    <p>错误: ${error.message}</p>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>
