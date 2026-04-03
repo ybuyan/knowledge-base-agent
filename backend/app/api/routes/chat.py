@@ -680,6 +680,11 @@ async def ask_question_stream_v2(request: ChatStreamRequest, http_request: Reque
                         history.append({"role": role, "content": content})
                     except Exception as he:
                         logger.warning("history msg parse error: %s, msg type: %s, msg: %s", he, type(msg), repr(msg)[:100])
+                
+                # 添加调试日志
+                logger.info(f"[V2] 获取到 {len(history)} 条历史消息")
+                if history:
+                    logger.info(f"[V2] 最后一条历史: role={history[-1]['role']}, content前50字={history[-1]['content'][:50]}")
             
             # 检查是否有进行中的流程（直接走 OrchestratorAgent，它会路由到 ProcessAgent）
             from app.agents.base import agent_engine as _agent_engine
@@ -712,12 +717,12 @@ async def ask_question_stream_v2(request: ChatStreamRequest, http_request: Reque
 
             orch_result = await _agent_engine.execute("orchestrator_agent", orch_input)
 
-            # OrchestratorAgent 直接处理的结果（process / confirm / memory / hybrid）
+            # OrchestratorAgent 直接处理的结果（process / confirm / memory / hybrid / guide）
             # qa 意图不在这里处理，走下面的流式 QAAgent
             orch_handled = (
                 orch_result.get("ui_components") is not None or
                 orch_result.get("process_state") is not None or
-                orch_result.get("intent") in ("confirm", "memory", "hybrid")
+                orch_result.get("intent") in ("confirm", "memory", "hybrid", "guide")
             )
 
             if orch_handled:

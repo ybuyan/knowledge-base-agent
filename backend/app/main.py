@@ -73,15 +73,14 @@ async def startup_event():
     )
     
     from app.skills.registry import ProcessorRegistry
-    from app.agents.implementations import DocumentAgent, QAAgent, MemoryAgent, OrchestratorAgent
-    from app.agents.implementations.process_agent import ProcessAgent
+    from app.agents.implementations import DocumentAgent, QAAgent, MemoryAgent, OrchestratorAgent, GuideAgent
     from app.agents import agent_engine
     
     agent_engine.register(DocumentAgent())
     agent_engine.register(QAAgent())
     agent_engine.register(MemoryAgent())
     agent_engine.register(OrchestratorAgent())
-    agent_engine.register(ProcessAgent())
+    agent_engine.register(GuideAgent())
     
     logger.info("处理器已注册: " + str(ProcessorRegistry.list_all()))
     logger.info("Agents 已注册: %s", agent_engine.list_all())

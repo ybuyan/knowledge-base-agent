@@ -57,12 +57,16 @@ class SkillEngine:
         if not skill.get("enabled", True):
             raise ValueError(f"Skill is disabled: {skill_id}")
 
-        logger.info("执行 Skill: %s (v%s)", skill_id, skill.get("version", "?"))
+        logger.info("🎬 [SKILL] 开始执行 Skill | skill_id='%s' | version='%s' | type='%s'", 
+                   skill_id, skill.get("version", "?"), skill.get("skill_type", "qa"))
 
         context = input_data.copy()
         context["_skill"] = skill
 
-        for step in skill.get("pipeline", []):
+        pipeline = skill.get("pipeline", [])
+        logger.info("📝 [SKILL] Pipeline 步骤数: %d | skill_id='%s'", len(pipeline), skill_id)
+
+        for i, step in enumerate(pipeline, 1):
             processor_name = step.get("processor")
             step_name = step.get("step", processor_name)
             params = step.get("params", {})
@@ -70,12 +74,20 @@ class SkillEngine:
             processor = self.registry.get(processor_name)
             resolved_params = self.resolve_params(params, context)
 
-            logger.debug("  [%s] -> %s", step_name, processor_name)
+            logger.info("   [%d/%d] 执行步骤 | step='%s' | processor='%s' | params=%s", 
+                       i, len(pipeline), step_name, processor_name, resolved_params)
+            
             result = await processor.process(context, resolved_params)
             context.update(result)
             context[f"_step_{step_name}"] = result
+            
+            logger.debug("   [%d/%d] 步骤完成 | result_keys=%s", i, len(pipeline), list(result.keys()))
 
-        return self._extract_output(context, skill.get("output", {}))
+        output = self._extract_output(context, skill.get("output", {}))
+        logger.info("✅ [SKILL] Skill 执行完成 | skill_id='%s' | output_keys=%s", 
+                   skill_id, list(output.keys()))
+        
+        return output
 
     def _extract_output(self, context: Dict[str, Any], output_config: Dict[str, Any]) -> Dict[str, Any]:
         if not output_config:

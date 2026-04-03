@@ -1,105 +1,152 @@
 """
-OrchestratorAgent — LLM 意图路由 Agent
+OrchestratorAgent — 意图路由 Agent
 
 意图分类结果：
   qa                    知识查询
   memory                历史记忆检索
   hybrid                混合（知识 + 记忆）
-  process:<skill_id>    明确要办理某个流程
-  confirm:<skill_id>    疑似要办理，需二次确认
-
-process 路由到 ProcessAgent，confirm 返回确认提示，其余走原有逻辑。
+  guide                 流程指引
 """
 import asyncio
 import logging
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List
 
 from app.agents.base import BaseAgent
 from app.core.llm import call_llm
 
 logger = logging.getLogger(__name__)
 
+# 保留关键词作为快速路径（可选）
 _MEMORY_KW: List[str] = ["上次", "之前", "刚才", "你说过", "我问过", "刚刚说", "前面提到"]
 _HYBRID_KW: List[str] = ["对比", "不同", "区别", "和之前", "和上次", "比较"]
 
-# 强意图词：包含这些词时才直接启动流程，否则走 confirm
-_PROCESS_STRONG_KW: List[str] = ["申请", "办理", "发起", "提交", "帮我", "我要", "我想要", "我需要办"]
+# 意图识别的 system prompt
+INTENT_DETECTION_PROMPT = """你是一个意图识别助手。请判断用户查询属于以下哪种意图：
+
+1. **guide** - 流程指引
+   - 用户想了解如何办理某个流程、操作步骤
+   - 例如：请假怎么办、如何申请、办理流程、申请怎么写、需要什么材料
+   - 关键特征：询问"怎么做"、"如何办理"、"流程"、"步骤"
+   - **重要**：如果上下文显示这是流程指引对话的延续（系统在询问信息，用户在回答），必须识别为 guide
+   - **重要**：用户提供的日期、数字、简短回答（如"2024年4月24号"、"3天"、"是的"）在流程指引上下文中应识别为 guide
+
+2. **memory** - 历史记忆
+   - 用户明确询问之前的对话内容
+   - 例如：上次说的、之前提到、你刚才说、我之前问过
+   - 关键特征：明确的时间词（上次、之前、刚才、刚刚）+ 询问语气
+   - **注意**：用户只是在回答问题（如提供日期、数字），不是 memory，而是 guide 的延续
+
+3. **hybrid** - 混合查询
+   - 需要对比历史信息和知识库
+   - 例如：和之前的有什么区别、对比一下
+   - 关键特征：对比词（对比、区别、不同）
+
+4. **qa** - 知识查询（默认）
+   - 查询知识库中的信息
+   - 例如：年假有多少天、报销流程是什么
+   - 关键特征：询问具体信息、政策、规定
+
+请只返回意图类型，不要解释。格式：intent_type
+
+示例：
+用户：请假申请怎么写
+回答：guide
+
+用户：年假有多少天
+回答：qa
+
+用户：上次你说的报销流程
+回答：memory
+
+用户查询：2024年4月24号
+上下文：用户上一轮问了「我想请婚假」，系统回复了流程指引相关内容。当前查询可能是对上一轮对话的延续（用户在回答系统的问题）。
+回答：guide
+
+用户查询：3天
+上下文：用户上一轮问了「我想请婚假」，系统回复了流程指引相关内容。当前查询可能是对上一轮对话的延续（用户在回答系统的问题）。
+回答：guide"""
 
 
-def _build_intent_prompt(process_skills: List[Dict]) -> str:
-    """动态构建意图分类 prompt，包含当前可用的流程列表"""
-    skill_lines = "\n".join(
-        f"  - {s['id']}：{s['description']}"
-        for s in process_skills
-    ) or "  （暂无可用流程）"
-
-    return f"""你是一个意图分类器。请将用户的问题分类为以下类型之一：
-
-- qa：用户想查询信息、了解规定或政策。例如："年假有多少天""请假需要什么材料""我的请假状态"
-- memory：用户引用了之前的对话内容。例如："你刚才说的""上次提到的"
-- hybrid：同时需要知识库和历史对话
-- process:<流程ID>：用户明确要发起、申请或办理某项业务。例如："我要请假""帮我申请年假""发起请假申请"
-- confirm:<流程ID>：用户的意图模糊，可能是要办理也可能是查询，需要二次确认
-
-当前可用流程：
-{skill_lines}
-
-判断规则：
-1. 用户说"查""看""了解""是什么""有哪些""状态""材料""规定"等 → qa
-2. 用户说"申请""办理""发起""我要""帮我""提交" + 具体业务 → process:<流程ID>
-3. 用户只说了业务名称但意图不明确（如"请假"）→ confirm:<流程ID>
-4. 无匹配流程时 → qa
-
-只输出一个分类结果，不要输出其他内容。示例输出：
-qa
-process:leave_apply
-confirm:leave_apply"""
-
-
-async def _llm_classify(query: str, process_skills: List[Dict]) -> str:
+async def detect_intent_with_llm(query: str, history: list = None) -> str:
+    """使用 LLM 进行意图识别
+    
+    Args:
+        query: 当前查询
+        history: 历史对话记录（用于判断是否是多轮对话的延续）
+    """
     try:
-        system = _build_intent_prompt(process_skills)
-        result = await call_llm(query, system)
+        # 检查是否是多轮对话的延续
+        context_hint = ""
+        if history and len(history) >= 2:
+            # 获取最近一轮对话
+            last_user_msg = None
+            last_assistant_msg = None
+            for msg in reversed(history):
+                if msg.get("role") == "assistant" and not last_assistant_msg:
+                    last_assistant_msg = msg.get("content", "")
+                elif msg.get("role") == "user" and not last_user_msg:
+                    last_user_msg = msg.get("content", "")
+                if last_user_msg and last_assistant_msg:
+                    break
+            
+            # 如果上一轮是流程指引相关的对话，添加上下文提示
+            if last_assistant_msg and any(keyword in last_assistant_msg for keyword in 
+                ["申请", "流程", "步骤", "办理", "需要", "材料", "指引", "请问", "确认", 
+                 "登记日期", "结婚", "婚假", "请假", "几天", "什么时候", "提供", "信息收集"]):
+                context_hint = f"\n\n上下文：用户上一轮问了「{last_user_msg[:50]}」，系统回复了流程指引相关内容。当前查询可能是对上一轮对话的延续（用户在回答系统的问题）。"
+        
+        user_prompt = f"用户查询：{query}{context_hint}\n\n请判断意图类型："
+        
+        logger.debug("🤔 [INTENT] 使用 LLM 进行意图识别 | query='%s' | has_context=%s", 
+                    query, bool(context_hint))
+        logger.debug("🤔 [INTENT] 完整 prompt: %s", user_prompt)  # 添加调试日志
+        
+        result = await call_llm(user_prompt, INTENT_DETECTION_PROMPT)
         intent = result.strip().lower()
-        if intent in ("qa", "memory", "hybrid"):
-            return intent
-        if intent.startswith("process:") or intent.startswith("confirm:"):
-            # 额外保护：LLM 返回 process 时，若不含强意图词则降级为 confirm
-            if intent.startswith("process:"):
-                skill_id = intent.split(":", 1)[1]
-                has_strong = any(kw in query for kw in _PROCESS_STRONG_KW)
-                if not has_strong:
-                    return f"confirm:{skill_id}"
-            return intent
+        
+        # 验证返回的意图是否有效
+        valid_intents = ["guide", "memory", "hybrid", "qa"]
+        if intent not in valid_intents:
+            logger.warning("⚠️  [INTENT] LLM 返回无效意图: %s，使用默认 qa", intent)
+            return "qa"
+        
+        logger.info("✅ [INTENT] LLM 识别意图 | query='%s' -> %s", query[:40], intent)
+        return intent
+        
     except Exception as e:
-        logger.warning("LLM 意图分类失败，降级为 qa: %s", e)
-    return "qa"
+        logger.error("❌ [INTENT] LLM 意图识别失败: %s，回退到关键词匹配", str(e))
+        return await detect_intent_with_keywords(query)
 
 
-def _get_process_skills() -> List[Dict]:
-    """获取所有已启用的 process 类型 skill 摘要"""
-    try:
-        from app.skills.engine import SkillEngine
-        engine = SkillEngine()
-        return [
-            {"id": s["id"], "description": s["description"]}
-            for s in engine.list_skills()
-            if engine.skill_loader._cache.get(s["id"]) and
-               engine.skill_loader._cache[s["id"]].frontmatter.get("skill_type") == "process"
-        ]
-    except Exception:
-        return []
-
-
-async def detect_intent(query: str) -> str:
+async def detect_intent_with_keywords(query: str) -> str:
+    """使用关键词进行意图识别（快速路径/回退方案）"""
     for kw in _HYBRID_KW:
         if kw in query:
             return "hybrid"
     for kw in _MEMORY_KW:
         if kw in query:
             return "memory"
-    process_skills = _get_process_skills()
-    return await _llm_classify(query, process_skills)
+    
+    # guide 意图通过 GuideAgent 的 triggers 匹配，这里不做判断
+    return "qa"
+
+
+async def detect_intent(query: str, history: list = None, use_llm: bool = True) -> str:
+    """
+    检测用户意图
+    
+    Args:
+        query: 用户查询
+        history: 历史对话记录
+        use_llm: 是否使用 LLM 进行意图识别（默认 True）
+    
+    Returns:
+        意图类型: guide, memory, hybrid, qa
+    """
+    if use_llm:
+        return await detect_intent_with_llm(query, history)
+    else:
+        return await detect_intent_with_keywords(query)
 
 
 class OrchestratorAgent(BaseAgent):
@@ -114,55 +161,28 @@ class OrchestratorAgent(BaseAgent):
 
     async def run(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
         from app.agents.base import agent_engine
+        from app.agents.config_loader import agent_config
 
         query: str = input_data.get("query", "")
         session_id: str = input_data.get("session_id", "")
         history: list = input_data.get("history", [])
-        process_action: str = input_data.get("process_action", "next")
-        process_input: Dict = input_data.get("process_input", {})
-        flow_id: str = input_data.get("flow_id", "")
-        username: str = input_data.get("username", "")
 
-        # 已有进行中的流程，直接路由
-        if flow_id:
-            return await agent_engine.execute("process_agent", {
-                "query": query,
-                "session_id": session_id,
-                "process_action": process_action,
-                "process_input": process_input,
-                "flow_id": flow_id,
-                "username": username,
-            })
+        # 根据配置选择意图识别方法
+        use_llm = agent_config.get_intent_detection_method() == "llm"
+        intent = await detect_intent(query, history=history, use_llm=use_llm)
+        logger.info("OrchestratorAgent 意图: '%s' -> %s (method=%s)", 
+                   query[:40], intent, "llm" if use_llm else "keyword")
 
-        intent = await detect_intent(query)
-        logger.info("OrchestratorAgent 意图: '%s' -> %s", query[:40], intent)
-
-        # process:<skill_id> — 直接启动流程
-        if intent.startswith("process:"):
-            skill_id = intent.split(":", 1)[1]
-            return await agent_engine.execute("process_agent", {
-                "query": query,
-                "session_id": session_id,
-                "process_action": "next",
-                "process_input": {},
-                "flow_id": skill_id,
-                "username": username,
-            })
-
-        # confirm:<skill_id> — 返回确认提示，不启动流程
-        if intent.startswith("confirm:"):
-            skill_id = intent.split(":", 1)[1]
-            process_skills = _get_process_skills()
-            skill_name = next(
-                (s["description"] for s in process_skills if s["id"] == skill_id),
-                skill_id
+        if intent == "guide":
+            logger.info("🎯 [GUIDE] 路由到 GuideAgent | query='%s'", query)
+            result = await agent_engine.execute(
+                "guide_agent",
+                {"query": query, "session_id": session_id, "history": history},
             )
-            return {
-                "answer": f"您是想发起「{skill_name}」吗？\n\n如果是，请回复「是的，帮我申请」；如果只是查询相关信息，请继续描述您的问题。",
-                "ui_components": None,
-                "intent": "confirm",
-                "confirm_skill_id": skill_id,
-            }
+            # 确保 intent 字段存在
+            if "intent" not in result:
+                result["intent"] = "guide"
+            return result
 
         if intent == "memory":
             result = await agent_engine.execute(
@@ -187,7 +207,11 @@ class OrchestratorAgent(BaseAgent):
             }
 
         # 默认 qa
-        return await agent_engine.execute(
+        result = await agent_engine.execute(
             "qa_agent",
             {"query": query, "question": query, "history": history, "session_id": session_id},
         )
+        # 确保 intent 字段存在
+        if "intent" not in result:
+            result["intent"] = "qa"
+        return result

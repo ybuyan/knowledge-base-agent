@@ -3,7 +3,6 @@ import { ref, computed, nextTick, watch, onMounted } from 'vue'
 import { useChatStore } from '@/stores/chat'
 import { chatApi } from '@/api'
 import { renderMarkdown } from '@/utils/markdown'
-import ProcessCard from '@/components/Process/ProcessCard.vue'
 import { 
   Position, 
   ArrowDown,
@@ -17,6 +16,7 @@ import {
   CircleClose
 } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
+import QuickPromptButton from '@/components/QuickPromptButton/index.vue'
 
 const OptimizeIcon = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M8 1L9.5 5.5L14 6L10.5 9L11.5 13.5L8 11L4.5 13.5L5.5 9L2 6L6.5 5.5L8 1Z" fill="currentColor"/>
@@ -118,6 +118,11 @@ const copyMessage = async (content: string, messageId: string) => {
   } catch (err) {
     ElMessage.error('复制失败')
   }
+}
+
+const handleQuickPromptClick = (promptText: string) => {
+  inputMessage.value = promptText
+  sendMessage()
 }
 
 const exportToPdf = async (message: any) => {
@@ -388,18 +393,6 @@ onMounted(async () => {
               ></div>
               <div v-else>{{ message.content }}</div>
             </div>
-
-            <!-- 流程卡片 -->
-            <ProcessCard
-              v-if="message.role === 'assistant' && message.uiComponents && message.uiComponents.type === 'process_card'"
-              :ui="message.uiComponents"
-              :session-id="chatStore.currentSessionId || ''"
-              @update="(result) => {
-                chatStore.updateLastAssistantContent(result.answer || '')
-                chatStore.updateLastAssistantUIComponents(result.ui_components, result.process_state)
-              }"
-            />
-            
             <div 
               v-if="message.role === 'user'"
               class="message-popup-actions"
@@ -602,6 +595,9 @@ onMounted(async () => {
         <span v-else>Press Enter to send, Shift + Enter for new line</span>
       </div>
     </div>
+
+     <!-- 快捷提示词按钮 -->
+    <QuickPromptButton @prompt-click="handleQuickPromptClick" />
   </div>
 </template>
 

@@ -56,12 +56,29 @@ async def get_llm_async():
     )
 
 
-async def call_llm(prompt: str, system_prompt: str = "") -> str:
+async def call_llm(prompt: str, system_prompt: str = "", history: list = None) -> str:
+    """
+    调用 LLM
+    
+    Args:
+        prompt: 用户提示词
+        system_prompt: 系统提示词
+        history: 对话历史 [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}]
+    
+    Returns:
+        LLM 回复
+    """
     client = await get_llm_async()
     
     messages = []
     if system_prompt:
         messages.append({"role": "system", "content": system_prompt})
+    
+    # 添加历史对话
+    if history:
+        messages.extend(history)
+    
+    # 添加当前用户消息
     messages.append({"role": "user", "content": prompt})
     
     response = await client.chat.completions.create(
@@ -73,12 +90,29 @@ async def call_llm(prompt: str, system_prompt: str = "") -> str:
     return response.choices[0].message.content
 
 
-async def stream_llm(prompt: str, system_prompt: str = ""):
+async def stream_llm(prompt: str, system_prompt: str = "", history: list = None):
+    """
+    流式调用 LLM
+    
+    Args:
+        prompt: 用户提示词
+        system_prompt: 系统提示词
+        history: 对话历史
+    
+    Yields:
+        LLM 回复的文本块
+    """
     client = await get_llm_async()
     
     messages = []
     if system_prompt:
         messages.append({"role": "system", "content": system_prompt})
+    
+    # 添加历史对话
+    if history:
+        messages.extend(history)
+    
+    # 添加当前用户消息
     messages.append({"role": "user", "content": prompt})
     
     stream = await client.chat.completions.create(

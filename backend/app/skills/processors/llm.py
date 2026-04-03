@@ -1,7 +1,10 @@
+import logging
 from typing import Dict, Any, AsyncGenerator
 from app.skills.base import BaseProcessor, ProcessorRegistry
 from app.core.llm import get_llm, call_llm, stream_llm
 from app.core.config_loader import config_loader
+
+logger = logging.getLogger(__name__)
 
 
 @ProcessorRegistry.register("LLMGenerator")
@@ -15,9 +18,16 @@ class LLMGenerator(BaseProcessor):
         prompt_template_id = params.get("prompt_template", "qa_rag")
         stream = params.get("stream", False)
         
+        logger.info("🤖 [LLM] 开始处理 | prompt_template='%s' | stream=%s", 
+                   prompt_template_id, stream)
+        
         prompt_config = config_loader.get_prompt(prompt_template_id)
         if not prompt_config:
+            logger.error("❌ [LLM] Prompt 模板未找到 | template_id='%s'", prompt_template_id)
             raise ValueError(f"Prompt template not found: {prompt_template_id}")
+        
+        logger.info("📄 [LLM] 加载 Prompt 配置 | template_id='%s' | name='%s'", 
+                   prompt_template_id, prompt_config.get("name", ""))
         
         template = prompt_config["template"]
         system_prompt = template.get("system", "")
@@ -30,15 +40,34 @@ class LLMGenerator(BaseProcessor):
         for var in variables:
             prompt_vars[var] = context.get(var, defaults.get(var, ""))
         
+        logger.debug("   变量映射: %s", {k: f"{str(v)[:50]}..." if len(str(v)) > 50 else v 
+                                        for k, v in prompt_vars.items()})
+        
         user_prompt = user_template.format(**prompt_vars)
+        
+        # 获取对话历史
+        history = context.get("history", [])
+        
+        logger.info("💬 [LLM] 准备调用 LLM | system_prompt_length=%d | user_prompt_length=%d | history_length=%d", 
+                   len(system_prompt), len(user_prompt), len(history))
         
         if stream:
             context["_stream"] = True
             context["_system_prompt"] = system_prompt
             context["_user_prompt"] = user_prompt
+            context["_history"] = history
+            logger.info("🌊 [LLM] 流式模式已启用")
             return {"answer": "", "streaming": True}
         
-        answer = await call_llm(user_prompt, system_prompt)
+        answer = await call_llm(user_prompt, system_prompt, history=history)
+        
+        logger.info("✅ [LLM] LLM 调用完成 | answer_length=%d | prompt_template='%s'", 
+                   len(answer), prompt_template_id)
+        
+        # 调试：如果 answer 为空，记录详细信息
+        if not answer or len(answer.strip()) == 0:
+            logger.error("⚠️  [LLM] 警告：LLM 返回空内容！| user_prompt='%s' | system_prompt_length=%d | history_length=%d", 
+                        user_prompt[:100], len(system_prompt), len(history))
         
         # from app.config import settings
         
@@ -50,6 +79,7 @@ class LLMGenerator(BaseProcessor):
     async def stream(self, context: Dict[str, Any]) -> AsyncGenerator[str, None]:
         system_prompt = context.get("_system_prompt", "")
         user_prompt = context.get("_user_prompt", "")
+        history = context.get("_history", [])
         
-        async for chunk in stream_llm(user_prompt, system_prompt):
+        async for chunk in stream_llm(user_prompt, system_prompt, history=history):
             yield chunk
