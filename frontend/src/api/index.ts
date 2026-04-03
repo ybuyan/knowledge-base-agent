@@ -20,9 +20,27 @@ const api = axios.create({
   }
 })
 
+// 请求拦截：自动附加 JWT token
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('auth_token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
+
 api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
+    // 401 跳转登录（login 接口本身除外）
+    if (error.response?.status === 401 && !error.config?.url?.includes('/auth/login')) {
+      localStorage.removeItem('auth_token')
+      localStorage.removeItem('auth_role')
+      localStorage.removeItem('auth_display_name')
+      window.location.href = '/login'
+      return Promise.reject(error)
+    }
+
     const config = error.config
     if (!config) {
       return Promise.reject(error)
@@ -277,7 +295,7 @@ export const chatApi = {
     question: string, 
     sessionId: string,
     onMessage: (text: string) => void,
-    onDone: (sources: Source[], suggestedQuestions?: string[], relatedLinks?: Link[]) => void,
+    onDone: (sources: Source[], suggestedQuestions?: string[], relatedLinks?: Link[], uiComponents?: any, processState?: any) => void,
     onError: (error: Error) => void,
     onWarning?: (message: string) => void,
     signal?: AbortSignal
@@ -299,6 +317,8 @@ export const chatApi = {
       let sources: Source[] = []
       let suggestedQuestions: string[] = []
       let relatedLinks: Link[] = []
+      let uiComponents: any = null
+      let processState: any = null
       let buffer = ''
 
       if (!reader) {
@@ -317,7 +337,7 @@ export const chatApi = {
           if (line.startsWith('data: ')) {
             const data = line.slice(6)
             if (data === '[DONE]') {
-              onDone(sources, suggestedQuestions, relatedLinks)
+              onDone(sources, suggestedQuestions, relatedLinks, uiComponents, processState)
               return
             }
             
@@ -329,6 +349,8 @@ export const chatApi = {
                 sources = parsed.sources || []
                 suggestedQuestions = parsed.suggested_questions || []
                 relatedLinks = parsed.related_links || []
+                uiComponents = parsed.ui_components || null
+                processState = parsed.process_state || null
               } else if (parsed.type === 'sources') {
                 sources = parsed.sources
               } else if (parsed.type === 'suggested_questions') {
@@ -353,7 +375,7 @@ export const chatApi = {
         }
       }
 
-      onDone(sources, suggestedQuestions, relatedLinks)
+      onDone(sources, suggestedQuestions, relatedLinks, uiComponents, processState)
     } catch (error) {
       if ((error as Error).name === 'AbortError') {
         onError(new Error('ABORTED'))

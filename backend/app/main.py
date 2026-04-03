@@ -1,11 +1,12 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.config import settings
 from app.core.chroma import init_chroma
 from app.core.mongodb import connect_to_mongo, close_mongo_connection
 from app.core.exceptions import AppException
-from app.api.routes import documents, chat, health, constraints, prompts, links
+from app.api.routes import documents, chat, health, constraints, prompts, links, auth, process
+from app.api.dependencies import require_hr
 from app.mcp.router import router as mcp_router
 import logging
 import uuid
@@ -73,12 +74,14 @@ async def startup_event():
     
     from app.skills.registry import ProcessorRegistry
     from app.agents.implementations import DocumentAgent, QAAgent, MemoryAgent, OrchestratorAgent
+    from app.agents.implementations.process_agent import ProcessAgent
     from app.agents import agent_engine
     
     agent_engine.register(DocumentAgent())
     agent_engine.register(QAAgent())
     agent_engine.register(MemoryAgent())
     agent_engine.register(OrchestratorAgent())
+    agent_engine.register(ProcessAgent())
     
     logger.info("处理器已注册: " + str(ProcessorRegistry.list_all()))
     logger.info("Agents 已注册: %s", agent_engine.list_all())
@@ -111,11 +114,13 @@ async def root():
 
 
 app.include_router(health.router, prefix="/api", tags=["health"])
-app.include_router(documents.router, prefix="/api/documents", tags=["documents"])
+app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
+app.include_router(documents.router, prefix="/api/documents", tags=["documents"], dependencies=[Depends(require_hr)])
 app.include_router(chat.router, prefix="/api/chat", tags=["chat"])
-app.include_router(constraints.router, prefix="/api/constraints", tags=["constraints"])
+app.include_router(constraints.router, prefix="/api/constraints", tags=["constraints"], dependencies=[Depends(require_hr)])
 app.include_router(links.router, prefix="/api/links", tags=["links"])
 app.include_router(prompts.router, prefix="/api", tags=["prompts"])
+app.include_router(process.router, prefix="/api/process", tags=["process"])
 app.include_router(mcp_router)
 
 

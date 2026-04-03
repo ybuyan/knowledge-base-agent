@@ -15,7 +15,7 @@ async def test_chat_api():
     
     base_url = "http://localhost:8000"
     
-    async with httpx.AsyncClient(timeout=60.0, proxies={}) as client:
+    async with httpx.AsyncClient(timeout=60.0) as client:
         try:
             print("\n1. 测试根路径:")
             response = await client.get(f"{base_url}/")

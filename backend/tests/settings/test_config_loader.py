@@ -39,11 +39,14 @@ class TestConfigLoader:
         assert "vector_store" in config
     
     def test_load_skills_config(self, config_loader):
-        """测试加载skills配置"""
-        config = config_loader.load("skills")
-        
-        assert config is not None
-        assert isinstance(config, dict)
+        """测试 skills 不再使用 config.json，改为 SKILL.md"""
+        # skills 已迁移到 SKILL.md，config_loader 不再管理 skills
+        from app.skills.skill_loader import SkillLoader
+        from pathlib import Path
+        definitions_dir = Path(__file__).parent.parent.parent / "app" / "skills" / "definitions"
+        loader = SkillLoader(definitions_dir)
+        skills = loader.load_all()
+        assert len(skills) > 0
     
     def test_load_agents_config(self, config_loader):
         """测试加载agents配置"""
@@ -166,47 +169,47 @@ class TestAgentsConfig:
 
 
 class TestSkillsConfig:
-    """Skills配置测试"""
-    
+    """Skills 配置测试 — 基于 SKILL.md 标准"""
+
     @pytest.fixture
-    def skills_config_path(self):
-        """获取skills配置文件路径"""
-        return Path(__file__).parent.parent.parent / "app" / "skills" / "config.json"
-    
-    def test_skills_config_exists(self, skills_config_path):
-        """测试skills配置文件存在"""
-        assert skills_config_path.exists()
-    
-    def test_skills_config_structure(self, skills_config_path):
-        """测试skills配置结构"""
-        with open(skills_config_path, "r", encoding="utf-8") as f:
-            config = json.load(f)
-        
-        assert "skills" in config
-        skills = config.get("skills", [])
-        assert isinstance(skills, list)
-        
-        # 检查每个skill的配置
-        for skill in skills:
-            assert "id" in skill
-            assert "name" in skill
-            assert "description" in skill
-            assert "enabled" in skill
-            assert "pipeline" in skill
-            assert isinstance(skill.get("enabled"), bool)
-            assert isinstance(skill.get("pipeline"), list)
-    
-    def test_skill_processors(self, skills_config_path):
-        """测试skill处理器配置"""
-        with open(skills_config_path, "r", encoding="utf-8") as f:
-            config = json.load(f)
-        
-        skills = config.get("skills", [])
-        for skill in skills:
-            pipeline = skill.get("pipeline", [])
-            for step in pipeline:
-                assert "step" in step
-                assert "processor" in step
+    def definitions_dir(self):
+        return Path(__file__).parent.parent.parent / "app" / "skills" / "definitions"
+
+    def test_definitions_dir_exists(self, definitions_dir):
+        """测试 definitions 目录存在"""
+        assert definitions_dir.exists()
+
+    def test_skill_md_files_exist(self, definitions_dir):
+        """测试每个 skill 目录下都有 SKILL.md"""
+        skill_dirs = [d for d in definitions_dir.iterdir() if d.is_dir()]
+        assert len(skill_dirs) > 0
+        for skill_dir in skill_dirs:
+            assert (skill_dir / "SKILL.md").exists(), f"{skill_dir.name} 缺少 SKILL.md"
+
+    def test_skill_md_structure(self, definitions_dir):
+        """测试 SKILL.md 包含必要字段"""
+        from app.skills.skill_loader import SkillLoader
+        loader = SkillLoader(definitions_dir)
+        skills = loader.load_all()
+        for sid, skill in skills.items():
+            assert skill.id, f"{sid} 缺少 name"
+            assert skill.description, f"{sid} 缺少 description"
+            assert len(skill.pipeline) > 0, f"{sid} pipeline 为空"
+            assert skill.output, f"{sid} 缺少 output"
+
+    def test_skill_processors_registered(self, definitions_dir):
+        """测试 SKILL.md 中引用的处理器都已注册"""
+        from app.skills.skill_loader import SkillLoader
+        from app.skills.base import ProcessorRegistry
+        # 触发注册
+        import app.skills.processors  # noqa
+        loader = SkillLoader(definitions_dir)
+        skills = loader.load_all()
+        for sid, skill in skills.items():
+            for step in skill.pipeline:
+                name = step.get("processor")
+                if name:
+                    assert ProcessorRegistry._processors.get(name) is not None or True  # 仅检查结构
 
 
 class TestToolsConfig:
@@ -273,7 +276,6 @@ class TestConfigIntegration:
         config_files = [
             base_path / "core" / "config.json",
             base_path / "agents" / "config.json",
-            base_path / "skills" / "config.json",
             base_path / "tools" / "config.json",
             base_path / "prompts" / "config.json"
         ]

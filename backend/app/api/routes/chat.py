@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Request
 from fastapi.responses import StreamingResponse, Response
 from pydantic import BaseModel
 from typing import List, Optional
@@ -24,6 +24,7 @@ from app.services.pdf_service import create_pdf_export
 from app.core.memory import get_memory_manager
 from app.core.constraint_config import get_constraint_config
 from app.prompts.strict_qa import StrictQAPrompt, ConstraintPromptBuilder
+from app.services.response_builder import ResponseBuilder
 from app.prompts.manager import prompt_manager
 
 router = APIRouter()
@@ -642,9 +643,23 @@ async def clear_cache():
 # ============================================================================
 
 @router.post("/v2/ask/stream")
-async def ask_question_stream_v2(request: ChatStreamRequest):
+async def ask_question_stream_v2(request: ChatStreamRequest, http_request: Request):
     """新架构：使用QAAgent处理查询"""
     from app.services.qa_agent import get_qa_agent
+
+    # 从 Authorization header 解析登录用户名
+    def _get_username() -> str:
+        try:
+            auth = http_request.headers.get("Authorization", "")
+            if not auth.startswith("Bearer "):
+                return ""
+            from app.api.dependencies import decode_token
+            payload = decode_token(auth[7:])
+            return payload.get("sub", "")
+        except Exception:
+            return ""
+
+    current_username = _get_username()
     
     async def generate():
         try:
@@ -658,34 +673,83 @@ async def ask_question_stream_v2(request: ChatStreamRequest):
             history = []
             if request.session_id and request.session_id not in ("undefined", "null", "None", ""):
                 messages = await message_service.get_messages(request.session_id, DEFAULT_USER_ID)
-                for msg in messages[-12:]:  # 最近12条
-                    history.append({
-                        "role": msg.get("role", msg.role if hasattr(msg, "role") else "user"),
-                        "content": msg.get("content", msg.content if hasattr(msg, "content") else "")
-                    })
+                for msg in messages[-12:]:
+                    try:
+                        role = msg["role"] if isinstance(msg, dict) else getattr(msg, "role", "user")
+                        content = msg["content"] if isinstance(msg, dict) else getattr(msg, "content", "")
+                        history.append({"role": role, "content": content})
+                    except Exception as he:
+                        logger.warning("history msg parse error: %s, msg type: %s, msg: %s", he, type(msg), repr(msg)[:100])
             
-            # 使用QAAgent处理
+            # 检查是否有进行中的流程（直接走 OrchestratorAgent，它会路由到 ProcessAgent）
+            from app.agents.base import agent_engine as _agent_engine
+            from app.core.process_context import get_process_context
+
+            active_process = None
+            if request.session_id and request.session_id not in ("undefined", "null", "None", ""):
+                active_process = await get_process_context(request.session_id)
+
+            # 使用QAAgent处理（或通过 Orchestrator 路由到 ProcessAgent）
             agent = get_qa_agent()
             full_response = ""
             sources = []
             suggested_questions = []
             related_links = []
-            async for chunk in agent.process(request.question, history):
-                # Parse the chunk to collect full response and sources
-                if chunk.startswith("data: "):
-                    data_str = chunk[6:].strip()
-                    if data_str:
-                        try:
-                            data = json.loads(data_str)
-                            if data.get("type") == "text":
-                                full_response += data.get("content", "")
-                            elif data.get("type") == "done":
-                                sources = data.get("sources", [])
-                                suggested_questions = data.get("suggested_questions", [])
-                                related_links = data.get("related_links", [])
-                        except:
-                            pass
-                yield chunk
+            ui_components = None
+            process_state = None
+
+            # 统一走 OrchestratorAgent（意图路由：qa / process / memory / hybrid）
+            orch_input = {
+                "query": request.question,
+                "session_id": request.session_id,
+                "history": history,
+                "username": current_username,
+            }
+            if active_process:
+                orch_input["flow_id"] = active_process.get("flow_id", "")
+                orch_input["process_action"] = "next"
+                orch_input["process_input"] = {}
+
+            orch_result = await _agent_engine.execute("orchestrator_agent", orch_input)
+
+            # OrchestratorAgent 直接处理的结果（process / confirm / memory / hybrid）
+            # qa 意图不在这里处理，走下面的流式 QAAgent
+            orch_handled = (
+                orch_result.get("ui_components") is not None or
+                orch_result.get("process_state") is not None or
+                orch_result.get("intent") in ("confirm", "memory", "hybrid")
+            )
+
+            if orch_handled:
+                full_response = orch_result.get("answer", "")
+                ui_components = orch_result.get("ui_components")
+                process_state = orch_result.get("process_state")
+                if full_response:
+                    yield ResponseBuilder.text_chunk(full_response)
+                yield ResponseBuilder.done_chunk(
+                    [], content=full_response,
+                    ui_components=ui_components,
+                    process_state=process_state,
+                )
+            else:
+                # qa / memory / hybrid：走原有流式 QAAgent
+                async for chunk in agent.process(request.question, history):
+                    if chunk.startswith("data: "):
+                        data_str = chunk[6:].strip()
+                        if data_str:
+                            try:
+                                data = json.loads(data_str)
+                                if data.get("type") == "text":
+                                    full_response += data.get("content", "")
+                                elif data.get("type") == "done":
+                                    sources = data.get("sources", [])
+                                    suggested_questions = data.get("suggested_questions", [])
+                                    related_links = data.get("related_links", [])
+                                    ui_components = data.get("ui_components")
+                                    process_state = data.get("process_state")
+                            except Exception:
+                                pass
+                    yield chunk
             
             # 保存消息到数据库
             if request.session_id and full_response:
@@ -710,8 +774,9 @@ async def ask_question_stream_v2(request: ChatStreamRequest):
                 logger.warning(f"[V2] 空响应，跳过持久化: session={request.session_id}")
                 
         except Exception as e:
-            logger.error(f"[V2] Error processing query: {e}")
-            from app.services.response_builder import ResponseBuilder
+            import traceback as _tb
+            _tb.print_exc()
+            logger.error(f"[V2] Error processing query: {e}", exc_info=True)
             yield ResponseBuilder.error_chunk(str(e))
 
     return StreamingResponse(generate(), media_type="text/event-stream")

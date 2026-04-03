@@ -28,7 +28,6 @@ async def test_direct_api_call():
             "client": httpx.AsyncClient(
                 verify=False, 
                 timeout=30.0,
-                proxies=None
             )
         }
     ]

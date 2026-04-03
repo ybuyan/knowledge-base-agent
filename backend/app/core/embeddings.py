@@ -35,7 +35,6 @@ class EmbeddingsWrapper:
             cls._client = httpx.AsyncClient(
                 timeout=60.0,
                 verify=False,
-                proxies={}
             )
         return cls._client
     

@@ -19,7 +19,7 @@ class QAAgent(BaseAgent):
         self.skill_engine = SkillEngine()
     
     async def run(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
-        question = input_data.get("question")
+        question = input_data.get("question") or input_data.get("query")
         session_id = input_data.get("session_id", str(uuid.uuid4()))
         
         if not question:

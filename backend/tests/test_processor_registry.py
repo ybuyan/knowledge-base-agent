@@ -79,27 +79,25 @@ def test_processor_registry():
     except ValueError as e:
         print(f"  ✓ 正确抛出异常: {e}")
     
-    # 验证配置文件中使用的处理器
+    # 验证 SKILL.md 定义目录中使用的处理器
     print("\n" + "=" * 60)
-    print("验证配置文件中的处理器")
+    print("验证 SKILL.md 中的处理器")
     print("=" * 60)
-    
-    import json
-    config_path = Path(__file__).parent.parent / "app" / "skills" / "config.json"
-    
-    if config_path.exists():
-        with open(config_path, 'r', encoding='utf-8') as f:
-            config = json.load(f)
-        
+
+    from app.skills.skill_loader import SkillLoader
+    definitions_dir = Path(__file__).parent.parent / "app" / "skills" / "definitions"
+
+    if definitions_dir.exists():
+        loader = SkillLoader(definitions_dir)
+        skills = loader.load_all()
+
         used_processors = set()
-        for skill in config.get("skills", []):
-            for step in skill.get("pipeline", []):
-                processor_name = step.get("processor")
-                if processor_name:
-                    used_processors.add(processor_name)
-        
-        print(f"\n配置文件中使用的处理器: {len(used_processors)} 个")
-        
+        for skill in skills.values():
+            for step in skill.pipeline:
+                if step.get("processor"):
+                    used_processors.add(step["processor"])
+
+        print(f"\nSKILL.md 中使用的处理器: {len(used_processors)} 个")
         for name in sorted(used_processors):
             try:
                 ProcessorRegistry.get(name)
@@ -108,7 +106,7 @@ def test_processor_registry():
                 print(f"  ✗ {name:25} - 未注册！")
                 all_ok = False
     else:
-        print(f"  配置文件不存在: {config_path}")
+        print(f"  definitions 目录不存在: {definitions_dir}")
     
     # 总结
     print("\n" + "=" * 60)

@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useChatStore } from '@/stores/chat'
+import { useAuthStore } from '@/stores/auth'
 import { 
   Search, 
   FolderOpened, 
@@ -9,13 +10,15 @@ import {
   Plus,
   More,
   Edit,
-  Delete
+  Delete,
+  SwitchButton
 } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 const route = useRoute()
 const router = useRouter()
 const chatStore = useChatStore()
+const authStore = useAuthStore()
 
 const searchQuery = ref('')
 const editingSessionId = ref('')
@@ -80,6 +83,11 @@ const deleteSession = async (session: any, event: Event) => {
   } catch {}
 }
 
+const handleLogout = () => {
+  authStore.logout()
+  router.push('/login')
+}
+
 const formatTime = (date: Date) => {
   const d = new Date(date)
   const now = new Date()
@@ -108,6 +116,7 @@ const formatTime = (date: Date) => {
     <!-- Navigation -->
     <nav class="sidebar-nav">
       <div 
+        v-if="authStore.isHR"
         class="nav-item" 
         :class="{ active: isDocumentsActive }"
         @click="navigateToDocuments"
@@ -184,6 +193,19 @@ const formatTime = (date: Date) => {
           </template>
         </div>
       </div>
+    </div>
+
+    <!-- User Info & Logout -->
+    <div class="sidebar-user">
+      <div class="user-info">
+        <span class="user-name">{{ authStore.displayName }}</span>
+        <el-tag size="small" :type="authStore.isHR ? 'warning' : 'info'" effect="plain">
+          {{ authStore.isHR ? 'HR' : '员工' }}
+        </el-tag>
+      </div>
+      <button class="btn btn-ghost btn-icon" @click="handleLogout" title="退出登录">
+        <el-icon :size="18"><SwitchButton /></el-icon>
+      </button>
     </div>
   </aside>
 </template>
@@ -362,5 +384,29 @@ const formatTime = (date: Date) => {
 
 .session-title-input :deep(.el-input__wrapper) {
   padding: 2px 8px;
+}
+
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3);
+  border-top: 1px solid var(--border-light);
+  margin-top: var(--space-2);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.user-name {
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

@@ -3,6 +3,7 @@ import { ref, computed, nextTick, watch, onMounted } from 'vue'
 import { useChatStore } from '@/stores/chat'
 import { chatApi } from '@/api'
 import { renderMarkdown } from '@/utils/markdown'
+import ProcessCard from '@/components/Process/ProcessCard.vue'
 import { 
   Position, 
   ArrowDown,
@@ -272,7 +273,7 @@ const sendMessage = async () => {
         chatStore.updateLastAssistantContent(currentStreamContent.value)
         scrollToBottom()
       },
-      (srcs, suggestedQuestions, relatedLinks) => {
+      (srcs, suggestedQuestions, relatedLinks, uiComponents?: any, processState?: any) => {
         if (isAborted.value) return
         chatStore.updateLastAssistantSources(srcs)
         if (suggestedQuestions && suggestedQuestions.length > 0) {
@@ -281,10 +282,12 @@ const sendMessage = async () => {
         if (relatedLinks && relatedLinks.length > 0) {
           chatStore.updateLastAssistantRelatedLinks(relatedLinks)
         }
+        if (uiComponents) {
+          chatStore.updateLastAssistantUIComponents(uiComponents, processState)
+        }
         isStreaming.value = false
         chatStore.updateSessionActivity()
-      },
-      (error) => {
+      },      (error) => {
         if (error.message === 'ABORTED') return
         ElMessage.error(error.message || 'Failed to get response')
         isStreaming.value = false
@@ -385,6 +388,17 @@ onMounted(async () => {
               ></div>
               <div v-else>{{ message.content }}</div>
             </div>
+
+            <!-- 流程卡片 -->
+            <ProcessCard
+              v-if="message.role === 'assistant' && message.uiComponents && message.uiComponents.type === 'process_card'"
+              :ui="message.uiComponents"
+              :session-id="chatStore.currentSessionId || ''"
+              @update="(result) => {
+                chatStore.updateLastAssistantContent(result.answer || '')
+                chatStore.updateLastAssistantUIComponents(result.ui_components, result.process_state)
+              }"
+            />
             
             <div 
               v-if="message.role === 'user'"

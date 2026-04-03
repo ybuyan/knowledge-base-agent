@@ -18,7 +18,6 @@ class ConfigLoader:
     
     def _get_config_path(self, config_name: str) -> Path:
         config_paths = {
-            "skills": self.base_dir / "skills" / "config.json",
             "prompts": self.base_dir / "prompts" / "config.json",
             "tools": self.base_dir / "tools" / "config.json",
             "agents": self.base_dir / "agents" / "config.json",
@@ -36,17 +35,17 @@ class ConfigLoader:
                 self._configs[config_name] = {}
         return self._configs[config_name]
     
-    def get_skill(self, skill_id: str) -> Optional[Dict[str, Any]]:
-        skills_config = self.load("skills")
-        for skill in skills_config.get("skills", []):
-            if skill["id"] == skill_id:
-                return skill
-        return None
-    
     def get_prompt(self, prompt_id: str) -> Optional[Dict[str, Any]]:
         prompts_config = self.load("prompts")
-        for prompt in prompts_config.get("prompts", []):
-            if prompt["id"] == prompt_id:
+        prompts = prompts_config.get("prompts", {})
+        # 支持 dict 格式 {"qa_rag": {...}} 和 list 格式 [{"id": "qa_rag", ...}]
+        if isinstance(prompts, dict):
+            prompt = prompts.get(prompt_id)
+            if prompt and isinstance(prompt, dict):
+                return {"id": prompt_id, **prompt}
+            return None
+        for prompt in prompts:
+            if prompt.get("id") == prompt_id:
                 return prompt
         return None
     

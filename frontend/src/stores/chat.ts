@@ -15,6 +15,8 @@ export interface Message {
   sources?: Source[]
   suggestedQuestions?: string[]
   relatedLinks?: Link[]
+  uiComponents?: any
+  processState?: any
   timestamp: Date | string
 }
 
@@ -129,6 +131,11 @@ export const useChatStore = defineStore('chat', () => {
   async function initialize() {
     if (isInitialized.value) {
       console.log('[ChatStore] Already initialized, skipping')
+      return
+    }
+
+    // 未登录时跳过，避免触发 401 循环
+    if (!localStorage.getItem('auth_token')) {
       return
     }
     
@@ -335,6 +342,14 @@ export const useChatStore = defineStore('chat', () => {
       lastAssistant.relatedLinks = links
     }
   }
+
+  function updateLastAssistantUIComponents(uiComponents: any, processState?: any) {
+    const lastAssistant = [...messages.value].reverse().find(m => m.role === 'assistant')
+    if (lastAssistant) {
+      lastAssistant.uiComponents = uiComponents
+      lastAssistant.processState = processState
+    }
+  }
   
   function setLoading(loading: boolean) {
     isLoading.value = loading
@@ -516,6 +531,7 @@ export const useChatStore = defineStore('chat', () => {
     updateLastAssistantSources,
     updateLastAssistantSuggestedQuestions,
     updateLastAssistantRelatedLinks,
+    updateLastAssistantUIComponents,
     setLoading,
     clearMessages,
     deleteSession,

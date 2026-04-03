@@ -1,4 +1,4 @@
-from fastapi import APIRouter, UploadFile, File, HTTPException, Query, BackgroundTasks
+from fastapi import APIRouter, UploadFile, File, HTTPException, Query, BackgroundTasks, Depends
 from typing import List, Optional
 from pydantic import BaseModel
 from datetime import datetime
@@ -11,6 +11,7 @@ from app.models.document import DocumentDB, DocumentStatusModel
 from app.core.chroma import delete_document_vectors
 from app.core.constants import DocumentConstants
 from app.rag.keyword_index import delete_keyword_index
+from app.api.dependencies import require_hr
 
 router = APIRouter()
 logger = logging.getLogger(__name__)

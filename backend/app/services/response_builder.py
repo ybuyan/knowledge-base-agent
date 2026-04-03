@@ -23,43 +23,30 @@ class ResponseBuilder:
         sources: List[Dict] = None, 
         content: str = None,
         suggested_questions: List[str] = None,
-        related_links: List[Dict] = None
+        related_links: List[Dict] = None,
+        ui_components: Dict = None,
+        process_state: Dict = None,
     ) -> str:
-        """
-        构建完成块
-        
-        参数:
-            sources (List[Dict], optional): 来源列表
-            content (str, optional): LLM 生成的完整响应内容
-            suggested_questions (List[str], optional): 快捷提问列表
-            related_links (List[Dict], optional): 相关链接列表
-        
-        返回:
-            str: SSE 格式的完成块
-        """
-        data: Dict[str, Any] = {
-            "type": "done"
-        }
-        
-        # 智能判断是否包含 sources 字段
+        data: Dict[str, Any] = {"type": "done"}
+
         if sources:
             if content:
                 from app.services.content_analyzer import ContentAnalyzer
                 analysis = ContentAnalyzer.analyze_content_source(content, sources)
-                
                 if analysis["has_reference"]:
                     data["sources"] = sources
             else:
                 data["sources"] = sources
-        
-        # 添加快捷提问
+
         if suggested_questions:
             data["suggested_questions"] = suggested_questions
-        
-        # 添加相关链接
         if related_links:
             data["related_links"] = related_links
-        
+        if ui_components:
+            data["ui_components"] = ui_components
+        if process_state:
+            data["process_state"] = process_state
+
         return f"data: {json.dumps(data, ensure_ascii=False)}\n\n"
     
     @staticmethod

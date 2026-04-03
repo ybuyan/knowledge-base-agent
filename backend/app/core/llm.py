@@ -47,7 +47,6 @@ async def get_llm_async():
     
     http_client = httpx.AsyncClient(
         verify=False,
-        proxies={}
     )
     
     return AsyncOpenAI(

@@ -79,6 +79,10 @@ async def _create_indexes():
         await mongodb.database.document_status.create_index([("id", 1)], unique=True)
         await mongodb.database.document_status.create_index([("created_at", -1)])
         await mongodb.database.document_status.create_index([("status", 1)])
+
+        # users 集合索引
+        await mongodb.database.users.create_index([("username", 1)], unique=True)
+        await mongodb.database.users.create_index([("email", 1)], unique=True)
         
         logger.info("MongoDB 索引创建完成")
     except Exception as e:

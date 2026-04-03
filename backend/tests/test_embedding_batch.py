@@ -9,7 +9,7 @@ async def test_embedding_api():
     api_key = "sk-a530317402894edb852ab83b68e05dab"
     base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1"
     
-    async with httpx.AsyncClient(verify=False, proxies={}) as client:
+    async with httpx.AsyncClient(verify=False) as client:
         print("\n测试单个文本:")
         url = f"{base_url}/embeddings"
         headers = {
