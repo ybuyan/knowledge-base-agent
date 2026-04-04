@@ -70,7 +70,8 @@ async def startup_event():
     from app.tools.implementations import (
         SearchKnowledgeTool, SystemStatusTool,
         ListDocumentsTool, GetDocumentInfoTool,
-        IntroduceAssistantTool, GetAssistantStatusTool
+        IntroduceAssistantTool, GetAssistantStatusTool,
+        LeaveBalanceTool
     )
     
     from app.skills.registry import ProcessorRegistry

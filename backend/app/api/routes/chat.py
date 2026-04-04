@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Query, Request
 from fastapi.responses import StreamingResponse, Response
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from datetime import datetime
 from bson import ObjectId
 import uuid
@@ -651,19 +651,38 @@ async def ask_question_stream_v2(request: ChatStreamRequest, http_request: Reque
     """新架构：使用QAAgent处理查询"""
     from app.services.qa_agent import get_qa_agent
 
-    # 从 Authorization header 解析登录用户名
-    def _get_username() -> str:
+    # 从 Authorization header 解析登录用户信息
+    async def _get_auth_context() -> Dict[str, Any]:
+        """提取认证上下文"""
         try:
             auth = http_request.headers.get("Authorization", "")
             if not auth.startswith("Bearer "):
-                return ""
-            from app.api.dependencies import decode_token
+                return {"username": "", "user_id": None, "role": "guest"}
+            
+            from app.api.dependencies import decode_token, get_user_by_username
             payload = decode_token(auth[7:])
-            return payload.get("sub", "")
-        except Exception:
-            return ""
+            username = payload.get("sub", "")
+            
+            if not username:
+                return {"username": "", "user_id": None, "role": "guest"}
+            
+            # 从数据库查询用户信息
+            user = await get_user_by_username(username)
+            if not user:
+                return {"username": username, "user_id": None, "role": "guest"}
+            
+            return {
+                "username": username,
+                "user_id": str(user["_id"]),
+                "role": user.get("role", "user"),
+                "is_active": user.get("is_active", True)
+            }
+        except Exception as e:
+            logger.warning(f"Failed to extract auth context: {e}")
+            return {"username": "", "user_id": None, "role": "guest"}
 
-    current_username = _get_username()
+    auth_context = await _get_auth_context()
+    current_username = auth_context["username"]
     
     async def generate():
         try:
@@ -713,6 +732,7 @@ async def ask_question_stream_v2(request: ChatStreamRequest, http_request: Reque
                 "session_id": request.session_id,
                 "history": history,
                 "username": current_username,
+                "auth_context": auth_context
             }
             if active_process:
                 orch_input["flow_id"] = active_process.get("flow_id", "")
@@ -721,16 +741,17 @@ async def ask_question_stream_v2(request: ChatStreamRequest, http_request: Reque
 
             orch_result = await _agent_engine.execute("orchestrator_agent", orch_input)
 
-            # OrchestratorAgent 直接处理的结果（process / confirm / memory / hybrid / guide）
+            # OrchestratorAgent 直接处理的结果（process / confirm / memory / hybrid / guide / leave_balance）
             # qa 意图不在这里处理，走下面的流式 QAAgent
             orch_handled = (
                 orch_result.get("ui_components") is not None or
                 orch_result.get("process_state") is not None or
-                orch_result.get("intent") in ("confirm", "memory", "hybrid", "guide")
+                orch_result.get("intent") in ("confirm", "memory", "hybrid", "guide", "leave_balance")
             )
 
             if orch_handled:
-                full_response = orch_result.get("answer", "")
+                # 处理不同类型的响应
+                full_response = orch_result.get("answer") or orch_result.get("message", "")
                 ui_components = orch_result.get("ui_components")
                 process_state = orch_result.get("process_state")
                 if full_response:

@@ -23,25 +23,30 @@ _HYBRID_KW: List[str] = ["对比", "不同", "区别", "和之前", "和上次",
 # 意图识别的 system prompt
 INTENT_DETECTION_PROMPT = """你是一个意图识别助手。请判断用户查询属于以下哪种意图：
 
-1. **guide** - 流程指引
+1. **leave_balance** - 假期余额查询（新增）
+   - 用户想查询假期余额、剩余天数
+   - 例如：我的假期余额、年假还剩多少、查询假期、还有多少天假、我的年假、剩余假期
+   - 关键特征：包含"余额"、"剩余"、"还有多少"、"查询假期"、"我的假期"、"还剩"等词
+
+2. **guide** - 流程指引
    - 用户想了解如何办理某个流程、操作步骤
    - 例如：请假怎么办、如何申请、办理流程、申请怎么写、需要什么材料
    - 关键特征：询问"怎么做"、"如何办理"、"流程"、"步骤"
    - **重要**：如果上下文显示这是流程指引对话的延续（系统在询问信息，用户在回答），必须识别为 guide
    - **重要**：用户提供的日期、数字、简短回答（如"2024年4月24号"、"3天"、"是的"）在流程指引上下文中应识别为 guide
 
-2. **memory** - 历史记忆
+3. **memory** - 历史记忆
    - 用户明确询问之前的对话内容
    - 例如：上次说的、之前提到、你刚才说、我之前问过
    - 关键特征：明确的时间词（上次、之前、刚才、刚刚）+ 询问语气
    - **注意**：用户只是在回答问题（如提供日期、数字），不是 memory，而是 guide 的延续
 
-3. **hybrid** - 混合查询
+4. **hybrid** - 混合查询
    - 需要对比历史信息和知识库
    - 例如：和之前的有什么区别、对比一下
    - 关键特征：对比词（对比、区别、不同）
 
-4. **qa** - 知识查询（默认）
+5. **qa** - 知识查询（默认）
    - 查询知识库中的信息
    - 例如：年假有多少天、报销流程是什么
    - 关键特征：询问具体信息、政策、规定
@@ -49,6 +54,12 @@ INTENT_DETECTION_PROMPT = """你是一个意图识别助手。请判断用户查
 请只返回意图类型，不要解释。格式：intent_type
 
 示例：
+用户：我的年假还剩多少
+回答：leave_balance
+
+用户：查询我的假期余额
+回答：leave_balance
+
 用户：请假申请怎么写
 回答：guide
 
@@ -105,7 +116,7 @@ async def detect_intent_with_llm(query: str, history: list = None) -> str:
         intent = result.strip().lower()
         
         # 验证返回的意图是否有效
-        valid_intents = ["guide", "memory", "hybrid", "qa"]
+        valid_intents = ["leave_balance", "guide", "memory", "hybrid", "qa"]
         if intent not in valid_intents:
             logger.warning("⚠️  [INTENT] LLM 返回无效意图: %s，使用默认 qa", intent)
             return "qa"
@@ -173,6 +184,25 @@ class OrchestratorAgent(BaseAgent):
         logger.info("OrchestratorAgent 意图: '%s' -> %s (method=%s)", 
                    query[:40], intent, "llm" if use_llm else "keyword")
 
+        # 假期余额查询意图
+        if intent == "leave_balance":
+            logger.info("🎯 [LEAVE_BALANCE] 路由到 LeaveBalanceTool | query='%s'", query)
+            from app.services.tool_executor import ToolExecutor
+            
+            # 从查询中提取假期类型
+            leave_type = self._extract_leave_type(query)
+            if leave_type:
+                logger.info("🔍 [LEAVE_BALANCE] 识别到假期类型: %s", leave_type)
+            
+            tool_executor = ToolExecutor()
+            result = await tool_executor.execute_tool(
+                "check_leave_balance",
+                {"leave_type": leave_type} if leave_type else {},
+                auth_context=input_data.get("auth_context")
+            )
+            result["intent"] = "leave_balance"
+            return result
+
         if intent == "guide":
             logger.info("🎯 [GUIDE] 路由到 GuideAgent | query='%s'", query)
             result = await agent_engine.execute(
@@ -215,3 +245,24 @@ class OrchestratorAgent(BaseAgent):
         if "intent" not in result:
             result["intent"] = "qa"
         return result
+    
+    def _extract_leave_type(self, query: str) -> str:
+        """从查询中提取假期类型"""
+        # 定义假期类型关键词映射
+        leave_type_keywords = {
+            "年假": ["年假", "年休假", "带薪年假"],
+            "病假": ["病假"],
+            "事假": ["事假"],
+            "婚假": ["婚假", "结婚假"],
+            "产假": ["产假", "生育假"],
+            "陪产假": ["陪产假", "护理假", "陪护假"],
+            "高温假": ["高温假", "防暑降温假"]
+        }
+        
+        # 检查查询中是否包含假期类型关键词
+        for leave_type, keywords in leave_type_keywords.items():
+            for keyword in keywords:
+                if keyword in query:
+                    return leave_type
+        
+        return None

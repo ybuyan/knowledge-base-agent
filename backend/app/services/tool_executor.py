@@ -174,6 +174,41 @@ class ToolExecutor:
         tasks = [self.execute(tc) for tc in tool_calls]
         return await asyncio.gather(*tasks)
     
+    async def execute_tool(
+        self,
+        tool_name: str,
+        parameters: Dict[str, Any],
+        auth_context: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """
+        直接执行Tool（简化接口）
+        
+        Args:
+            tool_name: Tool名称
+            parameters: Tool参数
+            auth_context: 认证上下文（可选）
+        
+        Returns:
+            Tool执行结果
+        """
+        try:
+            tool = ToolRegistry.get(tool_name)
+            
+            # 将 auth_context 注入到参数中
+            if auth_context:
+                parameters["auth_context"] = auth_context
+            
+            result_data = await tool.execute(**parameters)
+            return result_data
+            
+        except Exception as e:
+            logger.error(f"Tool execution failed: {tool_name}, error: {e}")
+            return {
+                "success": False,
+                "error": str(e),
+                "message": f"工具执行失败: {str(e)}"
+            }
+    
     async def _handle_error(self, tool_call: ToolCall, error: Exception) -> ToolResult:
         """处理执行错误"""
         for middleware in self._middlewares:

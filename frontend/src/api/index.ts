@@ -198,6 +198,18 @@ export const documentApi = {
   }
 }
 
+export interface LinkCreate {
+  title: string
+  url: string
+  description?: string
+}
+
+export interface LinkUpdate {
+  title?: string
+  url?: string
+  description?: string
+}
+
 export const chatApi = {
   // ============================================================================
 // 接口已废弃 - 2026-03-17
@@ -301,9 +313,18 @@ export const chatApi = {
     signal?: AbortSignal
   ): Promise<void> => {
     try {
+      // 获取 JWT token 并添加到请求头
+      const token = localStorage.getItem('auth_token')
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json'
+      }
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`
+      }
+      
       const response = await fetch('/api/chat/v2/ask/stream', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ question, session_id: sessionId }),
         signal
       })
