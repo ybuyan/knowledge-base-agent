@@ -113,7 +113,9 @@ class SummaryBufferStrategy(MemoryStrategy):
                 result = prompt_manager.render("conversation_summary", {
                     "conversation_text": conversation_text
                 })
-                prompt = result.get("user") or f"请将以下对话历史压缩为简洁的摘要，保留关键信息：\n\n{conversation_text}\n\n摘要："
+                prompt = result.get("user")
+                if not prompt:
+                    raise ValueError("未找到 conversation_summary prompt 模板")
                 
                 from app.config import settings
                 

@@ -556,30 +556,10 @@ async def optimize_query(request: OptimizeQueryRequest):
         client = await get_llm_async()
         
         # 使用统一提示词管理
-        system_prompt = prompt_manager.get_system_prompt("query_optimize") or """你是一个查询优化专家。你的任务是将用户的自然语言问题转化为更适合文档检索的结构化查询。
-
-优化策略：
-1. 关键词扩展：添加同义词、相关术语
-2. 意图澄清：明确用户真正想了解的内容
-3. 结构化：将模糊问题转化为具体查询
-4. 保持原意：不要改变用户的原始意图
-
-输出格式要求：
-- 只输出优化后的查询文本
-- 不要添加解释、前缀或后缀
-- 使用中文关键词，用顿号或逗号分隔
-- 尽量简洁，控制在50字以内
-
-示例：
-输入: "请假怎么弄"
-输出: "员工请假申请流程、请假审批规定、请假天数限制、请假条模板"
-
-输入: "工资什么时候发"
-输出: "工资发放时间、薪资结算周期、薪酬发放规定、工资条查询"
-
-输入: "报销需要什么"
-输出: "费用报销材料、报销凭证要求、报销审批流程、报销时限规定\""""
-
+        system_prompt = prompt_manager.get_system_prompt("query_optimize")
+        if not system_prompt:
+            raise ValueError("未找到 query_optimize prompt 模板")
+        
         from app.config import settings
         
         response = await client.chat.completions.create(

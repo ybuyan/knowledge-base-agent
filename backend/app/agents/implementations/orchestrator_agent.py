@@ -13,69 +13,13 @@ from typing import Any, Dict, List
 
 from app.agents.base import BaseAgent
 from app.core.llm import call_llm
+from app.prompts.manager import prompt_manager
 
 logger = logging.getLogger(__name__)
 
 # 保留关键词作为快速路径（可选）
 _MEMORY_KW: List[str] = ["上次", "之前", "刚才", "你说过", "我问过", "刚刚说", "前面提到"]
 _HYBRID_KW: List[str] = ["对比", "不同", "区别", "和之前", "和上次", "比较"]
-
-# 意图识别的 system prompt
-INTENT_DETECTION_PROMPT = """你是一个意图识别助手。请判断用户查询属于以下哪种意图：
-
-1. **leave_balance** - 假期余额查询（新增）
-   - 用户想查询假期余额、剩余天数
-   - 例如：我的假期余额、年假还剩多少、查询假期、还有多少天假、我的年假、剩余假期
-   - 关键特征：包含"余额"、"剩余"、"还有多少"、"查询假期"、"我的假期"、"还剩"等词
-
-2. **guide** - 流程指引
-   - 用户想了解如何办理某个流程、操作步骤
-   - 例如：请假怎么办、如何申请、办理流程、申请怎么写、需要什么材料
-   - 关键特征：询问"怎么做"、"如何办理"、"流程"、"步骤"
-   - **重要**：如果上下文显示这是流程指引对话的延续（系统在询问信息，用户在回答），必须识别为 guide
-   - **重要**：用户提供的日期、数字、简短回答（如"2024年4月24号"、"3天"、"是的"）在流程指引上下文中应识别为 guide
-
-3. **memory** - 历史记忆
-   - 用户明确询问之前的对话内容
-   - 例如：上次说的、之前提到、你刚才说、我之前问过
-   - 关键特征：明确的时间词（上次、之前、刚才、刚刚）+ 询问语气
-   - **注意**：用户只是在回答问题（如提供日期、数字），不是 memory，而是 guide 的延续
-
-4. **hybrid** - 混合查询
-   - 需要对比历史信息和知识库
-   - 例如：和之前的有什么区别、对比一下
-   - 关键特征：对比词（对比、区别、不同）
-
-5. **qa** - 知识查询（默认）
-   - 查询知识库中的信息
-   - 例如：年假有多少天、报销流程是什么
-   - 关键特征：询问具体信息、政策、规定
-
-请只返回意图类型，不要解释。格式：intent_type
-
-示例：
-用户：我的年假还剩多少
-回答：leave_balance
-
-用户：查询我的假期余额
-回答：leave_balance
-
-用户：请假申请怎么写
-回答：guide
-
-用户：年假有多少天
-回答：qa
-
-用户：上次你说的报销流程
-回答：memory
-
-用户查询：2024年4月24号
-上下文：用户上一轮问了「我想请婚假」，系统回复了流程指引相关内容。当前查询可能是对上一轮对话的延续（用户在回答系统的问题）。
-回答：guide
-
-用户查询：3天
-上下文：用户上一轮问了「我想请婚假」，系统回复了流程指引相关内容。当前查询可能是对上一轮对话的延续（用户在回答系统的问题）。
-回答：guide"""
 
 
 async def detect_intent_with_llm(query: str, history: list = None) -> str:
@@ -110,9 +54,15 @@ async def detect_intent_with_llm(query: str, history: list = None) -> str:
         
         logger.debug("🤔 [INTENT] 使用 LLM 进行意图识别 | query='%s' | has_context=%s", 
                     query, bool(context_hint))
-        logger.debug("🤔 [INTENT] 完整 prompt: %s", user_prompt)  # 添加调试日志
+        logger.debug("🤔 [INTENT] 完整 prompt: %s", user_prompt)
         
-        result = await call_llm(user_prompt, INTENT_DETECTION_PROMPT)
+        # 使用统一提示词管理
+        system_prompt = prompt_manager.get_system_prompt("intent_detection")
+        if not system_prompt:
+            logger.warning("⚠️ [INTENT] 未找到 intent_detection prompt，使用关键词匹配")
+            return await detect_intent_with_keywords(query)
+        
+        result = await call_llm(user_prompt, system_prompt)
         intent = result.strip().lower()
         
         # 验证返回的意图是否有效

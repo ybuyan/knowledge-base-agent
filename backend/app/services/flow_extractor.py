@@ -15,33 +15,9 @@ from app.models.flow_guide import FlowGuideCreate, FlowStep
 from app.services.flow_guide_repository import get_flow_guide_repository
 from app.core.mongodb import get_mongo_db
 from app.core.llm import call_llm
+from app.prompts.manager import prompt_manager
 
 logger = logging.getLogger(__name__)
-
-EXTRACT_PROMPT_TEMPLATE = """你是一个流程知识提取专家。请从以下文档中识别并提取所有流程类知识。
-
-流程类知识的特征：
-- 包含明确的操作步骤（如"第一步"、"步骤1"、"首先"等）
-- 描述如何完成某项业务操作
-- 有明确的开始和结束
-
-请以 JSON 格式返回，格式如下：
-[
-  {{
-    "name": "流程名称",
-    "category": "分类（如：财务报销、人事行政、IT支持等）",
-    "description": "一句话描述",
-    "steps": [
-      {{"sequence": 1, "title": "步骤标题", "description": "步骤说明"}},
-      ...
-    ]
-  }}
-]
-
-如果文档中没有流程类知识，返回空数组 []。
-
-文档内容：
-{document_text}"""
 
 
 class FlowExtractor:
@@ -62,7 +38,13 @@ class FlowExtractor:
         # 截取前 8000 字符，避免超出 LLM 上下文限制
         truncated_text = document_text[:8000]
 
-        prompt = EXTRACT_PROMPT_TEMPLATE.format(document_text=truncated_text)
+        # 使用统一提示词管理
+        result = prompt_manager.render("flow_extract", {"document_text": truncated_text})
+        prompt = result.get("user", "")
+        
+        if not prompt:
+            logger.error("[FlowExtractor] 未找到 flow_extract prompt 模板")
+            return []
 
         try:
             raw_response = await call_llm(prompt)

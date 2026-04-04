@@ -3,6 +3,7 @@
 
 统一管理所有提示词模板，支持：
 - 从配置文件加载提示词
+- 从数据库加载提示词
 - 动态渲染模板变量
 - 分类管理提示词
 """
@@ -20,7 +21,7 @@ class PromptManager:
     提示词管理器
     
     功能：
-    1. 从配置文件加载提示词
+    1. 从配置文件或数据库加载提示词
     2. 渲染模板变量
     3. 分类管理提示词
     4. 支持运行时修改
@@ -29,6 +30,7 @@ class PromptManager:
     _instance = None
     _config: Dict[str, Any] = {}
     _config_path: Path = None
+    _use_database: bool = False
     
     def __new__(cls):
         if cls._instance is None:
@@ -37,7 +39,19 @@ class PromptManager:
         return cls._instance
     
     def _load_config(self) -> None:
-        """加载配置文件"""
+        """加载配置 - 优先从数据库，失败则从文件"""
+        # 尝试从数据库加载
+        if self._load_from_database():
+            self._use_database = True
+            logger.info("从数据库加载提示词配置")
+        else:
+            # 回退到文件加载
+            self._load_from_file()
+            self._use_database = False
+            logger.info("从文件加载提示词配置")
+    
+    def _load_from_file(self) -> None:
+        """从配置文件加载"""
         self._config_path = Path(__file__).parent / "config.json"
         
         try:
@@ -47,6 +61,55 @@ class PromptManager:
         except Exception as e:
             logger.error(f"加载提示词配置失败: {e}")
             self._config = {"prompts": {}, "categories": {}}
+    
+    def _load_from_database(self) -> bool:
+        """从数据库加载配置"""
+        try:
+            import asyncio
+            from app.services.prompt_config_service import prompt_config_service
+            from app.core.mongodb import mongodb
+            
+            # 检查数据库是否已连接
+            if not mongodb.is_connected or mongodb.database is None:
+                logger.info("数据库未连接，跳过从数据库加载")
+                return False
+            
+            # 在同步上下文中运行异步函数
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            try:
+                prompts = loop.run_until_complete(prompt_config_service.get_all(enabled_only=False))
+            finally:
+                loop.close()
+            
+            if not prompts:
+                logger.info("数据库中没有提示词配置")
+                return False
+            
+            # 转换为配置格式
+            self._config = {
+                "version": prompts[0].get("version", "1.0") if prompts else "1.0",
+                "prompts": {
+                    p["id"]: {
+                        "id": p["id"],
+                        "name": p["name"],
+                        "description": p["description"],
+                        "enabled": p["enabled"],
+                        "category": p["category"],
+                        "template": p["template"],
+                        "variables": p["variables"]
+                    }
+                    for p in prompts
+                },
+                "categories": {}
+            }
+            
+            logger.info(f"从数据库加载 {len(prompts)} 个提示词配置")
+            return True
+            
+        except Exception as e:
+            logger.info(f"从数据库加载配置失败: {e}")
+            return False
     
     def get(self, prompt_id: str) -> Optional[Dict[str, Any]]:
         """
@@ -201,6 +264,45 @@ class PromptManager:
         """重新加载配置"""
         self._load_config()
         logger.info("提示词配置已重新加载")
+    
+    def sync_to_database(self) -> Dict[str, Any]:
+        """将当前配置同步到数据库"""
+        try:
+            import asyncio
+            from app.services.prompt_config_service import prompt_config_service
+            
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            try:
+                result = loop.run_until_complete(prompt_config_service.sync_from_file(str(self._config_path)))
+            finally:
+                loop.close()
+            
+            if result.get("success"):
+                logger.info("配置已同步到数据库")
+            return result
+        except Exception as e:
+            logger.error(f"同步配置到数据库失败: {e}")
+            return {"success": False, "error": str(e)}
+    
+    def switch_to_database(self) -> bool:
+        """切换到数据库模式"""
+        if self._load_from_database():
+            self._use_database = True
+            logger.info("已切换到数据库模式")
+            return True
+        return False
+    
+    def switch_to_file(self) -> bool:
+        """切换到文件模式"""
+        try:
+            self._load_from_file()
+            self._use_database = False
+            logger.info("已切换到文件模式")
+            return True
+        except Exception as e:
+            logger.error(f"切换到文件模式失败: {e}")
+            return False
 
 
 # 单例实例

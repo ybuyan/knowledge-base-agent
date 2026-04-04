@@ -188,18 +188,10 @@ class QueryOptimizer:
             "strategy": strategy['prompt_suffix']
         })
         
-        if result.get("user"):
-            return result["user"]
+        if not result.get("user"):
+            raise ValueError("未找到 query_optimizer_enhance prompt 模板")
         
-        # 回退到默认
-        return f"""请优化以下查询：{query}
-
-查询分析：
-- 类型：{query_type}
-- 已提取关键词：{', '.join(keywords)}
-- 优化重点：{strategy['prompt_suffix']}
-
-请基于以上分析，生成优化后的查询文本。只输出优化结果，不要解释。"""
+        return result["user"]
 
 
 query_optimizer = QueryOptimizer()

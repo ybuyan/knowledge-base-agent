@@ -120,13 +120,35 @@ class KnowledgeMCPServer(MCPServer):
         }
 
     async def _get_related_questions(self, question: str) -> Dict[str, Any]:
-        return {
-            "questions": [
-                f"关于{question}的具体规定是什么？",
-                f"{question}的适用范围有哪些？",
-                f"如何申请{question}相关的流程？"
-            ]
-        }
+        """使用 LLM 生成相关问题"""
+        try:
+            from app.prompts.manager import prompt_manager
+            from app.core.llm import call_llm
+            
+            result = prompt_manager.render("mcp_related_questions", {"question": question})
+            prompt = result.get("user")
+            if not prompt:
+                logger.warning("未找到 mcp_related_questions prompt 模板，使用默认问题")
+                return {
+                    "questions": [
+                        f"关于{question}的具体规定是什么？",
+                        f"{question}的适用范围有哪些？",
+                        f"如何申请{question}相关的流程？"
+                    ]
+                }
+            
+            response = await call_llm(prompt)
+            questions = [q.strip() for q in response.strip().split('\n') if q.strip()]
+            return {"questions": questions[:3]}
+        except Exception as e:
+            logger.warning(f"生成相关问题失败: {e}，使用默认问题")
+            return {
+                "questions": [
+                    f"关于{question}的具体规定是什么？",
+                    f"{question}的适用范围有哪些？",
+                    f"如何申请{question}相关的流程？"
+                ]
+            }
 
     # 8.2 Override read_resource to handle dynamic knowledge:// URIs
     async def read_resource(self, uri: str) -> str:

@@ -81,18 +81,13 @@ class StrictQAPrompt:
         """
         # 获取系统提示词
         system_template = prompt_manager.get_system_prompt("strict_qa")
-        if system_template:
-            system_content = system_template.format(
-                context=context, 
-                forbidden_topics=forbidden_topics
-            )
-        else:
-            system_content = f"""你是一个专业的知识库问答助手。请基于以下知识库内容回答用户问题。
-
-知识库内容：
-{context}
-
-请只基于知识库内容回答，如果知识库中没有相关信息，请明确说明。"""
+        if not system_template:
+            raise ValueError("未找到 strict_qa prompt 模板")
+        
+        system_content = system_template.format(
+            context=context, 
+            forbidden_topics=forbidden_topics
+        )
         
         messages = [{"role": "system", "content": system_content}]
         

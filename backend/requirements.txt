@@ -58,3 +58,6 @@ watchdog>=3.0.0
 
 # PDF Generation
 reportlab>=4.0.0
+
+# Task Scheduling
+apscheduler>=3.10.0

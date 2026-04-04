@@ -84,6 +84,12 @@ async def _create_indexes():
         await mongodb.database.users.create_index([("username", 1)], unique=True)
         await mongodb.database.users.create_index([("email", 1)], unique=True)
         
+        # prompts 集合索引
+        await mongodb.database.prompts.create_index([("prompt_id", 1)], unique=True)
+        await mongodb.database.prompts.create_index([("category", 1)])
+        await mongodb.database.prompts.create_index([("enabled", 1)])
+        await mongodb.database.prompts.create_index([("updated_at", -1)])
+        
         logger.info("MongoDB 索引创建完成")
     except Exception as e:
         logger.warning(f"MongoDB 索引创建失败: {e}")

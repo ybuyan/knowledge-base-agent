@@ -6,7 +6,7 @@ from app.core.chroma import init_chroma
 from app.core.mongodb import connect_to_mongo, close_mongo_connection
 from app.core.exceptions import AppException
 from app.api.routes import documents, chat, health, constraints, prompts, links, auth, process
-from app.api.routes import flow_guides
+from app.api.routes import flow_guides, prompt_config
 from app.api.dependencies import require_hr
 from app.mcp.router import router as mcp_router
 import logging
@@ -107,10 +107,19 @@ async def startup_event():
     from app.mcp.router import _audit_logger
     _audit_logger.start_batch_writer()
     logger.info("MCP 审计日志批量写入已启动")
+    
+    # 启动提示词配置定时同步任务
+    from app.tasks.prompt_sync_task import prompt_sync_task
+    prompt_sync_task.start(interval_minutes=5)  # 每5分钟同步一次
+    logger.info("提示词配置定时同步任务已启动")
 
 
 @app.on_event("shutdown")
 async def shutdown_event():
+    # 停止提示词同步任务
+    from app.tasks.prompt_sync_task import prompt_sync_task
+    prompt_sync_task.stop()
+    
     await close_mongo_connection()
     logger.info("应用关闭完成")
 
@@ -133,6 +142,7 @@ app.include_router(links.router, prefix="/api/links", tags=["links"])
 app.include_router(prompts.router, prefix="/api", tags=["prompts"])
 app.include_router(process.router, prefix="/api/process", tags=["process"])
 app.include_router(flow_guides.router, prefix="/api/flow-guides", tags=["flow-guides"])
+app.include_router(prompt_config.router, tags=["prompt-config"])
 app.include_router(mcp_router)
 
 

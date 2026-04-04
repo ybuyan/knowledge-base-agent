@@ -448,15 +448,10 @@ class QAAgent:
         
         # 使用统一提示词管理
         template = prompt_manager.get_system_prompt("tool_router")
-        if template:
-            return template.format(tool_descriptions="\n".join(tool_descriptions))
+        if not template:
+            raise ValueError("未找到 tool_router prompt 模板")
         
-        # 回退到默认
-        return f"""你是一个智能助手，可以访问以下工具：
-
-{chr(10).join(tool_descriptions)}
-
-根据用户的问题，判断是否需要调用工具。如果需要，返回工具调用；如果不需要，直接回答用户问题。"""
+        return template.format(tool_descriptions="\n".join(tool_descriptions))
     
     async def _execute_tool_flow(
         self,
