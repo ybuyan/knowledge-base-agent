@@ -164,7 +164,8 @@ async def persist_conversation(
     answer: str,
     sources: list,
     suggested_questions: list = None,
-    related_links: list = None
+    related_links: list = None,
+    ui_components: dict = None
 ) -> bool:
     """
     持久化对话到数据库
@@ -193,7 +194,8 @@ async def persist_conversation(
             content=answer,
             sources=sources,
             suggested_questions=suggested_questions,
-            related_links=related_links
+            related_links=related_links,
+            ui_components=ui_components
         )
         if assistant_msg is None:
             logger.error(f"保存AI回复失败: session={session_id}")
@@ -403,6 +405,7 @@ async def get_messages(session_id: str, before_id: Optional[str] = None, limit: 
                 "sources": m.get("sources", []),
                 "suggestedQuestions": m.get("suggested_questions", []),
                 "relatedLinks": m.get("related_links", []),
+                "uiComponents": m.get("ui_components"),
                 "timestamp": m["created_at"].isoformat()
             }
             for m in db_messages
@@ -429,6 +432,7 @@ async def load_more_messages(
                 "sources": m.get("sources", []),
                 "suggestedQuestions": m.get("suggested_questions", []),
                 "relatedLinks": m.get("related_links", []),
+                "uiComponents": m.get("ui_components"),
                 "timestamp": m["created_at"].isoformat()
             }
             for m in result["messages"]
@@ -765,7 +769,8 @@ async def ask_question_stream_v2(request: ChatStreamRequest, http_request: Reque
                     answer=full_response,
                     sources=sources,
                     suggested_questions=suggested_questions,
-                    related_links=related_links
+                    related_links=related_links,
+                    ui_components=ui_components
                 )
                 if not persist_result:
                     logger.error(f"[V2] 持久化对话失败，数据可能丢失: session={request.session_id}")

@@ -17,7 +17,8 @@ class MessageService:
         content: str,
         sources: Optional[List[Dict]] = None,
         suggested_questions: Optional[List[str]] = None,
-        related_links: Optional[List[Dict]] = None
+        related_links: Optional[List[Dict]] = None,
+        ui_components: Optional[Dict] = None
     ) -> Optional[Dict]:
         db = get_mongo_db()
         if db is None:
@@ -32,6 +33,7 @@ class MessageService:
             "sources": sources or [],
             "suggested_questions": suggested_questions or [],
             "related_links": related_links or [],
+            "ui_components": ui_components or None,
             "created_at": datetime.utcnow()
         }
         

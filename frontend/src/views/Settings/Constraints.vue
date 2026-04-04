@@ -68,7 +68,10 @@ const passRateColor = computed(() => {
 const fetchConfig = async () => {
   loading.value = true
   try {
-    const response = await fetch('/api/constraints')
+    const token = localStorage.getItem('auth_token')
+    const response = await fetch('/api/constraints', {
+      headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+    })
     const data = await response.json()
     config.value = data.constraints
   } catch (error) {
@@ -80,7 +83,10 @@ const fetchConfig = async () => {
 
 const fetchStats = async () => {
   try {
-    const response = await fetch('/api/constraints/stats')
+    const token = localStorage.getItem('auth_token')
+    const response = await fetch('/api/constraints/stats', {
+      headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+    })
     const data = await response.json()
     stats.value = data
   } catch (error) {
@@ -91,9 +97,13 @@ const fetchStats = async () => {
 const saveConfig = async () => {
   saving.value = true
   try {
+    const token = localStorage.getItem('auth_token')
     const response = await fetch('/api/constraints', {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+      },
       body: JSON.stringify(config.value)
     })
     const data = await response.json()
@@ -119,8 +129,10 @@ const resetConfig = async () => {
       }
     )
     
+    const token = localStorage.getItem('auth_token')
     const response = await fetch('/api/constraints/reset', {
-      method: 'POST'
+      method: 'POST',
+      headers: token ? { 'Authorization': `Bearer ${token}` } : {}
     })
     const data = await response.json()
     config.value = data.constraints
@@ -192,12 +204,12 @@ onMounted(() => {
       </div>
       <div class="stat-card">
         <div class="stat-value" :style="{ color: passRateColor }">
-          {{ (stats.pass_rate * 100).toFixed(1) }}%
+          {{ stats ? (stats.pass_rate * 100).toFixed(1) : '0.0' }}%
         </div>
         <div class="stat-label">通过率</div>
       </div>
       <div class="stat-card">
-        <div class="stat-value">{{ stats.avg_similarity_score.toFixed(2) }}</div>
+        <div class="stat-value">{{ stats ? stats.avg_similarity_score.toFixed(2) : '0.00' }}</div>
         <div class="stat-label">平均相似度</div>
       </div>
     </div>

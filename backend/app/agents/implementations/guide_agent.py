@@ -129,11 +129,45 @@ class GuideAgent(BaseAgent):
             # 调试：如果 answer 为空，记录详细信息
             if not answer or len(answer.strip()) == 0:
                 logger.error("⚠️  [GUIDE] 警告：返回的 answer 为空！| result=%s", result)
+
+            # 尝试从 flow_guides 集合中匹配相关流程模板，附加快捷指引提示
+            flow_guide_hint = None
+            try:
+                from app.services.flow_guide_repository import get_flow_guide_repository
+                repo = get_flow_guide_repository()
+                all_guides = await repo.get_all(status="active")
+
+                # 从 skill 定义中获取精确匹配关键词
+                skill_def = self.skill_engine.skill_loader.get(skill_id)
+                skill_triggers = []
+                skill_display_name = ""
+                if skill_def:
+                    skill_triggers = skill_def.frontmatter.get("triggers", [])
+                    skill_display_name = skill_def.frontmatter.get("display_name", "")
+
+                for guide in all_guides:
+                    guide_name = guide.name
+                    # 1. display_name 精确包含（最高优先级）
+                    if skill_display_name and skill_display_name in guide_name:
+                        flow_guide_hint = {"id": guide.id, "name": guide.name}
+                        break
+                    # 2. guide 名称包含任意 trigger 关键词
+                    if any(trigger in guide_name for trigger in skill_triggers):
+                        flow_guide_hint = {"id": guide.id, "name": guide.name}
+                        break
+
+                if flow_guide_hint:
+                    logger.info("[GUIDE] 匹配到 flow_guide_hint | guide='%s' | skill_id='%s'", flow_guide_hint["name"], skill_id)
+                else:
+                    logger.debug("[GUIDE] 未匹配到 flow_guide_hint | skill_id='%s'", skill_id)
+            except Exception as fge:
+                logger.debug("[GUIDE] 匹配 flow_guide_hint 失败（非关键）: %s", fge)
             
             return {
                 "answer": answer,
                 "session_id": session_id,
-                "intent": "guide",  # 标记为 guide 意图，防止 chat API 再次调用 QA Agent
+                "intent": "guide",
+                **({"ui_components": {"flow_guide_hint": flow_guide_hint}} if flow_guide_hint else {}),
             }
             
         except Exception as e:

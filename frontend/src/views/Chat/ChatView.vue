@@ -17,6 +17,7 @@ import {
 } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import QuickPromptButton from '@/components/QuickPromptButton/index.vue'
+import GuideModal from '@/components/GuideModal/index.vue'
 
 const OptimizeIcon = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M8 1L9.5 5.5L14 6L10.5 9L11.5 13.5L8 11L4.5 13.5L5.5 9L2 6L6.5 5.5L8 1Z" fill="currentColor"/>
@@ -45,6 +46,15 @@ const originalQuery = ref('')
 const optimizedQuery = ref('')
 const abortController = ref<AbortController | null>(null)
 const isAborted = ref(false)
+
+// GuideModal 状态
+const showGuideModal = ref(false)
+const guideModalFlowId = ref('')
+
+const openFlowGuideFromChat = (flowId: string) => {
+  guideModalFlowId.value = flowId
+  showGuideModal.value = true
+}
 
 const optimizeInput = async () => {
   if (!inputMessage.value.trim() || isOptimizing.value) return
@@ -515,13 +525,26 @@ onMounted(async () => {
               </div>
             </div>
             
+            <!-- 流程指引快捷入口提示 -->
+            <div
+              v-if="message.role === 'assistant' && message.uiComponents?.flow_guide_hint && !isStreaming"
+              class="flow-guide-hint"
+              @click="openFlowGuideFromChat(message.uiComponents.flow_guide_hint.id)"
+            >
+              <span class="flow-guide-hint-icon">⚡</span>
+              <span class="flow-guide-hint-text">
+                可在右侧快捷指引中查看「{{ message.uiComponents.flow_guide_hint.name }}」的详细步骤
+              </span>
+              <span class="flow-guide-hint-arrow">→</span>
+            </div>
+
             <div class="message-time">{{ formatTime(message.timestamp) }}</div>
           </div>
         </div>
       </div>
     </div>
 
-    <button 
+    <button
       v-if="showScrollButton" 
       class="scroll-bottom-btn"
       @click="() => scrollToBottom(true)"
@@ -598,6 +621,9 @@ onMounted(async () => {
 
      <!-- 快捷提示词按钮 -->
     <QuickPromptButton @prompt-click="handleQuickPromptClick" />
+
+    <!-- 流程指引弹窗（从聊天触发） -->
+    <GuideModal v-model:visible="showGuideModal" :flow-id="guideModalFlowId" />
   </div>
 </template>
 
@@ -1442,5 +1468,42 @@ onMounted(async () => {
   .suggested-questions {
     padding: 12px;
   }
+}
+
+/* 流程指引快捷入口提示 */
+.flow-guide-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: var(--color-primary-lightest);
+  border: 1px solid rgba(224, 48, 30, 0.2);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-default);
+}
+
+.flow-guide-hint:hover {
+  background: rgba(224, 48, 30, 0.1);
+  border-color: var(--color-primary);
+}
+
+.flow-guide-hint-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.flow-guide-hint-text {
+  font-size: 13px;
+  color: var(--color-primary);
+  font-weight: 500;
+  flex: 1;
+}
+
+.flow-guide-hint-arrow {
+  font-size: 14px;
+  color: var(--color-primary);
+  flex-shrink: 0;
 }
 </style>
