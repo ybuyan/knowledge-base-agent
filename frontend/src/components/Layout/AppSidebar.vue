@@ -11,7 +11,8 @@ import {
   More,
   Edit,
   Delete,
-  SwitchButton
+  SwitchButton,
+  List
 } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
@@ -26,6 +27,8 @@ const editingTitle = ref('')
 
 const isChatActive = computed(() => route.path === '/chat')
 const isDocumentsActive = computed(() => route.path === '/documents')
+const isFlowManagerActive = computed(() => route.path === '/flow-manager')
+const isAdminOrManager = computed(() => authStore.isHR)
 
 const filteredSessions = computed(() => {
   if (!searchQuery.value) return chatStore.sessions
@@ -36,6 +39,7 @@ const filteredSessions = computed(() => {
 
 const navigateToChat = () => router.push('/chat')
 const navigateToDocuments = () => router.push('/documents')
+const navigateToFlowManager = () => router.push('/flow-manager')
 
 const createNewChat = async () => {
   await chatStore.createSession()
@@ -116,7 +120,16 @@ const formatTime = (date: Date) => {
     <!-- Navigation -->
     <nav class="sidebar-nav">
       <div 
-        v-if="authStore.isHR"
+        class="nav-item" 
+        :class="{ active: isChatActive }"
+        @click="navigateToChat"
+      >
+        <el-icon :size="20"><ChatDotRound /></el-icon>
+        <span>Chat</span>
+      </div>
+
+      <div 
+        v-if="isAdminOrManager"
         class="nav-item" 
         :class="{ active: isDocumentsActive }"
         @click="navigateToDocuments"
@@ -125,13 +138,14 @@ const formatTime = (date: Date) => {
         <span>Documents</span>
       </div>
       
-      <div 
-        class="nav-item" 
-        :class="{ active: isChatActive }"
-        @click="navigateToChat"
+      <div
+        v-if="isAdminOrManager"
+        class="nav-item"
+        :class="{ active: isFlowManagerActive }"
+        @click="navigateToFlowManager"
       >
-        <el-icon :size="20"><ChatDotRound /></el-icon>
-        <span>Chat</span>
+        <el-icon :size="20"><List /></el-icon>
+        <span>Process Templates</span>
       </div>
     </nav>
 

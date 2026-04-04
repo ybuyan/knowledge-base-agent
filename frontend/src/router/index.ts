@@ -30,6 +30,12 @@ const routes: RouteRecordRaw[] = [
         name: 'Constraints',
         component: () => import('@/views/Settings/Constraints.vue'),
         meta: { title: 'Constraints', requiresHR: true }
+      },
+      {
+        path: 'flow-manager',
+        name: 'FlowManager',
+        component: () => import('@/views/FlowManager/index.vue'),
+        meta: { title: '流程管理', requiresAuth: true }
       }
     ]
   }

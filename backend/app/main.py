@@ -6,6 +6,7 @@ from app.core.chroma import init_chroma
 from app.core.mongodb import connect_to_mongo, close_mongo_connection
 from app.core.exceptions import AppException
 from app.api.routes import documents, chat, health, constraints, prompts, links, auth, process
+from app.api.routes import flow_guides
 from app.api.dependencies import require_hr
 from app.mcp.router import router as mcp_router
 import logging
@@ -85,6 +86,11 @@ async def startup_event():
     logger.info("处理器已注册: " + str(ProcessorRegistry.list_all()))
     logger.info("Agents 已注册: %s", agent_engine.list_all())
     
+    # 创建流程指引索引
+    from app.core.flow_guide_db import ensure_flow_guide_indexes, ensure_pending_duplicate_indexes
+    await ensure_flow_guide_indexes()
+    await ensure_pending_duplicate_indexes()
+
     # Start background scanner for server-uploaded files
     from app.api.routes.documents import start_background_scanner
     start_background_scanner()
@@ -120,6 +126,7 @@ app.include_router(constraints.router, prefix="/api/constraints", tags=["constra
 app.include_router(links.router, prefix="/api/links", tags=["links"])
 app.include_router(prompts.router, prefix="/api", tags=["prompts"])
 app.include_router(process.router, prefix="/api/process", tags=["process"])
+app.include_router(flow_guides.router, prefix="/api/flow-guides", tags=["flow-guides"])
 app.include_router(mcp_router)
 
 

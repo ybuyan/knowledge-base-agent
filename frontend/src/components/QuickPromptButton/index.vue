@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { processGuideApi } from '@/api'
+import { flowGuideApi } from '@/api'
 import type { QuickPromptGroup, QuickPrompt } from '@/stores/chat'
+import GuideModal from '@/components/GuideModal/index.vue'
 
 const emit = defineEmits<{
   promptClick: [text: string]
@@ -10,6 +11,8 @@ const emit = defineEmits<{
 const promptGroups = ref<QuickPromptGroup[]>([])
 const isExpanded = ref(false)
 const activeCategory = ref<string | null>(null)
+const showModal = ref(false)
+const selectedFlowId = ref('')
 
 let expandTimer: number | null = null
 let collapseTimer: number | null = null
@@ -17,7 +20,16 @@ let categoryTimer: number | null = null
 
 onMounted(async () => {
   try {
-    promptGroups.value = []//await processGuideApi.getQuickPromptsGrouped()
+    const groups = await flowGuideApi.getGrouped()
+    promptGroups.value = groups.map(g => ({
+      category: g.category,
+      prompts: g.guides.map(guide => ({
+        id: guide.id,
+        title: guide.name,
+        description: guide.description,
+        prompt_text: guide.name
+      }))
+    }))
   } catch (error) {
     console.error('加载快捷提示词失败:', error)
   }
@@ -76,7 +88,8 @@ const handlePanelLeave = () => {
 }
 
 const handlePromptClick = (prompt: QuickPrompt) => {
-  emit('promptClick', prompt.prompt_text)
+  selectedFlowId.value = prompt.id
+  showModal.value = true
   activeCategory.value = null
   isExpanded.value = false
 }
@@ -128,6 +141,8 @@ const handlePromptClick = (prompt: QuickPrompt) => {
         </div>
       </div>
     </div>
+
+    <GuideModal v-model:visible="showModal" :flow-id="selectedFlowId" />
   </div>
 </template>
 
@@ -169,7 +184,6 @@ const handlePromptClick = (prompt: QuickPrompt) => {
   padding: 12px 0;
 }
 
-/* 按钮图标 */
 .trigger-icon {
   font-size: 24px;
   display: flex;
@@ -177,7 +191,6 @@ const handlePromptClick = (prompt: QuickPrompt) => {
   justify-content: center;
 }
 
-/* 胶囊菜单 */
 .category-list {
   display: flex;
   flex-direction: column;
@@ -187,12 +200,8 @@ const handlePromptClick = (prompt: QuickPrompt) => {
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .category-item {
@@ -211,40 +220,16 @@ const handlePromptClick = (prompt: QuickPrompt) => {
   animation: slideInFade 0.3s ease-out forwards;
 }
 
-/* 为每个分类项添加延迟，创建级联效果 */
-.category-item:nth-child(1) {
-  animation-delay: 0.05s;
-}
-
-.category-item:nth-child(2) {
-  animation-delay: 0.1s;
-}
-
-.category-item:nth-child(3) {
-  animation-delay: 0.15s;
-}
-
-.category-item:nth-child(4) {
-  animation-delay: 0.2s;
-}
-
-.category-item:nth-child(5) {
-  animation-delay: 0.25s;
-}
-
-.category-item:nth-child(6) {
-  animation-delay: 0.3s;
-}
+.category-item:nth-child(1) { animation-delay: 0.05s; }
+.category-item:nth-child(2) { animation-delay: 0.1s; }
+.category-item:nth-child(3) { animation-delay: 0.15s; }
+.category-item:nth-child(4) { animation-delay: 0.2s; }
+.category-item:nth-child(5) { animation-delay: 0.25s; }
+.category-item:nth-child(6) { animation-delay: 0.3s; }
 
 @keyframes slideInFade {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .category-item:hover,
@@ -253,7 +238,6 @@ const handlePromptClick = (prompt: QuickPrompt) => {
   color: #e0301e;
 }
 
-/* 手风琴展开面板 */
 .prompts-panel {
   position: absolute;
   right: calc(100% + 12px);
@@ -270,14 +254,8 @@ const handlePromptClick = (prompt: QuickPrompt) => {
 }
 
 @keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 .panel-header {
@@ -285,7 +263,6 @@ const handlePromptClick = (prompt: QuickPrompt) => {
   font-weight: 600;
   color: #e0301e;
   padding: 16px;
-  margin-bottom: 0;
   border-bottom: 1px solid #f0f0f0;
 }
 
@@ -326,21 +303,8 @@ const handlePromptClick = (prompt: QuickPrompt) => {
   line-height: 1.4;
 }
 
-/* 滚动条样式 */
-.prompts-panel::-webkit-scrollbar {
-  width: 6px;
-}
-
-.prompts-panel::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.prompts-panel::-webkit-scrollbar-thumb {
-  background: #d1d1d1;
-  border-radius: 3px;
-}
-
-.prompts-panel::-webkit-scrollbar-thumb:hover {
-  background: #b4b4b4;
-}
+.prompts-panel::-webkit-scrollbar { width: 6px; }
+.prompts-panel::-webkit-scrollbar-track { background: transparent; }
+.prompts-panel::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 3px; }
+.prompts-panel::-webkit-scrollbar-thumb:hover { background: #b4b4b4; }
 </style>

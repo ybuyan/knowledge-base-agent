@@ -53,8 +53,97 @@ body {
   color: var(--primary-color);
 }
 
+/* Global Scrollbar Styles - Theme Color */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(224, 48, 30, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(224, 48, 30, 0.4);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(224, 48, 30, 0.2) transparent;
+}
+
 .el-input__wrapper:focus-within {
   box-shadow: 0 0 0 1px var(--primary-color) inset;
+}
+
+/* Textarea Focus - use inset shadow for consistent style */
+.el-textarea__inner:focus,
+.el-textarea__inner.is-focus {
+  box-shadow: 0 0 0 1px var(--primary-color) inset !important;
+  outline: none;
+}
+
+/* Checkbox Checked - theme color */
+.el-checkbox.is-checked {
+  .el-checkbox__label{
+    color: var(--primary-color) !important;
+  }
+  .el-checkbox__input.is-checked .el-checkbox__inner {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+  }
+}
+
+/* Button Hover - unified with icon-btn/action-btn style */
+.el-button:hover:not(.el-button--primary):not(:disabled):not(.is-disabled) {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+/* Primary Plain Button - white text */
+.el-button--primary.is-plain {
+  color: #fff !important;
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.el-button--primary.is-plain:hover:not(:disabled):not(.is-disabled) {
+  background-color: var(--primary-light) !important;
+  border-color: var(--primary-light) !important;
+  color: #fff !important;
+}
+
+/* Dropdown Menu Item Hover - theme color */
+.el-dropdown-menu__item:hover,
+.el-dropdown-menu__item:focus {
+  background-color: var(--primary-bg) !important;
+  color: var(--primary-color) !important;
+}
+
+.el-dropdown-menu__item.is-disabled:hover {
+  background-color: transparent !important;
+  color: var(--text-disabled) !important;
+}
+
+/* Radio Checked - theme color */
+.el-radio__input.is-checked .el-radio__inner {
+  border-color: var(--primary-color) !important;
+  background-color: var(--primary-color) !important;
+}
+
+.el-radio__input.is-checked + .el-radio__label {
+  color: var(--primary-color) !important;
+}
+
+.el-radio__input:hover .el-radio__inner {
+  border-color: var(--primary-color) !important;
 }
 
 .el-tag--success {

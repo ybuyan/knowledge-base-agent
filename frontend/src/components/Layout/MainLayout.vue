@@ -37,6 +37,6 @@ import RightPanel from '@/components/Layout/RightPanel.vue'
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: var(--bg-primary);
+  /* background-color: var(--bg-primary); */
 }
 </style>

@@ -58,6 +58,18 @@ export interface SessionGroup {
   sessions: Session[]
 }
 
+export interface QuickPrompt {
+  id: string
+  title: string
+  description: string
+  prompt_text: string
+}
+
+export interface QuickPromptGroup {
+  category: string
+  prompts: QuickPrompt[]
+}
+
 export const useChatStore = defineStore('chat', () => {
   const sessions = ref<Session[]>([])
   const currentSessionId = ref<string>('')

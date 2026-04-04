@@ -134,7 +134,26 @@ async def process_document_task(file_path: str, doc_id: str, filename: str):
         await DocumentDB.update_status(doc_id, "READY", chunk_count=chunk_count)
         _set_doc_storage(doc_id, {**(_get_doc_storage(doc_id) or {}), "status": "READY", "chunk_count": chunk_count})
         logger.info(f"文档处理成功: {filename}, chunk_count: {chunk_count}")
-        
+
+        # 异步触发流程提取，不阻塞上传响应
+        try:
+            from app.services.flow_extractor import get_flow_extractor
+            from app.skills.processors.document import DocumentParser
+            parser = DocumentParser()
+            parse_result = await parser.process(
+                {"file_path": file_path},
+                {"supported_formats": ["pdf", "docx", "doc", "txt", "md"]}
+            )
+            document_text = parse_result.get("document_text", "")
+            if document_text:
+                flow_extractor = get_flow_extractor()
+                asyncio.create_task(
+                    flow_extractor.extract_and_save(document_text, doc_id, filename)
+                )
+                logger.info(f"[FlowExtractor] 已触发流程提取任务: {filename}")
+        except Exception as fe:
+            logger.warning(f"[FlowExtractor] 触发流程提取失败 (不影响上传): {fe}")
+
     except Exception as e:
         import traceback
         error_detail = traceback.format_exc()

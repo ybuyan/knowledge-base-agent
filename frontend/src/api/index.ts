@@ -573,4 +573,94 @@ export const chatApi = {
 
 
 
+export interface FlowStepEntryLink {
+  external_link_id?: string
+  label?: string
+  url?: string
+  open_in_new_tab: boolean
+}
+
+export interface FlowStep {
+  sequence: number
+  title: string
+  description: string
+  entry_link?: FlowStepEntryLink
+}
+
+export interface FlowGuide {
+  id: string
+  name: string
+  category: string
+  description: string
+  steps: FlowStep[]
+  status: 'active' | 'disabled'
+  source_document_id?: string
+  source_document_name?: string
+  created_at: string
+  updated_at: string
+}
+
+export interface FlowGuideGroup {
+  category: string
+  guides: { id: string; name: string; description: string }[]
+}
+
+export interface ExternalLink {
+  id: string
+  title: string
+  url: string
+  description: string
+}
+
+export interface PendingDuplicate {
+  id: string
+  document_id: string
+  document_name: string
+  existing_guide_id: string
+  existing_guide_name: string
+  new_guide_data: Partial<FlowGuide>
+  resolved: boolean
+  created_at: string
+}
+
+export const flowGuideApi = {
+  getGrouped: async (): Promise<FlowGuideGroup[]> => {
+    const response = await api.get<FlowGuideGroup[]>('/flow-guides/grouped')
+    return response.data
+  },
+  list: async (params?: { status?: string; category?: string }): Promise<FlowGuide[]> => {
+    const response = await api.get<FlowGuide[]>('/flow-guides', { params })
+    return response.data
+  },
+  getById: async (id: string): Promise<FlowGuide> => {
+    const response = await api.get<FlowGuide>(`/flow-guides/${id}`)
+    return response.data
+  },
+  create: async (data: Omit<FlowGuide, 'id' | 'created_at' | 'updated_at'>): Promise<FlowGuide> => {
+    const response = await api.post<FlowGuide>('/flow-guides', data)
+    return response.data
+  },
+  update: async (id: string, data: Partial<FlowGuide>): Promise<FlowGuide> => {
+    const response = await api.put<FlowGuide>(`/flow-guides/${id}`, data)
+    return response.data
+  },
+  delete: async (id: string): Promise<void> => {
+    await api.delete(`/flow-guides/${id}`)
+  },
+  toggleStatus: async (id: string, status: 'active' | 'disabled'): Promise<void> => {
+    await api.patch(`/flow-guides/${id}/status`, { status })
+  },
+  getPendingDuplicates: async (): Promise<PendingDuplicate[]> => {
+    const response = await api.get<PendingDuplicate[]>('/flow-guides/pending-duplicates')
+    return response.data
+  },
+  resolveDuplicate: async (pendingId: string, action: 'overwrite' | 'keep' | 'save_as_new'): Promise<void> => {
+    await api.post('/flow-guides/resolve-duplicate', { pending_id: pendingId, action })
+  },
+  getExternalLinks: async (): Promise<ExternalLink[]> => {
+    const response = await api.get<ExternalLink[]>('/flow-guides/external-links')
+    return response.data
+  }
+}
+
 export default api

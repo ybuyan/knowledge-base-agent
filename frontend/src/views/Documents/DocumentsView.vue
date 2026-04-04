@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, onUnmounted } from 'vue'
 import { useDocumentStore } from '@/stores/document'
-import { documentApi } from '@/api'
+import { documentApi, flowGuideApi } from '@/api'
+import type { PendingDuplicate } from '@/api'
 import { 
   Upload, 
   Document, 
@@ -15,11 +16,29 @@ import {
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { getFileExtension, getFileIconStyle } from '@/utils/fileColors'
 import { DOCUMENT_CONSTANTS } from '@/constants'
+import DuplicateConfirmDialog from '@/components/DuplicateConfirmDialog/index.vue'
 
 const documentStore = useDocumentStore()
 const searchQuery = ref('')
 const isUploading = ref(false)
 const uploadProgress = ref(0)
+const showDuplicateDialog = ref(false)
+const pendingDuplicates = ref<PendingDuplicate[]>([])
+
+const checkPendingDuplicates = async () => {
+  // 延迟 2 秒等待后端异步提取完成
+  setTimeout(async () => {
+    try {
+      const list = await flowGuideApi.getPendingDuplicates()
+      if (list.length > 0) {
+        pendingDuplicates.value = list
+        showDuplicateDialog.value = true
+      }
+    } catch {
+      // 非关键功能，静默失败
+    }
+  }, 2000)
+}
 
 // Auto-refresh interval for processing documents
 let refreshInterval: number | null = null
@@ -55,6 +74,8 @@ const handleUpload = async (file: any) => {
     })
     ElMessage.success('Document uploaded successfully')
     await loadDocuments()
+    // 检查是否有待处理的重复流程
+    checkPendingDuplicates()
   } catch (error) {
     ElMessage.error('Upload failed')
   } finally {
@@ -268,6 +289,12 @@ onUnmounted(() => {
       </div>
     </div>
   </div>
+
+  <DuplicateConfirmDialog
+    v-model:visible="showDuplicateDialog"
+    :duplicates="pendingDuplicates"
+    @resolved="pendingDuplicates = []"
+  />
 </template>
 
 <style scoped>

@@ -667,7 +667,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: var(--bg-primary);
+  /* background-color: var(--bg-primary); */
 }
 
 .empty-state {
@@ -1101,8 +1101,9 @@ onMounted(async () => {
 
 .input-area {
   padding: var(--space-4) var(--space-5);
-  background-color: var(--bg-primary);
-  border-top: 1px solid var(--border-light);
+  /* background-color: var(--bg-primary); */
+  border-top: 1px solid var(--border-default);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .input-wrapper {
@@ -1111,9 +1112,10 @@ onMounted(async () => {
   display: flex;
   gap: var(--space-3);
   padding: var(--space-3);
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-light);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-xl);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   transition: all var(--duration-fast) var(--ease-default);
 }
 
