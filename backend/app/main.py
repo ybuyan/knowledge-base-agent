@@ -101,6 +101,11 @@ async def startup_event():
     from app.mcp.base import MCPServerRegistry
     # Servers are auto-registered when modules are imported (via MCPServerRegistry.register at module level)
     logger.info("MCP 服务器已注册: %s", MCPServerRegistry.list_all())
+    
+    # 启动 MCP 审计日志批量写入
+    from app.mcp.router import _audit_logger
+    _audit_logger.start_batch_writer()
+    logger.info("MCP 审计日志批量写入已启动")
 
 
 @app.on_event("shutdown")

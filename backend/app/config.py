@@ -34,6 +34,29 @@ class Settings(BaseSettings):
     # CORS 配置
     cors_origins: str = "http://localhost:5173,http://localhost:3000"
     
+    # MCP 资源公开访问配置
+    api_key_prefix: str = "mcp_"
+    api_key_default_rate_limit: int = 100
+    api_key_default_expires_days: int = 365
+    
+    # 速率限制配置
+    global_rate_limit_per_ip: int = 300
+    rate_limit_window_seconds: int = 60
+    
+    # 审计日志配置
+    audit_log_retention_days: int = 90
+    audit_log_batch_size: int = 100
+    audit_log_batch_timeout: float = 1.0
+    
+    # 安全配置
+    enable_oauth2: bool = False
+    jwt_secret_key: Optional[str] = None
+    jwt_algorithm: str = "HS256"
+    
+    # Redis 配置（可选）
+    redis_url: Optional[str] = None
+    redis_max_connections: int = 50
+    
     @field_validator('secret_key')
     @classmethod
     def validate_secret_key(cls, v: str) -> str:
@@ -62,6 +85,16 @@ class Settings(BaseSettings):
     @property
     def allowed_origins(self) -> list[str]:
         return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
+    
+    @property
+    def MONGODB_URL(self) -> str:
+        """获取 MongoDB URL（兼容性属性）"""
+        return self.mongo_url
+    
+    @property
+    def MONGODB_DB_NAME(self) -> str:
+        """获取 MongoDB 数据库名（兼容性属性）"""
+        return self.mongo_db_name
     
     class Config:
         env_file = Path(__file__).parent.parent / ".env"

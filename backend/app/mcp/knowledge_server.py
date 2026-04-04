@@ -47,7 +47,47 @@ class KnowledgeMCPServer(MCPServer):
             ]
         ))
 
-        # 8.1 Register resource for knowledge base index
+        # 注册资源（按访问级别分类）
+        # 公开资源 - 任何人可访问
+        self.register_resource(MCPResource(
+            uri="knowledge://public/faq",
+            name="常见问题",
+            description="公开的常见问题解答"
+        ))
+        
+        self.register_resource(MCPResource(
+            uri="knowledge://public/guide",
+            name="使用指南",
+            description="公开的使用指南和帮助文档"
+        ))
+        
+        # 内部资源 - 需要员工角色
+        self.register_resource(MCPResource(
+            uri="knowledge://internal/policy",
+            name="内部政策",
+            description="公司内部政策文档"
+        ))
+        
+        self.register_resource(MCPResource(
+            uri="knowledge://internal/procedure",
+            name="内部流程",
+            description="公司内部流程文档"
+        ))
+        
+        # 机密资源 - 需要特殊权限
+        self.register_resource(MCPResource(
+            uri="knowledge://confidential/salary",
+            name="薪酬政策",
+            description="机密的薪酬政策文档"
+        ))
+        
+        self.register_resource(MCPResource(
+            uri="knowledge://confidential/financial",
+            name="财务信息",
+            description="机密的财务信息"
+        ))
+        
+        # 保留旧的索引资源（默认为 internal 级别）
         self.register_resource(MCPResource(
             uri="knowledge://index",
             name="知识库索引",
@@ -90,10 +130,44 @@ class KnowledgeMCPServer(MCPServer):
 
     # 8.2 Override read_resource to handle dynamic knowledge:// URIs
     async def read_resource(self, uri: str) -> str:
+        """
+        读取知识库资源
+        
+        支持的 URI 格式：
+        - knowledge://public/* - 公开资源
+        - knowledge://internal/* - 内部资源
+        - knowledge://confidential/* - 机密资源
+        - knowledge://index - 索引（默认 internal）
+        """
         if not uri.startswith("knowledge://"):
             raise ValueError(f"Resource not found: {uri}")
+        
+        # 处理特定资源
         if uri == "knowledge://index":
-            return "知识库资源索引"
+            return "知识库资源索引\n\n包含公开、内部和机密资源的完整索引。"
+        
+        # 处理公开资源
+        if uri == "knowledge://public/faq":
+            return "常见问题解答\n\n1. 如何使用知识库？\n2. 如何搜索信息？\n3. 如何联系支持？"
+        
+        if uri == "knowledge://public/guide":
+            return "使用指南\n\n欢迎使用知识库系统。本指南将帮助您快速上手。"
+        
+        # 处理内部资源
+        if uri == "knowledge://internal/policy":
+            return "内部政策文档\n\n包含公司各项内部政策和规定。"
+        
+        if uri == "knowledge://internal/procedure":
+            return "内部流程文档\n\n包含公司各项内部流程和操作指南。"
+        
+        # 处理机密资源
+        if uri == "knowledge://confidential/salary":
+            return "薪酬政策文档\n\n包含公司薪酬体系和相关机密信息。"
+        
+        if uri == "knowledge://confidential/financial":
+            return "财务信息文档\n\n包含公司财务数据和相关机密信息。"
+        
+        # 动态资源处理
         topic = uri[len("knowledge://"):]
         return f"知识库主题「{topic}」的相关内容描述"
 
