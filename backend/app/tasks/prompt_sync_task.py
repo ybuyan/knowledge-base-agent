@@ -25,10 +25,40 @@ class PromptSyncTask:
         try:
             logger.info("开始同步提示词配置...")
             
-            # 重新加载配置（会从数据库加载）
-            prompt_manager.reload()
+            from app.services.prompt_config_service import prompt_config_service
+            from app.core.mongodb import mongodb
             
-            logger.info(f"提示词配置同步完成: {datetime.now()}")
+            # 检查数据库是否已连接
+            if not mongodb.is_connected or mongodb.database is None:
+                logger.info("数据库未连接，跳过同步")
+                return
+            
+            # 从数据库加载配置
+            prompts = await prompt_config_service.get_all(enabled_only=False)
+            
+            if not prompts:
+                logger.warning("数据库中没有提示词配置")
+                return
+            
+            # 更新 PromptManager 的配置
+            prompt_manager._config = {
+                "version": prompts[0].get("version", "1.0") if prompts else "1.0",
+                "prompts": {
+                    p["id"]: {
+                        "id": p["id"],
+                        "name": p["name"],
+                        "description": p["description"],
+                        "enabled": p["enabled"],
+                        "category": p["category"],
+                        "template": p["template"],
+                        "variables": p["variables"]
+                    }
+                    for p in prompts
+                },
+                "categories": {}
+            }
+            
+            logger.info(f"提示词配置同步完成: {datetime.now()}, 共 {len(prompts)} 个")
             
         except Exception as e:
             logger.error(f"同步提示词配置失败: {e}")

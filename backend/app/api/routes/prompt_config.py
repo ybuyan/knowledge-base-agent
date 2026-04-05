@@ -224,7 +224,7 @@ async def reload_config(
         raise HTTPException(status_code=403, detail="权限不足")
     
     try:
-        prompt_manager.reload()
+        await prompt_manager.reload_async()
         return {
             "success": True,
             "message": "配置已重新加载"

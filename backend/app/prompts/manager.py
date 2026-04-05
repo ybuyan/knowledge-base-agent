@@ -74,6 +74,16 @@ class PromptManager:
                 logger.info("数据库未连接，跳过从数据库加载")
                 return False
             
+            # 检查是否已经在事件循环中
+            try:
+                loop = asyncio.get_running_loop()
+                # 已经在事件循环中，无法同步调用
+                logger.info("已在事件循环中，跳过从数据库加载")
+                return False
+            except RuntimeError:
+                # 没有运行中的事件循环，可以创建新的
+                pass
+            
             # 在同步上下文中运行异步函数
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
@@ -261,9 +271,48 @@ class PromptManager:
             logger.error(f"保存提示词配置失败: {e}")
     
     def reload(self) -> None:
-        """重新加载配置"""
+        """重新加载配置（同步版本）"""
         self._load_config()
         logger.info("提示词配置已重新加载")
+    
+    async def reload_async(self) -> None:
+        """重新加载配置（异步版本）"""
+        from app.services.prompt_config_service import prompt_config_service
+        from app.core.mongodb import mongodb
+        
+        # 尝试从数据库加载
+        if mongodb.is_connected and mongodb.database is not None:
+            try:
+                prompts = await prompt_config_service.get_all(enabled_only=False)
+                
+                if prompts:
+                    # 转换为配置格式
+                    self._config = {
+                        "version": prompts[0].get("version", "1.0") if prompts else "1.0",
+                        "prompts": {
+                            p["id"]: {
+                                "id": p["id"],
+                                "name": p["name"],
+                                "description": p["description"],
+                                "enabled": p["enabled"],
+                                "category": p["category"],
+                                "template": p["template"],
+                                "variables": p["variables"]
+                            }
+                            for p in prompts
+                        },
+                        "categories": {}
+                    }
+                    self._use_database = True
+                    logger.info(f"从数据库重新加载 {len(prompts)} 个提示词配置")
+                    return
+            except Exception as e:
+                logger.warning(f"从数据库重新加载失败: {e}")
+        
+        # 回退到文件加载
+        self._load_from_file()
+        self._use_database = False
+        logger.info("从文件重新加载提示词配置")
     
     def sync_to_database(self) -> Dict[str, Any]:
         """将当前配置同步到数据库"""
