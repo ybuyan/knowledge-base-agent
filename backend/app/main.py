@@ -108,9 +108,9 @@ async def startup_event():
     _audit_logger.start_batch_writer()
     logger.info("MCP 审计日志批量写入已启动")
     
-    # 启动提示词配置定时同步任务
+    # 启动提示词配置定时同步任务（初始化DB + 立即同步 + 定时刷新）
     from app.tasks.prompt_sync_task import prompt_sync_task
-    prompt_sync_task.start(interval_minutes=5)  # 每5分钟同步一次
+    await prompt_sync_task.startup(interval_minutes=5)
     logger.info("提示词配置定时同步任务已启动")
 
 

@@ -615,6 +615,7 @@ export interface FlowGuide {
   description: string
   steps: FlowStep[]
   status: 'active' | 'disabled'
+  triggers: string[]
   source_document_id?: string
   source_document_name?: string
   created_at: string

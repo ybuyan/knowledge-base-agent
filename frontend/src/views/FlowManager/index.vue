@@ -31,6 +31,7 @@ interface GuideForm {
   category: string
   description: string
   status: 'active' | 'disabled'
+  triggers: string[]
   steps: StepForm[]
 }
 
@@ -124,7 +125,7 @@ onMounted(() => {
 // ─── Dialog ───────────────────────────────────────────────────────────────────
 const openCreate = () => {
   isEdit.value = false
-  form.value = { name: '', category: '', description: '', status: 'active', steps: [emptyStep()] }
+  form.value = { name: '', category: '', description: '', status: 'active', triggers: [], steps: [emptyStep()] }
   dialogVisible.value = true
 }
 
@@ -136,6 +137,7 @@ const openEdit = (guide: FlowGuide) => {
     category: guide.category,
     description: guide.description,
     status: guide.status,
+    triggers: guide.triggers || [],
     steps: guide.steps.map(s => ({
       ...s,
       entryMode: s.entry_link?.external_link_id ? 'system' : 'manual',
@@ -207,6 +209,7 @@ const submitForm = async () => {
       category: form.value.category,
       description: form.value.description,
       status: form.value.status,
+      triggers: form.value.triggers,
       steps: buildSteps()
     }
     if (isEdit.value && form.value.id) {
@@ -519,6 +522,21 @@ const toggleStatus = async (guide: FlowGuide) => {
         
         <el-form-item label="Description">
           <el-input v-model="form.description" type="textarea" :rows="2" placeholder="Brief description of this template (optional)" />
+        </el-form-item>
+
+        <el-form-item label="触发关键词">
+          <el-select
+            v-model="form.triggers"
+            multiple
+            filterable
+            allow-create
+            default-first-option
+            placeholder="输入关键词后按 Enter 添加，用于意图匹配（如：报销、费用申请）"
+            style="width: 100%"
+          />
+          <div style="font-size: 12px; color: #909399; margin-top: 4px;">
+            用户说出这些词时，系统会自动引导到此流程。不填则默认用流程名称匹配。
+          </div>
         </el-form-item>
 
         <el-form-item label="Status">

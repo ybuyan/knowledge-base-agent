@@ -730,17 +730,42 @@ async def ask_question_stream_v2(request: ChatStreamRequest, http_request: Reque
             )
 
             if orch_handled:
-                # 处理不同类型的响应
-                full_response = orch_result.get("answer") or orch_result.get("message", "")
-                ui_components = orch_result.get("ui_components")
-                process_state = orch_result.get("process_state")
-                if full_response:
-                    yield ResponseBuilder.text_chunk(full_response)
-                yield ResponseBuilder.done_chunk(
-                    [], content=full_response,
-                    ui_components=ui_components,
-                    process_state=process_state,
-                )
+                intent = orch_result.get("intent", "")
+
+                # guide 意图：走流式输出
+                if intent == "guide":
+                    from app.agents.implementations.guide_agent import GuideAgent
+                    guide_agent = GuideAgent()
+                    async for event in guide_agent.run_stream({
+                        "query": request.question,
+                        "session_id": request.session_id,
+                        "history": history,
+                    }):
+                        if event["type"] == "text":
+                            full_response += event["content"]
+                            yield ResponseBuilder.text_chunk(event["content"])
+                        elif event["type"] == "done":
+                            ui_components = event.get("ui_components")
+                            yield ResponseBuilder.done_chunk(
+                                [], content=full_response,
+                                ui_components=ui_components,
+                            )
+                        elif event["type"] == "error":
+                            full_response = event["content"]
+                            yield ResponseBuilder.text_chunk(full_response)
+                            yield ResponseBuilder.done_chunk([])
+                else:
+                    # 其他已处理意图（confirm / memory / hybrid / leave_balance）：一次性发送
+                    full_response = orch_result.get("answer") or orch_result.get("message", "")
+                    ui_components = orch_result.get("ui_components")
+                    process_state = orch_result.get("process_state")
+                    if full_response:
+                        yield ResponseBuilder.text_chunk(full_response)
+                    yield ResponseBuilder.done_chunk(
+                        [], content=full_response,
+                        ui_components=ui_components,
+                        process_state=process_state,
+                    )
             else:
                 # qa / memory / hybrid：走原有流式 QAAgent
                 async for chunk in agent.process(request.question, history):

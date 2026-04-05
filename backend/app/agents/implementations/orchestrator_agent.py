@@ -159,10 +159,20 @@ class OrchestratorAgent(BaseAgent):
                 "guide_agent",
                 {"query": query, "session_id": session_id, "history": history},
             )
-            # 确保 intent 字段存在
             if "intent" not in result:
                 result["intent"] = "guide"
             return result
+
+        # 非 guide 意图时，清除 session 的流程锁定（用户切换了话题）
+        if session_id and intent in ("qa", "memory", "hybrid"):
+            try:
+                from app.core.process_context import get_process_context, clear_process_context
+                ctx = await get_process_context(session_id)
+                if ctx and ctx.get("guide_id"):
+                    await clear_process_context(session_id)
+                    logger.info("🔓 [GUIDE] 清除流程锁定 | session='%s' | intent='%s'", session_id, intent)
+            except Exception:
+                pass
 
         if intent == "memory":
             result = await agent_engine.execute(

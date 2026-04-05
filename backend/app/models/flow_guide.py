@@ -31,6 +31,7 @@ class FlowGuide(BaseModel):
     description: str
     steps: List[FlowStep]
     status: Literal["active", "disabled"]
+    triggers: List[str] = Field(default_factory=list)  # 触发关键词，用于意图匹配
     source_document_id: Optional[str] = None
     source_document_name: Optional[str] = None
     created_at: datetime
@@ -44,6 +45,7 @@ class FlowGuideCreate(BaseModel):
     description: str
     steps: List[FlowStep]
     status: Literal["active", "disabled"] = "active"
+    triggers: List[str] = Field(default_factory=list)
     source_document_id: Optional[str] = None
     source_document_name: Optional[str] = None
 
@@ -55,5 +57,6 @@ class FlowGuideUpdate(BaseModel):
     description: Optional[str] = None
     steps: Optional[List[FlowStep]] = None
     status: Optional[Literal["active", "disabled"]] = None
+    triggers: Optional[List[str]] = None
     source_document_id: Optional[str] = None
     source_document_name: Optional[str] = None

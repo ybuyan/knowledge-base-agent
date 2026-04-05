@@ -43,7 +43,13 @@ class LLMGenerator(BaseProcessor):
         logger.debug("   变量映射: %s", {k: f"{str(v)[:50]}..." if len(str(v)) > 50 else v 
                                         for k, v in prompt_vars.items()})
         
-        user_prompt = user_template.format(**prompt_vars)
+        user_prompt = user_template.format(**prompt_vars) if user_template else ""
+        # system_prompt 也支持变量替换（用于动态注入流程数据等场景）
+        if system_prompt and prompt_vars:
+            try:
+                system_prompt = system_prompt.format(**prompt_vars)
+            except (KeyError, ValueError):
+                pass  # 模板中有未定义变量时保持原样
         
         # 获取对话历史
         history = context.get("history", [])
