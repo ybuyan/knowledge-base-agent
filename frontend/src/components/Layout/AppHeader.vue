@@ -3,8 +3,10 @@ import { Moon, Sunny, Setting, User } from '@element-plus/icons-vue'
 import logoUrl from '../../../public/logo.png?url'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 
 const router = useRouter()
+const authStore = useAuthStore()
 const isDarkMode = ref(false)
 
 const toggleTheme = () => {
@@ -34,7 +36,7 @@ const navigateToSettings = () => {
         </el-icon>
       </button>
       
-      <button class="icon-btn no-border" title="设置" @click="navigateToSettings">
+      <button v-if="authStore.isHR" class="icon-btn no-border" title="设置" @click="navigateToSettings">
         <el-icon :size="18"><Setting /></el-icon>
       </button>
       
