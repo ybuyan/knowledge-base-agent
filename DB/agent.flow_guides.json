@@ -1,0 +1,367 @@
+[{
+  "_id": {
+    "$oid": "69d07f8cd75bcfe3dbe37658"
+  },
+  "id": "912b80eb-a16a-49e4-b929-89c67a159377",
+  "name": "请假申请流程",
+  "category": "人事行政",
+  "description": "描述员工如何申请各类假期并完成审批备案的流程。",
+  "steps": [
+    {
+      "sequence": 1,
+      "title": "填写请假申请表",
+      "description": "员工提前填写《请假申请表》，注明请假类型、时间、事由及工作交接安排",
+      "entry_link": {
+        "external_link_id": null,
+        "label": "LMS",
+        "url": "https://sdcleave.asia.pwcinternal.com/SDCLeave/Leave/pgLeaveBalance.aspx?ServiceTicket=Q041NDIwNDR8N2NiMjRhNTgtYWJjNC00MzIyLWI0MjUtZDk5OWUzMTBhNGRj",
+        "open_in_new_tab": true
+      }
+    },
+    {
+      "sequence": 2,
+      "title": "部门经理审批",
+      "description": "直属部门经理进行审批，审批时限为1个工作日",
+      "entry_link": null
+    },
+    {
+      "sequence": 3,
+      "title": "人力资源部审核",
+      "description": "人力资源部对请假申请进行审核，审核时限为1个工作日",
+      "entry_link": null
+    },
+    {
+      "sequence": 4,
+      "title": "分管领导审批（如适用）",
+      "description": "若请假时间超过3天，需提交分管领导审批",
+      "entry_link": null
+    },
+    {
+      "sequence": 5,
+      "title": "备案",
+      "description": "请假申请通过后，员工将申请表提交至人力资源部备案",
+      "entry_link": null
+    }
+  ],
+  "status": "active",
+  "source_document_id": "21f26cfd-dbd3-464f-b79d-b59d62cb6ffe",
+  "source_document_name": "流程文档.docx",
+  "created_at": {
+    "$date": "2026-04-04T03:03:40.454Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-05T01:57:55.182Z"
+  },
+  "triggers": [
+    "请假",
+    "休假",
+    "年假",
+    "病假",
+    "事假",
+    "婚假",
+    "产假",
+    "陪产假",
+    "高温假",
+    "调休"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69d07f8cd75bcfe3dbe37659"
+  },
+  "id": "c119e335-e811-44ba-aa81-830fb7ee5085",
+  "name": "报销申请流程",
+  "category": "财务报销",
+  "description": "描述员工因工作产生费用后提交报销的完整流程。",
+  "steps": [
+    {
+      "sequence": 1,
+      "title": "准备凭证并填写报销单",
+      "description": "员工收集发票、收据等费用凭证，并填写《费用报销单》",
+      "entry_link": null
+    },
+    {
+      "sequence": 2,
+      "title": "部门经理审核",
+      "description": "部门经理对报销内容进行审核，审核时限为1个工作日",
+      "entry_link": null
+    },
+    {
+      "sequence": 3,
+      "title": "财务部审核",
+      "description": "财务部对报销材料进行审核，审核时限为2个工作日",
+      "entry_link": null
+    },
+    {
+      "sequence": 4,
+      "title": "财务总监审批（大额）",
+      "description": "金额超过5000元时，需财务总监审批",
+      "entry_link": null
+    },
+    {
+      "sequence": 5,
+      "title": "财务部付款",
+      "description": "审批通过后，财务部在3个工作日内完成付款",
+      "entry_link": null
+    }
+  ],
+  "status": "active",
+  "source_document_id": "21f26cfd-dbd3-464f-b79d-b59d62cb6ffe",
+  "source_document_name": "流程文档.docx",
+  "created_at": {
+    "$date": "2026-04-04T03:03:40.457Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-05T01:57:55.184Z"
+  },
+  "triggers": [
+    "报销",
+    "费用申请",
+    "费用报销",
+    "申请报销"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69d07f8cd75bcfe3dbe3765a"
+  },
+  "id": "c626c08d-4e9d-4f61-9fb4-1a89445323d7",
+  "name": "入职办理流程",
+  "category": "人事行政",
+  "description": "描述新入职员工办理入职手续及相关准备工作的流程。",
+  "steps": [
+    {
+      "sequence": 1,
+      "title": "发出录用通知",
+      "description": "人力资源部向新员工发出录用通知，明确入职时间及所需材料",
+      "entry_link": null
+    },
+    {
+      "sequence": 2,
+      "title": "提交入职材料",
+      "description": "新员工入职当天提交身份证、学历证明、体检报告等相关材料",
+      "entry_link": null
+    },
+    {
+      "sequence": 3,
+      "title": "办理入职手续",
+      "description": "人力资源部办理劳动合同签订、社保公积金开户、发放工牌等手续",
+      "entry_link": null
+    },
+    {
+      "sequence": 4,
+      "title": "岗位培训与工作交接",
+      "description": "部门负责人安排岗位培训及工作交接",
+      "entry_link": null
+    },
+    {
+      "sequence": 5,
+      "title": "配置办公设备和权限",
+      "description": "IT部门为新员工配置办公设备及系统权限",
+      "entry_link": null
+    }
+  ],
+  "status": "active",
+  "source_document_id": "21f26cfd-dbd3-464f-b79d-b59d62cb6ffe",
+  "source_document_name": "流程文档.docx",
+  "created_at": {
+    "$date": "2026-04-04T03:03:40.459Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-05T01:57:55.185Z"
+  },
+  "triggers": [
+    "入职",
+    "新员工",
+    "入职手续",
+    "办理入职"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69d07f8cd75bcfe3dbe3765b"
+  },
+  "id": "52b59fb2-e96d-4f90-8ac5-80df4666aba3",
+  "name": "离职审批流程",
+  "category": "人事行政",
+  "description": "描述员工提出离职申请并完成审批和手续办理的流程。",
+  "steps": [
+    {
+      "sequence": 1,
+      "title": "提交离职申请",
+      "description": "员工提前30天提交书面离职申请（试用期提前3天）",
+      "entry_link": null
+    },
+    {
+      "sequence": 2,
+      "title": "部门经理面谈",
+      "description": "部门经理与员工面谈，了解离职原因",
+      "entry_link": null
+    },
+    {
+      "sequence": 3,
+      "title": "人力资源部审核",
+      "description": "人力资源部审核离职申请",
+      "entry_link": null
+    },
+    {
+      "sequence": 4,
+      "title": "办理工作交接",
+      "description": "交还公司财物、转移工作文档等",
+      "entry_link": null
+    },
+    {
+      "sequence": 5,
+      "title": "办理离职手续",
+      "description": "人力资源部结算工资、停缴社保公积金等",
+      "entry_link": null
+    }
+  ],
+  "status": "active",
+  "source_document_id": "21f26cfd-dbd3-464f-b79d-b59d62cb6ffe",
+  "source_document_name": "流程文档.docx",
+  "created_at": {
+    "$date": "2026-04-04T03:03:40.460Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-05T01:57:55.187Z"
+  },
+  "triggers": [
+    "离职",
+    "辞职",
+    "辞退",
+    "离职手续",
+    "申请离职"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69d07f8cd75bcfe3dbe3765c"
+  },
+  "id": "0bd03462-5b09-412f-818e-ad903adcbc7f",
+  "name": "差旅报销流程",
+  "category": "财务报销",
+  "description": "描述员工出差前申请及出差后报销费用的全流程。",
+  "steps": [
+    {
+      "sequence": 1,
+      "title": "填写出差申请表",
+      "description": "员工填写《出差申请表》，注明出差时间、地点、事由及预算",
+      "entry_link": null
+    },
+    {
+      "sequence": 2,
+      "title": "部门经理审批",
+      "description": "部门经理审批出差申请，审批时限为1个工作日",
+      "entry_link": null
+    },
+    {
+      "sequence": 3,
+      "title": "人力资源部备案",
+      "description": "人力资源部对批准的出差申请进行备案",
+      "entry_link": null
+    },
+    {
+      "sequence": 4,
+      "title": "提交差旅报销单",
+      "description": "出差结束后7天内提交《差旅报销单》及相关凭证",
+      "entry_link": null
+    },
+    {
+      "sequence": 5,
+      "title": "财务部审核",
+      "description": "财务部对报销材料进行审核，审核时限为2个工作日",
+      "entry_link": null
+    },
+    {
+      "sequence": 6,
+      "title": "财务总监审批（大额）",
+      "description": "金额超过5000元时，需财务总监审批",
+      "entry_link": null
+    },
+    {
+      "sequence": 7,
+      "title": "财务部付款",
+      "description": "审批通过后，财务部在3个工作日内完成付款",
+      "entry_link": null
+    }
+  ],
+  "status": "active",
+  "source_document_id": "21f26cfd-dbd3-464f-b79d-b59d62cb6ffe",
+  "source_document_name": "流程文档.docx",
+  "created_at": {
+    "$date": "2026-04-04T03:03:40.462Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-05T03:02:55.628Z"
+  },
+  "triggers": [
+    "差旅",
+    "出差",
+    "差旅报销",
+    "出差报销",
+    "差旅费"
+  ]
+},
+{
+  "_id": {
+    "$oid": "69d07f8cd75bcfe3dbe3765d"
+  },
+  "id": "95e3ae90-c2d9-44f7-870f-b52848638624",
+  "name": "转正流程",
+  "category": "人事行政",
+  "description": "描述试用期员工申请转正并完成评估和手续办理的流程。",
+  "steps": [
+    {
+      "sequence": 1,
+      "title": "提交转正申请",
+      "description": "试用期结束前15天，员工提交《转正申请表》",
+      "entry_link": null
+    },
+    {
+      "sequence": 2,
+      "title": "部门负责人评估",
+      "description": "部门负责人进行试用期评估，填写《员工试用期评估表》",
+      "entry_link": null
+    },
+    {
+      "sequence": 3,
+      "title": "人力资源部审核",
+      "description": "人力资源部审核评估结果",
+      "entry_link": null
+    },
+    {
+      "sequence": 4,
+      "title": "分管领导审批",
+      "description": "分管领导对转正申请进行审批",
+      "entry_link": null
+    },
+    {
+      "sequence": 5,
+      "title": "通知转正结果",
+      "description": "人力资源部通知员工最终转正结果",
+      "entry_link": null
+    },
+    {
+      "sequence": 6,
+      "title": "办理转正手续",
+      "description": "调整薪资、签订正式劳动合同等",
+      "entry_link": null
+    }
+  ],
+  "status": "active",
+  "source_document_id": "21f26cfd-dbd3-464f-b79d-b59d62cb6ffe",
+  "source_document_name": "流程文档.docx",
+  "created_at": {
+    "$date": "2026-04-04T03:03:40.465Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-05T01:57:55.191Z"
+  },
+  "triggers": [
+    "转正",
+    "试用期",
+    "转正申请",
+    "申请转正"
+  ]
+}]

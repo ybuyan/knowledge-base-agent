@@ -30,10 +30,10 @@ class EmbeddingCache:
     def set(self, text: str, embedding: List[float]):
         key = self._hash(text)
         if key in self._cache:
-            self._cache.move_to_end(key)
+            self._cache.move_to_end(key)  # LRU策略：将已存在的键移到末尾，表示最近使用
         self._cache[key] = embedding
         if len(self._cache) > self._maxsize:
-            evicted = self._cache.popitem(last=False)
+            evicted = self._cache.popitem(last=False)  # 淘汰最旧的项（FIFO）
             logger.debug(f"Embedding缓存淘汰: {evicted[0][:8]}...")
     
     def clear(self):

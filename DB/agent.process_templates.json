@@ -1,0 +1,273 @@
+[{
+  "_id": "69c7bc0be6c44c594d080901",
+  "id": "69c7bc0be6c44c594d080901",
+  "name": "请假申请流程",
+  "category": "请假",
+  "steps": [
+    {
+      "step_number": 1,
+      "action": "员工填写请假申请表，注明请假类型、时间、原因",
+      "responsible_person": "员工",
+      "estimated_time": "即时",
+      "notes": "年假需提前3天申请；紧急情况可先电话请假，后补手续"
+    },
+    {
+      "step_number": 2,
+      "action": "提交直属主管审批",
+      "responsible_person": "直属主管",
+      "estimated_time": "1个工作日内",
+      "notes": ""
+    },
+    {
+      "step_number": 3,
+      "action": "主管审批通过后，提交HR部门审核",
+      "responsible_person": "HR部门",
+      "estimated_time": "1个工作日内",
+      "notes": ""
+    },
+    {
+      "step_number": 4,
+      "action": "HR审核通过后，系统自动通知员工",
+      "responsible_person": "HR系统",
+      "estimated_time": "即时",
+      "notes": ""
+    }
+  ],
+  "materials": [
+    {
+      "material_name": "请假申请表",
+      "is_required": true,
+      "description": "填写请假类型、时间、原因等信息",
+      "example": "事假/病假/年假，2024-05-10至2024-05-12，感冒发烧",
+      "form_link": ""
+    },
+    {
+      "material_name": "医院证明",
+      "is_required": false,
+      "description": "医院开具的诊断证明或病假条，仅病假必需",
+      "example": "XX医院门诊病假条（盖章）",
+      "form_link": ""
+    }
+  ],
+  "created_at": "2026-03-28T11:31:23.056000",
+  "updated_at": "2026-03-30T07:35:42.669000",
+  "source_document_id": null,
+  "confidence": 0.8,
+  "description": "请假相关流程，适用于通用类型",
+  "source": "system",
+  "created_by": null,
+  "keywords": [
+    "年假",
+    "病假",
+    "事假",
+    "婚假",
+    "产假",
+    "请假"
+  ],
+  "status": "active",
+  "updated_by": null,
+  "usage_count": 0,
+  "version": 2,
+  "guidance_config": {
+    "intro_prompt": "好的，我来帮您办理{process_name}。",
+    "params": [
+      {
+        "name": "leave_type",
+        "display_name": "请假类型",
+        "required": true,
+        "question_template": "请问您需要请什么类型的假？",
+        "options": [
+          {
+            "label": "年假",
+            "value": "年假",
+            "description": "带薪年休假"
+          },
+          {
+            "label": "病假",
+            "value": "病假",
+            "description": "因病需要休息"
+          },
+          {
+            "label": "事假",
+            "value": "事假",
+            "description": "个人事务请假"
+          },
+          {
+            "label": "婚假",
+            "value": "婚假",
+            "description": "结婚请假"
+          },
+          {
+            "label": "产假",
+            "value": "产假",
+            "description": "生育请假"
+          }
+        ],
+        "options_source": "custom",
+        "validation_type": "text"
+      },
+      {
+        "name": "days",
+        "display_name": "请假天数",
+        "required": true,
+        "question_template": "{leave_type}需要提前申请。请问您计划请假几天？",
+        "options": [
+          {
+            "label": "1天",
+            "value": "1"
+          },
+          {
+            "label": "2-3天",
+            "value": "2-3"
+          },
+          {
+            "label": "3-5天",
+            "value": "3-5"
+          },
+          {
+            "label": "5天以上",
+            "value": "5+"
+          }
+        ],
+        "options_source": "custom",
+        "validation_type": "text"
+      },
+      {
+        "name": "date_range",
+        "display_name": "请假日期",
+        "required": true,
+        "question_template": "请告诉我您的请假日期范围？例如：1月15日到1月18日",
+        "options": [],
+        "options_source": "custom",
+        "validation_type": "date_range"
+      }
+    ],
+    "completion_prompt": "已为您生成个性化流程指引：",
+    "deviation_detection": {
+      "enabled": true,
+      "sensitivity": "medium"
+    },
+    "skip_prompt": "已熟悉流程？"
+  }
+},
+{
+  "_id": "69c7cb61e176cf522aaa167d",
+  "id": null,
+  "name": "转正流程",
+  "category": "转正",
+  "steps": [
+    {
+      "step_number": 1,
+      "action": "员工试用期满前提交转正申请（或系统自动触发）",
+      "responsible_person": "员工本人",
+      "estimated_time": "即时",
+      "notes": "需在试用期结束前至少3个工作日提出"
+    },
+    {
+      "step_number": 2,
+      "action": "部门主管开展转正考核与评估，填写转正审批意见",
+      "responsible_person": "直属主管",
+      "estimated_time": "1个工作日",
+      "notes": "依据工作表现、目标达成、团队协作等维度综合评价；需明确是否同意转正及理由"
+    },
+    {
+      "step_number": 3,
+      "action": "人力资源部审核转正资格及材料完整性",
+      "responsible_person": "人力资源部",
+      "estimated_time": "半个工作日",
+      "notes": "核查试用期时长、考勤记录、考核结果、劳动合同约定等"
+    },
+    {
+      "step_number": 4,
+      "action": "HR办理转正手续：更新劳动合同状态、薪资档案、系统权限等",
+      "responsible_person": "人力资源部",
+      "estimated_time": "半个工作日",
+      "notes": "同步通知员工及用人部门转正生效日期"
+    }
+  ],
+  "materials": [
+    {
+      "material_name": "转正申请书",
+      "is_required": true,
+      "description": "员工本人提交的书面/系统转正申请",
+      "example": "本人于2024年6月1日入职，试用期至2024年8月31日，现申请按期转正。",
+      "form_link": "https://hr.example.com/form/transfer-approval"
+    },
+    {
+      "material_name": "转正考核表",
+      "is_required": true,
+      "description": "由直属主管填写的绩效与胜任力评估表",
+      "example": "工作质量：优秀；任务完成率：100%；沟通协作：良好；综合评定：同意转正",
+      "form_link": "https://hr.example.com/form/transfer-evaluation"
+    },
+    {
+      "material_name": "试用期工作总结",
+      "is_required": false,
+      "description": "员工对试用期内工作内容、成果及改进点的简要总结",
+      "example": "完成XX项目需求分析与原型设计；独立承担3次客户演示；参与部门知识库建设。",
+      "form_link": "https://hr.example.com/form/probation-summary"
+    }
+  ],
+  "created_at": "2026-03-28T12:36:49.263000",
+  "updated_at": "2026-03-28T12:36:49.263000",
+  "source_document_id": null,
+  "confidence": 0.8
+},
+{
+  "_id": "69c8ae9e73d769a6aedb6692",
+  "id": "69c8ae9e73d769a6aedb6692",
+  "name": "报销流程",
+  "category": "报销",
+  "description": "添加报销流程",
+  "steps": [
+    {
+      "step_number": 1,
+      "action": "员工准备报销发票以及相关材料",
+      "responsible_person": "员工本人",
+      "estimated_time": "即时",
+      "notes": ""
+    },
+    {
+      "step_number": 2,
+      "action": "员工进入报销系统填报信息上传相关资料并选择审批人提交",
+      "responsible_person": "员工本人",
+      "estimated_time": "",
+      "notes": "实报实销"
+    },
+    {
+      "step_number": 3,
+      "action": "等待审批人approve",
+      "responsible_person": "部门主管",
+      "estimated_time": "1个工作日",
+      "notes": ""
+    },
+    {
+      "step_number": 4,
+      "action": "部门主管approve后将实体文件提交到信箱",
+      "responsible_person": "员工本人",
+      "estimated_time": "半个工作日",
+      "notes": ""
+    },
+    {
+      "step_number": 5,
+      "action": "等待财务核实",
+      "responsible_person": "财务相关人员",
+      "estimated_time": "1个工作日",
+      "notes": ""
+    }
+  ],
+  "materials": [
+    {
+      "material_name": "相关发票，以及水票",
+      "is_required": true,
+      "description": "需要真实材料，请勿弄虚作假",
+      "example": "",
+      "form_link": "https://hr.example.com/form/transfer-approval"
+    }
+  ],
+  "source": "manual",
+  "created_at": "2026-03-29T04:46:22.888000",
+  "updated_at": "2026-03-29T04:52:53.191000",
+  "source_document_id": null,
+  "confidence": null
+}]

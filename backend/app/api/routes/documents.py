@@ -20,40 +20,68 @@ logger = logging.getLogger(__name__)
 _scanning_task = None
 
 async def scan_and_process_server_files():
-    """Background task to scan and process files uploaded directly to server"""
+    """
+    后台扫描任务：扫描并处理直接上传到服务器的文件
+    
+    功能：
+    - 每 30 秒扫描一次 uploads 目录
+    - 处理直接通过文件系统上传的文档
+    - 自动生成 doc_id 并标准化文件名
+    - 检查文档是否已在数据库中
+    - 处理新文档（添加到数据库并索引）
+    
+    处理流程：
+    1. 扫描 uploads 目录中的所有文件
+    2. 从文件名提取或生成 doc_id
+    3. 标准化文件名为 {doc_id}_{原始文件名}
+    4. 检查文档是否已存在于数据库
+    5. 处理新文档（调用 process_document_task）
+    6. 休眠 30 秒后再次扫描
+    """
     while True:
         try:
             logger.info("Scanning for new server-uploaded files...")
             for filename in os.listdir(UPLOAD_DIR):
                 file_path = os.path.join(UPLOAD_DIR, filename)
                 if os.path.isfile(file_path):
-                    # Extract doc_id from filename
+                    # 从文件名提取 doc_id
                     parts = filename.split('_', 1)
                     if len(parts) == 2:
                         doc_id, original_filename = parts
                     else:
+                        # 生成新的 doc_id 并标准化文件名
                         doc_id = str(uuid.uuid4())
                         original_filename = filename
-                        # Rename to standard format
+                        # 重命名为标准格式
                         new_file_path = os.path.join(UPLOAD_DIR, f"{doc_id}_{original_filename}")
                         os.rename(file_path, new_file_path)
                         file_path = new_file_path
                     
-                    # Check if already in database
+                    # 检查文档是否已在数据库中
                     existing_doc = await DocumentDB.get(doc_id)
                     if not existing_doc:
-                        # New file found, process it
+                        # 发现新文件，处理它
                         logger.info(f"Found new server-uploaded file: {original_filename}")
                         await process_document_task(file_path, doc_id, original_filename)
             
-            # Sleep for 30 seconds before next scan
+            # 30 秒后再次扫描
             await asyncio.sleep(30)
         except Exception as e:
             logger.error(f"Error in scan_and_process_server_files: {e}")
             await asyncio.sleep(30)
 
 def start_background_scanner():
-    """Start the background file scanner"""
+    """
+    启动后台文件扫描器
+    
+    功能：
+    - 创建并启动扫描任务的异步协程
+    - 确保只启动一个扫描任务实例
+    
+    注意：
+    - 扫描任务会在后台持续运行
+    - 每 30 秒扫描一次 uploads 目录
+    """
     global _scanning_task
     if _scanning_task is None:
         _scanning_task = asyncio.create_task(scan_and_process_server_files())

@@ -1,0 +1,282 @@
+[{
+  "_id": "86636841-dfb3-4c94-9310-5f68d8713919",
+  "username": "hr",
+  "year": 2026,
+  "balances": {
+    "年假": {
+      "total_days": 15,
+      "used_days": 5,
+      "remaining_days": 10
+    },
+    "病假": {
+      "total_days": 10,
+      "used_days": 2,
+      "remaining_days": 8
+    },
+    "事假": {
+      "total_days": 5,
+      "used_days": 1,
+      "remaining_days": 4
+    },
+    "婚假": {
+      "total_days": 3,
+      "used_days": 0,
+      "remaining_days": 3
+    }
+  },
+  "updated_at": {
+    "$date": "2026-04-04T12:22:31.166Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d102c8ce945fe0235363ba"
+  },
+  "user_id": "7afcb609-df93-4da5-ad6e-319832a5c2e8",
+  "username": "hr",
+  "leave_type": "年假",
+  "year": 2026,
+  "total_quota": 10,
+  "used_days": 3,
+  "remaining_days": 7,
+  "updated_at": {
+    "$date": "2026-04-04T12:23:36.327Z"
+  },
+  "created_at": {
+    "$date": "2026-04-04T12:23:36.327Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d102c8ce945fe0235363bb"
+  },
+  "user_id": "7afcb609-df93-4da5-ad6e-319832a5c2e8",
+  "username": "hr",
+  "leave_type": "病假",
+  "year": 2026,
+  "total_quota": -1,
+  "used_days": 0,
+  "remaining_days": -1,
+  "updated_at": {
+    "$date": "2026-04-04T12:23:36.329Z"
+  },
+  "created_at": {
+    "$date": "2026-04-04T12:23:36.329Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d102c8ce945fe0235363bc"
+  },
+  "user_id": "7afcb609-df93-4da5-ad6e-319832a5c2e8",
+  "username": "hr",
+  "leave_type": "事假",
+  "year": 2026,
+  "total_quota": -1,
+  "used_days": 0,
+  "remaining_days": -1,
+  "updated_at": {
+    "$date": "2026-04-04T12:23:36.331Z"
+  },
+  "created_at": {
+    "$date": "2026-04-04T12:23:36.331Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d102c8ce945fe0235363bd"
+  },
+  "user_id": "7afcb609-df93-4da5-ad6e-319832a5c2e8",
+  "username": "hr",
+  "leave_type": "婚假",
+  "year": 2026,
+  "total_quota": 10,
+  "used_days": 3,
+  "remaining_days": 7,
+  "updated_at": {
+    "$date": "2026-04-04T12:23:36.332Z"
+  },
+  "created_at": {
+    "$date": "2026-04-04T12:23:36.332Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d102c8ce945fe0235363be"
+  },
+  "user_id": "7afcb609-df93-4da5-ad6e-319832a5c2e8",
+  "username": "hr",
+  "leave_type": "产假",
+  "year": 2026,
+  "total_quota": 98,
+  "used_days": 29.4,
+  "remaining_days": 68.6,
+  "updated_at": {
+    "$date": "2026-04-04T12:23:36.333Z"
+  },
+  "created_at": {
+    "$date": "2026-04-04T12:23:36.333Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d102c8ce945fe0235363bf"
+  },
+  "user_id": "7afcb609-df93-4da5-ad6e-319832a5c2e8",
+  "username": "hr",
+  "leave_type": "陪产假",
+  "year": 2026,
+  "total_quota": 15,
+  "used_days": 4.5,
+  "remaining_days": 10.5,
+  "updated_at": {
+    "$date": "2026-04-04T12:23:36.334Z"
+  },
+  "created_at": {
+    "$date": "2026-04-04T12:23:36.334Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d102c8ce945fe0235363c0"
+  },
+  "user_id": "7afcb609-df93-4da5-ad6e-319832a5c2e8",
+  "username": "hr",
+  "leave_type": "高温假",
+  "year": 2026,
+  "total_quota": 5,
+  "used_days": 1.5,
+  "remaining_days": 3.5,
+  "updated_at": {
+    "$date": "2026-04-04T12:23:36.335Z"
+  },
+  "created_at": {
+    "$date": "2026-04-04T12:23:36.335Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d102c8ce945fe0235363c1"
+  },
+  "user_id": "94ffac08-abdf-4ab3-b78f-53ba4e3f15c6",
+  "username": "bob",
+  "leave_type": "年假",
+  "year": 2026,
+  "total_quota": 10,
+  "used_days": 3,
+  "remaining_days": 7,
+  "updated_at": {
+    "$date": "2026-04-04T12:23:36.336Z"
+  },
+  "created_at": {
+    "$date": "2026-04-04T12:23:36.337Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d102c8ce945fe0235363c2"
+  },
+  "user_id": "94ffac08-abdf-4ab3-b78f-53ba4e3f15c6",
+  "username": "bob",
+  "leave_type": "病假",
+  "year": 2026,
+  "total_quota": -1,
+  "used_days": 0,
+  "remaining_days": -1,
+  "updated_at": {
+    "$date": "2026-04-04T12:23:36.338Z"
+  },
+  "created_at": {
+    "$date": "2026-04-04T12:23:36.338Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d102c8ce945fe0235363c3"
+  },
+  "user_id": "94ffac08-abdf-4ab3-b78f-53ba4e3f15c6",
+  "username": "bob",
+  "leave_type": "事假",
+  "year": 2026,
+  "total_quota": -1,
+  "used_days": 0,
+  "remaining_days": -1,
+  "updated_at": {
+    "$date": "2026-04-04T12:23:36.340Z"
+  },
+  "created_at": {
+    "$date": "2026-04-04T12:23:36.340Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d102c8ce945fe0235363c4"
+  },
+  "user_id": "94ffac08-abdf-4ab3-b78f-53ba4e3f15c6",
+  "username": "bob",
+  "leave_type": "婚假",
+  "year": 2026,
+  "total_quota": 10,
+  "used_days": 3,
+  "remaining_days": 7,
+  "updated_at": {
+    "$date": "2026-04-04T12:23:36.341Z"
+  },
+  "created_at": {
+    "$date": "2026-04-04T12:23:36.341Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d102c8ce945fe0235363c5"
+  },
+  "user_id": "94ffac08-abdf-4ab3-b78f-53ba4e3f15c6",
+  "username": "bob",
+  "leave_type": "产假",
+  "year": 2026,
+  "total_quota": 98,
+  "used_days": 29.4,
+  "remaining_days": 68.6,
+  "updated_at": {
+    "$date": "2026-04-04T12:23:36.342Z"
+  },
+  "created_at": {
+    "$date": "2026-04-04T12:23:36.342Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d102c8ce945fe0235363c6"
+  },
+  "user_id": "94ffac08-abdf-4ab3-b78f-53ba4e3f15c6",
+  "username": "bob",
+  "leave_type": "陪产假",
+  "year": 2026,
+  "total_quota": 15,
+  "used_days": 4.5,
+  "remaining_days": 10.5,
+  "updated_at": {
+    "$date": "2026-04-04T12:23:36.345Z"
+  },
+  "created_at": {
+    "$date": "2026-04-04T12:23:36.345Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d102c8ce945fe0235363c7"
+  },
+  "user_id": "94ffac08-abdf-4ab3-b78f-53ba4e3f15c6",
+  "username": "bob",
+  "leave_type": "高温假",
+  "year": 2026,
+  "total_quota": 5,
+  "used_days": 1.5,
+  "remaining_days": 3.5,
+  "updated_at": {
+    "$date": "2026-04-04T12:23:36.347Z"
+  },
+  "created_at": {
+    "$date": "2026-04-04T12:23:36.347Z"
+  }
+}]

@@ -1,0 +1,56 @@
+[{
+  "_id": "3a48c5d1-8c51-4844-a10d-0f5df0b2e448",
+  "username": "hr",
+  "leave_type": "年假",
+  "start_date": "2026-01-06",
+  "end_date": "2026-01-08",
+  "days": 3,
+  "status": "approved",
+  "reason": "春节前休假",
+  "approved_by": "admin",
+  "created_at": {
+    "$date": "2026-04-02T14:16:22.645Z"
+  }
+},
+{
+  "_id": "b1ae3486-0eef-42eb-9312-a243fd8280e7",
+  "username": "hr",
+  "leave_type": "病假",
+  "start_date": "2026-02-10",
+  "end_date": "2026-02-11",
+  "days": 2,
+  "status": "approved",
+  "reason": "身体不适",
+  "approved_by": "admin",
+  "created_at": {
+    "$date": "2026-04-02T14:16:22.645Z"
+  }
+},
+{
+  "_id": "375d276e-6c5b-4946-b2d7-b5a7026d0f99",
+  "username": "hr",
+  "leave_type": "年假",
+  "start_date": "2026-04-03",
+  "end_date": "2026-04-04",
+  "days": 2,
+  "status": "pending",
+  "reason": "清明节调休",
+  "approved_by": null,
+  "created_at": {
+    "$date": "2026-04-02T14:16:22.645Z"
+  }
+},
+{
+  "_id": "95a3b126-4567-49ec-81a9-d4a2de0e08d0",
+  "username": "hr",
+  "leave_type": "事假",
+  "start_date": "2026-05-20",
+  "end_date": "2026-05-20",
+  "days": 1,
+  "status": "approved",
+  "reason": "家庭事务",
+  "approved_by": "admin",
+  "created_at": {
+    "$date": "2026-04-02T14:16:22.645Z"
+  }
+}]

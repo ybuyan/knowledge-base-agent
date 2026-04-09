@@ -1,0 +1,118 @@
+[{
+  "_id": {
+    "$oid": "69cf25eb970c861775c12f34"
+  },
+  "session_id": "test-fix-001",
+  "collected_data": {
+    "display_name": "HR",
+    "username": "hr",
+    "department": "人力资源部"
+  },
+  "current_step": 1,
+  "expires_at": {
+    "$date": "2026-04-04T02:28:59.223Z"
+  },
+  "flow_id": "leave_apply",
+  "updated_at": {
+    "$date": "2026-04-03T02:28:59.223Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69cf2748970c861775c12f38"
+  },
+  "session_id": "69cf26374ce2da868b05e9c1",
+  "collected_data": {
+    "display_name": "HR",
+    "username": "hr",
+    "department": "人力资源部"
+  },
+  "current_step": 1,
+  "expires_at": {
+    "$date": "2026-04-04T02:34:48.448Z"
+  },
+  "flow_id": "leave_apply",
+  "updated_at": {
+    "$date": "2026-04-03T02:34:48.448Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69cf73b5970c861775c12f3a"
+  },
+  "session_id": "69cf73ac1391d5528dc4df25",
+  "collected_data": {
+    "display_name": "HR",
+    "username": "hr",
+    "department": "人力资源部"
+  },
+  "current_step": 1,
+  "expires_at": {
+    "$date": "2026-04-04T08:00:53.013Z"
+  },
+  "flow_id": "leave_apply",
+  "updated_at": {
+    "$date": "2026-04-03T08:00:53.013Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69cf833c970c861775c12f3d"
+  },
+  "session_id": "69cf8328e558ebf12b278167",
+  "collected_data": {
+    "display_name": "HR",
+    "department": "人力资源部",
+    "username": "hr"
+  },
+  "current_step": 1,
+  "expires_at": {
+    "$date": "2026-04-04T09:07:08.194Z"
+  },
+  "flow_id": "leave_apply",
+  "updated_at": {
+    "$date": "2026-04-03T09:07:08.194Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d1cc8a970c861775c12f40"
+  },
+  "session_id": "69d1cc7b49668234c1bafc1f",
+  "expires_at": {
+    "$date": "2026-04-06T02:44:26.632Z"
+  },
+  "guide_id": "912b80eb-a16a-49e4-b929-89c67a159377",
+  "guide_name": "请假申请流程",
+  "updated_at": {
+    "$date": "2026-04-05T02:44:26.632Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d1ce9c970c861775c12f41"
+  },
+  "session_id": "69d1ce9486520f0d4491272c",
+  "expires_at": {
+    "$date": "2026-04-06T02:54:42.976Z"
+  },
+  "guide_id": "c119e335-e811-44ba-aa81-830fb7ee5085",
+  "guide_name": "报销申请流程",
+  "updated_at": {
+    "$date": "2026-04-05T02:54:42.976Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69d1d113970c861775c12f42"
+  },
+  "session_id": "69d1d10503418ea03c74b9e4",
+  "expires_at": {
+    "$date": "2026-04-06T03:03:49.402Z"
+  },
+  "guide_id": "0bd03462-5b09-412f-818e-ad903adcbc7f",
+  "guide_name": "差旅报销流程",
+  "updated_at": {
+    "$date": "2026-04-05T03:03:49.402Z"
+  }
+}]

@@ -1,0 +1,82 @@
+[{
+  "_id": {
+    "$oid": "69ce6ad70654411e344a05f8"
+  },
+  "export_summary": {
+    "database": "agent",
+    "total_collections": 13,
+    "successful_exports": 11,
+    "failed_exports": 2,
+    "total_documents": 332,
+    "export_time": "2026-04-02T20:54:12.858637"
+  },
+  "details": [
+    {
+      "collection": "document_status",
+      "documents": 5,
+      "status": "success"
+    },
+    {
+      "collection": "external_links",
+      "documents": 5,
+      "status": "success"
+    },
+    {
+      "collection": "guidance_sessions",
+      "documents": 43,
+      "status": "success"
+    },
+    {
+      "collection": "keyword_index",
+      "documents": 171,
+      "status": "success"
+    },
+    {
+      "collection": "messages",
+      "documents": 0,
+      "status": "failed",
+      "error": "Object of type ObjectId is not JSON serializable"
+    },
+    {
+      "collection": "multi_template_guidance_sessions",
+      "documents": 0,
+      "status": "success"
+    },
+    {
+      "collection": "process_template_versions",
+      "documents": 0,
+      "status": "failed",
+      "error": "Object of type datetime is not JSON serializable"
+    },
+    {
+      "collection": "process_templates",
+      "documents": 3,
+      "status": "success"
+    },
+    {
+      "collection": "prompts",
+      "documents": 24,
+      "status": "success"
+    },
+    {
+      "collection": "prompts_history",
+      "documents": 0,
+      "status": "success"
+    },
+    {
+      "collection": "quick_prompts",
+      "documents": 10,
+      "status": "success"
+    },
+    {
+      "collection": "sessions",
+      "documents": 69,
+      "status": "success"
+    },
+    {
+      "collection": "todos",
+      "documents": 2,
+      "status": "success"
+    }
+  ]
+}]

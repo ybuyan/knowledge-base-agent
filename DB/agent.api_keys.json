@@ -1,0 +1,48 @@
+[{
+  "_id": {
+    "$oid": "69d0e342384203490ec6ba4c"
+  },
+  "key": "mcp_ebf2ee1106b2ea7aead7d3e002005bddfc2f32d26f178e7babca97fe24da794e",
+  "user_id": "test_user_001",
+  "username": "Test User",
+  "role": "employee",
+  "permissions": [
+    "read:confidential"
+  ],
+  "rate_limit": 100,
+  "created_at": {
+    "$date": "2026-04-04T10:09:06.444Z"
+  },
+  "expires_at": {
+    "$date": "2026-05-04T10:09:06.444Z"
+  },
+  "is_active": false,
+  "last_used_at": {
+    "$date": "2026-04-04T10:09:06.453Z"
+  },
+  "description": "测试用 API Key"
+},
+{
+  "_id": {
+    "$oid": "69d0eaa177424590407853bb"
+  },
+  "key": "mcp_67ec49459da78b363bf52e9c37b9d5107b4d63f048a508c19d53f50ab9e4e153",
+  "user_id": "test_user_001",
+  "username": "Test User",
+  "role": "employee",
+  "permissions": [
+    "read:confidential"
+  ],
+  "rate_limit": 100,
+  "created_at": {
+    "$date": "2026-04-04T10:40:33.055Z"
+  },
+  "expires_at": {
+    "$date": "2026-05-04T10:40:33.055Z"
+  },
+  "is_active": false,
+  "last_used_at": {
+    "$date": "2026-04-04T10:40:33.061Z"
+  },
+  "description": "测试用 API Key"
+}]

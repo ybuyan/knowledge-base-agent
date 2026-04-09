@@ -52,42 +52,64 @@ async def close_mongo_connection():
 
 
 async def _create_indexes():
+    """创建 MongoDB 集合索引"""
+    # 检查数据库是否连接
     if mongodb.database is None:
         return
     
     try:
+        # sessions 集合索引
+        # 1. 按用户ID和更新时间排序（用于获取用户的最新会话）
         await mongodb.database.sessions.create_index([("user_id", 1), ("updated_at", -1)])
+        # 2. 按用户ID和会话ID索引（用于快速查找特定会话）
         await mongodb.database.sessions.create_index([("user_id", 1), ("_id", 1)])
+        # 3. 按用户ID、归档状态和更新时间索引（用于获取未归档的最新会话）
         await mongodb.database.sessions.create_index([("user_id", 1), ("is_archived", 1), ("updated_at", -1)])
         
+        # 会话文本索引（用于标题搜索）
         try:
             await mongodb.database.sessions.create_index([("title", "text")])
             logger.info("MongoDB 会话文本索引创建成功")
         except Exception as e:
             logger.warning(f"会话文本索引创建失败（可能已存在）: {e}")
         
+        # messages 集合索引
+        # 1. 按会话ID和创建时间索引（用于获取会话的消息历史）
         await mongodb.database.messages.create_index([("session_id", 1), ("created_at", 1)])
+        # 2. 按用户ID和创建时间索引（用于获取用户的最新消息）
         await mongodb.database.messages.create_index([("user_id", 1), ("created_at", -1)])
+        # 3. 按会话ID和消息ID索引（用于快速查找特定消息）
         await mongodb.database.messages.create_index([("session_id", 1), ("_id", 1)])
         
+        # 消息文本索引（用于内容搜索）
         try:
             await mongodb.database.messages.create_index([("content", "text")])
             logger.info("MongoDB 消息文本索引创建成功")
         except Exception as e:
             logger.warning(f"消息文本索引创建失败（可能已存在）: {e}")
         
+        # document_status 集合索引
+        # 1. 按文档ID唯一索引（用于快速查找文档状态）
         await mongodb.database.document_status.create_index([("id", 1)], unique=True)
+        # 2. 按创建时间索引（用于获取最新上传的文档）
         await mongodb.database.document_status.create_index([("created_at", -1)])
+        # 3. 按状态索引（用于筛选特定状态的文档）
         await mongodb.database.document_status.create_index([("status", 1)])
 
         # users 集合索引
+        # 1. 按用户名唯一索引（用于登录验证）
         await mongodb.database.users.create_index([("username", 1)], unique=True)
+        # 2. 按邮箱唯一索引（用于邮箱验证）
         await mongodb.database.users.create_index([("email", 1)], unique=True)
         
         # prompts 集合索引
+        # 1. 按提示词ID唯一索引（用于快速查找提示词）
         await mongodb.database.prompts.create_index([("prompt_id", 1)], unique=True)
+        # 2. 按分类索引（用于按分类获取提示词）
         await mongodb.database.prompts.create_index([("category", 1)])
+        # 3. 按启用状态索引（用于获取启用的提示词）
         await mongodb.database.prompts.create_index([("enabled", 1)])
+        # 4. 按更新时间索引（用于获取最新更新的提示词）
         await mongodb.database.prompts.create_index([("updated_at", -1)])
         
         logger.info("MongoDB 索引创建完成")
