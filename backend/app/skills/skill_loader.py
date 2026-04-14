@@ -1,12 +1,13 @@
-﻿import re
-import logging
+﻿import logging
+import re
 from pathlib import Path
-from typing import Dict, Any, Optional, List
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
 try:
     import yaml
+
     YAML_AVAILABLE = True
 except ImportError:
     YAML_AVAILABLE = False
@@ -26,18 +27,6 @@ class SkillDefinition:
         self.triggers = frontmatter.get("triggers", [])
         self.pipeline = frontmatter.get("pipeline", [])
         self.output = frontmatter.get("output", {})
-
-    def get_reference(self, filename):
-        ref_path = self.skill_dir / "references" / filename
-        if ref_path.exists():
-            return ref_path.read_text(encoding="utf-8")
-        return None
-
-    def list_references(self):
-        ref_dir = self.skill_dir / "references"
-        if ref_dir.exists():
-            return [f.name for f in ref_dir.iterdir() if f.is_file()]
-        return []
 
     def to_dict(self):
         return {
@@ -68,7 +57,7 @@ def _parse_frontmatter(content):
     if end == -1:
         return {}, content
     yaml_str = content[3:end].strip()
-    body = content[end + 4:].strip()
+    body = content[end + 4 :].strip()
     if YAML_AVAILABLE:
         try:
             data = yaml.safe_load(yaml_str) or {}
@@ -145,7 +134,12 @@ class SkillLoader:
 
     def list_skills(self):
         return [
-            {"id": s.id, "name": s.name, "description": s.description, "version": s.version}
+            {
+                "id": s.id,
+                "name": s.name,
+                "description": s.description,
+                "version": s.version,
+            }
             for s in self._cache.values()
         ]
 
@@ -154,4 +148,3 @@ class SkillLoader:
         content = skill_md.read_text(encoding="utf-8")
         frontmatter, instructions = _parse_frontmatter(content)
         return SkillDefinition(skill_dir, frontmatter, instructions)
-

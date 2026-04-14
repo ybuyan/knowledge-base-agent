@@ -76,20 +76,6 @@ class ConfigLoader:
         self._prompt_cache_loaded = True
         logger.info("prompt 缓存已刷新，共 %d 个", len(prompts))
 
-    def get_tool(self, tool_id: str) -> Optional[Dict[str, Any]]:
-        tools_config = self.load("tools")
-        for tool in tools_config.get("tools", []):
-            if tool["id"] == tool_id:
-                return tool
-        return None
-
-    def get_agent(self, agent_id: str) -> Optional[Dict[str, Any]]:
-        agents_config = self.load("agents")
-        for agent in agents_config.get("agents", []):
-            if agent["id"] == agent_id:
-                return agent
-        return None
-
     def get_setting(self, path: str, default: Any = None) -> Any:
         settings = self.load("settings")
         keys = path.split(".")

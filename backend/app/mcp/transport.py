@@ -2,52 +2,15 @@
 MCP 传输层
 HTTP POST 处理 + SSE 生成器
 """
+
 import asyncio
 import json
 import logging
-from typing import Optional, AsyncGenerator
+from typing import AsyncGenerator
 
 from fastapi import Request
 
-from app.mcp.dispatcher import MCPDispatcher
-from app.mcp.protocol import (
-    JSONRPCRequest, JSONRPCResponse, JSONRPCError, MCPErrorCode
-)
-
 logger = logging.getLogger(__name__)
-
-# Singleton dispatcher
-_dispatcher = MCPDispatcher()
-
-
-def _error_response(req_id, code: int, message: str) -> JSONRPCResponse:
-    return JSONRPCResponse(
-        id=req_id,
-        error=JSONRPCError(code=code, message=message)
-    )
-
-
-async def handle_jsonrpc_request(request: Request) -> Optional[JSONRPCResponse]:
-    """
-    处理 HTTP POST JSON-RPC 请求。
-    返回 None 表示 notification（调用方应返回 204）。
-    """
-    # Parse JSON
-    try:
-        body = await request.body()
-        data = json.loads(body)
-    except (json.JSONDecodeError, Exception):
-        return _error_response(None, MCPErrorCode.PARSE_ERROR, "Parse error: invalid JSON")
-
-    # Validate JSONRPCRequest
-    try:
-        rpc_request = JSONRPCRequest.model_validate(data)
-    except Exception:
-        req_id = data.get("id") if isinstance(data, dict) else None
-        return _error_response(req_id, MCPErrorCode.INVALID_REQUEST, "Invalid Request")
-
-    # Dispatch
-    return await _dispatcher.dispatch(rpc_request)
 
 
 async def sse_generator(request: Request) -> AsyncGenerator[str, None]:

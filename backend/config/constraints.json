@@ -12,7 +12,9 @@
       "allow_general_knowledge": true,
       "require_citations": false,
       "max_answer_length": 1000,
-      "forbidden_topics": [],
+      "forbidden_topics": [
+        "工资"
+      ],
       "forbidden_keywords": []
     },
     "validation": {

@@ -1,3 +1,3 @@
-from .base import BaseTool, ToolRegistry, ToolDefinition, ToolParameter
+from .base import BaseTool, ToolDefinition, ToolRegistry
 
-__all__ = ["BaseTool", "ToolRegistry", "ToolDefinition", "ToolParameter"]
+__all__ = ["BaseTool", "ToolRegistry", "ToolDefinition"]

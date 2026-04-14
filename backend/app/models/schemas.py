@@ -1,6 +1,7 @@
-from pydantic import BaseModel, Field
 from datetime import datetime
-from typing import Optional, List
+from typing import Optional
+
+from pydantic import BaseModel, Field
 
 
 class Source(BaseModel):
@@ -9,24 +10,6 @@ class Source(BaseModel):
     page: Optional[int] = None
     paragraph: Optional[str] = None
     content: str
-
-
-class MessageCreate(BaseModel):
-    role: str
-    content: str
-    sources: Optional[List[Source]] = None
-
-
-class MessageResponse(BaseModel):
-    id: str = Field(alias="_id")
-    session_id: str
-    role: str
-    content: str
-    sources: Optional[List[Source]] = None
-    created_at: datetime
-    
-    class Config:
-        populate_by_name = True
 
 
 class SessionCreate(BaseModel):
@@ -49,27 +32,9 @@ class SessionResponse(BaseModel):
     message_count: int = 0
     last_message: Optional[str] = None
     is_archived: bool = False
-    
+
     class Config:
         populate_by_name = True
-
-
-class SessionListResponse(BaseModel):
-    id: str = Field(alias="_id")
-    title: str
-    created_at: datetime
-    updated_at: datetime
-    message_count: int = 0
-    last_message: Optional[str] = None
-    is_archived: bool = False
-    
-    class Config:
-        populate_by_name = True
-
-
-class SessionSearchRequest(BaseModel):
-    keyword: str = ""
-    include_archived: bool = False
 
 
 class SessionStatsResponse(BaseModel):
@@ -80,17 +45,6 @@ class SessionStatsResponse(BaseModel):
     total_messages: int
 
 
-class ChatRequest(BaseModel):
-    question: str
-    session_id: str
-
-
 class ChatStreamRequest(BaseModel):
     question: str
-    session_id: str
-
-
-class ChatResponse(BaseModel):
-    answer: str
-    sources: List[Source] = []
     session_id: str

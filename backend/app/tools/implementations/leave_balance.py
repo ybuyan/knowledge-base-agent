@@ -3,8 +3,7 @@ Leave Balance Tool - 假期余额查询工具
 """
 
 from app.tools.base import BaseTool, ToolRegistry, ToolDefinition
-from app.models.leave_balance import LeaveBalance, LeaveBalanceResponse, LeaveType
-from app.mcp.audit_logger import AuditLogger
+from app.models.leave_balance import LeaveBalance, LeaveType
 from app.core.mongodb import get_mongo_db
 from typing import Dict, Any, Optional, List
 from datetime import datetime
@@ -16,7 +15,7 @@ logger = logging.getLogger(__name__)
 @ToolRegistry.register("check_leave_balance")
 class LeaveBalanceTool(BaseTool):
     """假期余额查询工具"""
-    
+
     @property
     def definition(self) -> ToolDefinition:
         return ToolDefinition(
@@ -38,15 +37,15 @@ class LeaveBalanceTool(BaseTool):
             },
             implementation="LeaveBalanceTool"
         )
-    
+
     async def execute(self, leave_type: Optional[str] = None, **kwargs) -> Dict[str, Any]:
         """
         执行余额查询
-        
+
         Args:
             leave_type: 假期类型（可选）
             **kwargs: 包含 auth_context 等上下文信息
-        
+
         Returns:
             {
                 "success": bool,
@@ -61,30 +60,30 @@ class LeaveBalanceTool(BaseTool):
             logger.info("[LeaveBalanceTool] 权限验证 auth_context：%s", auth_context)
             if not auth_context:
                 return self._error_response("缺少认证上下文")
-            
+
             user_id = auth_context.get("user_id")
             username = auth_context.get("username", "未知用户")
             role = auth_context.get("role", "guest")
-            
+
             # 检查用户是否已登录
             if role == "guest" or not user_id:
                 await self._log_audit(None, username, "check_leave_balance", leave_type, False, "未登录")
                 return self._error_response("请先登录后查询假期余额")
-            
+
             # 2. 查询数据库
             balances = await self._query_balances(user_id, username, leave_type)
-            
+
             # 3. 检查数据是否存在
             if not balances:
                 await self._log_audit(user_id, username, "check_leave_balance", leave_type, False, "数据不存在")
                 return self._error_response("未找到假期余额数据，请联系 HR")
-            
+
             # 4. 格式化输出
             message = self._format_balances(balances, username)
-            
+
             # 5. 记录审计日志
             await self._log_audit(user_id, username, "check_leave_balance", leave_type, True, "查询成功")
-            
+
             # 6. 返回结果
             return {
                 "success": True,
@@ -93,7 +92,7 @@ class LeaveBalanceTool(BaseTool):
                 "error": None,
                 "timestamp": datetime.utcnow().isoformat()
             }
-            
+
         except Exception as e:
             logger.error(f"查询假期余额失败: {e}", exc_info=True)
             await self._log_audit(
@@ -105,7 +104,7 @@ class LeaveBalanceTool(BaseTool):
                 f"系统错误: {str(e)}"
             )
             return self._error_response("系统错误，请稍后重试")
-    
+
     async def _query_balances(
         self,
         user_id: str,
@@ -116,25 +115,25 @@ class LeaveBalanceTool(BaseTool):
         try:
             db = get_mongo_db()
             collection = db["leave_balances"]
-            
+
             # 构建查询条件
             current_year = datetime.now().year
             query = {
                 "user_id": user_id,
                 "year": current_year
             }
-            
+
             # 如果指定了假期类型，添加到查询条件
             if leave_type:
                 # 验证假期类型是否有效
                 if leave_type not in LeaveType.all_types():
                     raise ValueError(f"不支持的假期类型: {leave_type}")
                 query["leave_type"] = leave_type
-            
+
             # 查询数据库
             cursor = collection.find(query)
             documents = await cursor.to_list(length=None)
-            
+
             # 转换为 LeaveBalance 模型
             balances = []
             for doc in documents:
@@ -150,16 +149,16 @@ class LeaveBalanceTool(BaseTool):
                     created_at=doc.get("created_at", datetime.utcnow())
                 )
                 balances.append(balance)
-            
+
             return balances
-            
+
         except ValueError as e:
             # 重新抛出验证错误
             raise
         except Exception as e:
             logger.error(f"数据库查询失败: {e}", exc_info=True)
             raise
-    
+
     def _format_balances(self, balances: List[LeaveBalance], username: str) -> str:
         """格式化余额信息"""
         # 如果只有一种假期类型，使用简洁格式
@@ -170,7 +169,7 @@ class LeaveBalanceTool(BaseTool):
                 f"查询时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
                 ""
             ]
-            
+
             if balance.is_unlimited:
                 lines.append(f"• {balance.leave_type}：无限额（按需申请）")
             else:
@@ -178,7 +177,7 @@ class LeaveBalanceTool(BaseTool):
                 warning = ""
                 if balance.remaining_days < balance.total_quota * 0.2:
                     warning = " ⚠️"
-                
+
                 lines.append(
                     f"• 总额度：{balance.total_quota} 天"
                 )
@@ -188,19 +187,19 @@ class LeaveBalanceTool(BaseTool):
                 lines.append(
                     f"• 剩余：{balance.remaining_days} 天{warning}"
                 )
-            
+
             return "\n".join(lines)
-        
+
         # 多种假期类型，使用完整格式
         lines = [
             f"📊 {username} 的假期余额",
             f"查询时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
             ""
         ]
-        
+
         # 按假期类型排序
         sorted_balances = sorted(balances, key=lambda b: b.leave_type)
-        
+
         for balance in sorted_balances:
             if balance.is_unlimited:
                 lines.append(f"• {balance.leave_type}：无限额（按需申请）")
@@ -209,15 +208,15 @@ class LeaveBalanceTool(BaseTool):
                 warning = ""
                 if balance.remaining_days < balance.total_quota * 0.2:
                     warning = " ⚠️"
-                
+
                 lines.append(
                     f"• {balance.leave_type}：总额 {balance.total_quota} 天，"
                     f"已用 {balance.used_days} 天，"
                     f"剩余 {balance.remaining_days} 天{warning}"
                 )
-        
+
         return "\n".join(lines)
-    
+
     def _error_response(self, error_message: str) -> Dict[str, Any]:
         """返回错误响应"""
         return {
@@ -227,7 +226,7 @@ class LeaveBalanceTool(BaseTool):
             "error": error_message,
             "timestamp": datetime.utcnow().isoformat()
         }
-    
+
     async def _log_audit(
         self,
         user_id: Optional[str],
