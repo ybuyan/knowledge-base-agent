@@ -87,7 +87,7 @@ watch(() => chatStore.messages.length, (newLength, oldLength) => {
     </div>
 
     <!-- Suggested Questions -->
-    <div class="panel-section" v-if="!hasMessages">
+    <!-- <div class="panel-section" v-if="!hasMessages">
       <div class="section-header">
         <el-icon :size="18"><Lightning /></el-icon>
         <span>Suggested Questions</span>
@@ -102,7 +102,7 @@ watch(() => chatStore.messages.length, (newLength, oldLength) => {
           {{ question }}
         </button>
       </div>
-    </div>
+    </div> -->
 
     <!-- System Info -->
     <div class="panel-section">

@@ -1,0 +1,87 @@
+[{
+  "_id": "69bf904b3abfd2c47f16bae7",
+  "id": "leave_request",
+  "keywords": [
+    "请假",
+    "休假",
+    "年假",
+    "病假",
+    "事假",
+    "加班",
+    "OT",
+    "剩余假期",
+    "调休"
+  ],
+  "title": "请假申请系统",
+  "url": "https://sdcleave.asia.pwcinternal.com/SDCLeave/Leave/pgLeaveBalance.aspx?ServiceTicket=Q041NDIwNDR8N2NiMjRhNTgtYWJjNC00MzIyLWI0MjUtZDk5OWUzMTBhNGRj",
+  "description": "在线提交请假申请",
+  "enabled": true,
+  "priority": 1,
+  "created_at": "2026-03-22T06:46:35.468000",
+  "updated_at": "2026-03-22T06:46:35.468000"
+},
+{
+  "_id": "69bf904b3abfd2c47f16bae8",
+  "id": "expense_claim",
+  "keywords": [
+    "报销",
+    "费用",
+    "发票"
+  ],
+  "title": "费用报销系统",
+  "url": "https://vexpense.asia.pwcinternal.com/vExpense/MyClaims",
+  "description": "在线提交费用报销",
+  "enabled": true,
+  "priority": 2,
+  "created_at": "2026-03-22T06:46:35.487000",
+  "updated_at": "2026-03-22T06:46:35.487000"
+},
+{
+  "_id": "69bf904b3abfd2c47f16bae9",
+  "id": "referral",
+  "keywords": [
+    "内推",
+    "推荐",
+    "招聘"
+  ],
+  "title": "内部推荐",
+  "url": "https://humanresourceshub.cn.asia.ad.pwcinternal.com/HRHUB#/internal_portal",
+  "description": "提交内部推荐候选人",
+  "enabled": true,
+  "priority": 3,
+  "created_at": "2026-03-22T06:46:35.488000",
+  "updated_at": "2026-03-22T06:46:35.488000"
+},
+{
+  "_id": "69bf904b3abfd2c47f16baea",
+  "id": "handbook",
+  "keywords": [
+    "员工手册",
+    "规章制度",
+    "制度"
+  ],
+  "title": "员工手册",
+  "url": "https://appcndm470.digitalmaker.asia.pwcinternal.com/pwccnhk/sdcchengdustaffhandbook/View/policies",
+  "description": "查看公司规章制度",
+  "enabled": true,
+  "priority": 4,
+  "created_at": "2026-03-22T06:46:35.488000",
+  "updated_at": "2026-03-22T06:46:35.488000"
+},
+{
+  "_id": "69bf904b3abfd2c47f16baeb",
+  "id": "it_support",
+  "keywords": [
+    "IT",
+    "电脑",
+    "网络",
+    "软件"
+  ],
+  "title": "IT支持",
+  "url": "/it-support",
+  "description": "提交IT支持请求",
+  "enabled": true,
+  "priority": 5,
+  "created_at": "2026-03-22T06:46:35.490000",
+  "updated_at": "2026-03-22T06:46:35.490000"
+}]

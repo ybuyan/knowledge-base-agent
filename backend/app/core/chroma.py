@@ -3,9 +3,39 @@ import chromadb
 from chromadb.config import Settings as ChromaSettings
 from typing import Optional
 import os
+import logging
 
+logger = logging.getLogger(__name__)
 
 _client: Optional[chromadb.Client] = None
+
+EMBEDDING_DIMENSIONS = {
+    "text-embedding-v1": 1536,
+    "text-embedding-v2": 1536,
+    "text-embedding-v3": 1024,
+    "text-embedding-ada-002": 1536,
+    "text-embedding-3-small": 1536,
+    "text-embedding-3-large": 3072,
+}
+
+
+def get_expected_dimension() -> int:
+    """获取当前 embedding 模型期望的维度"""
+    model = settings.embedding_model
+    return EMBEDDING_DIMENSIONS.get(model, 1536)
+
+
+def get_collection_dimension(collection) -> Optional[int]:
+    """获取集合当前的维度"""
+    try:
+        if collection.count() == 0:
+            return None
+        sample = collection.get(limit=1, include=["embeddings"])
+        if sample["embeddings"] and len(sample["embeddings"]) > 0:
+            return len(sample["embeddings"][0])
+        return None
+    except Exception:
+        return None
 
 
 def get_chroma_client() -> chromadb.Client:
@@ -35,6 +65,46 @@ def get_conversations_collection():
         name="conversations",
         metadata={"description": "对话历史"}
     )
+
+
+def reset_collections(force: bool = False):
+    """
+    检查并修复维度不匹配问题
+    
+    Args:
+        force: 是否强制重建（忽略维度检查）
+    """
+    client = get_chroma_client()
+    expected_dim = get_expected_dimension()
+    
+    need_reset = force
+    
+    if not force:
+        try:
+            docs_collection = client.get_collection("documents")
+            current_dim = get_collection_dimension(docs_collection)
+            
+            if current_dim is not None and current_dim != expected_dim:
+                logger.warning(f"维度不匹配: 集合维度={current_dim}, 期望维度={expected_dim}")
+                need_reset = True
+                logger.info("将重建集合以修复维度问题")
+        except Exception:
+            need_reset = True
+    
+    if need_reset:
+        try:
+            client.delete_collection("documents")
+            logger.info("已删除 documents 集合")
+        except Exception:
+            pass
+        try:
+            client.delete_collection("conversations")
+            logger.info("已删除 conversations 集合")
+        except Exception:
+            pass
+        logger.info(f"集合已重建，embedding 维度: {expected_dim}")
+    else:
+        logger.info(f"集合维度检查通过: {expected_dim}")
 
 
 def init_chroma():

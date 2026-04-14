@@ -1,0 +1,32 @@
+[{
+  "_id": "7afcb609-df93-4da5-ad6e-319832a5c2e8",
+  "username": "hr",
+  "email": "hr@company.com",
+  "hashed_password": "123",
+  "display_name": "HR",
+  "role": "hr",
+  "department": "人力资源部",
+  "is_active": true,
+  "created_at": {
+    "$date": "2026-04-04T12:22:31.166Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-04T12:22:31.166Z"
+  }
+},
+{
+  "_id": "94ffac08-abdf-4ab3-b78f-53ba4e3f15c6",
+  "username": "bob",
+  "email": "bob@company.com",
+  "hashed_password": "123",
+  "display_name": "Bob",
+  "role": "employee",
+  "department": "研发部",
+  "is_active": true,
+  "created_at": {
+    "$date": "2026-04-04T12:22:31.166Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-04T12:22:31.166Z"
+  }
+}]

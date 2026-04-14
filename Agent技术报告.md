@@ -1,9 +1,9 @@
 # 企业级 AI 问答系统 — 详细技术报告
 
-> 生成日期：2026-04-05
-> 项目版本：1.3.0
+> 生成日期：2026-04-07
+> 项目版本：1.3.1
 > 项目名称：公司制度问答与流程指引助手
-> 最后更新：2026-04-05
+> 最后更新：2026-04-07
 
 ---
 
@@ -16,6 +16,7 @@
 - v1.2.0：修复向量删除、会话管理、内容保护等关键问题，优化相关链接显示逻辑，完善单一"新对话"功能
 - v1.2.1：完善约束配置系统（配置应用率90.9%），修复禁止主题预检查机制，优化ReAct循环退出逻辑，完善三层记忆架构文档
 - v1.3.0：新增用户认证系统（JWT + 角色权限），假期余额查询 Tool，流程指引 LLM 自动提取，MCP 安全层（API Key + 资源分级访问控制 + 审计日志 + 速率限制），GuideAgent 多轮对话 session 锁定，流程管理前端页面
+- v1.3.1：修复 ChromaDB 向量维度不匹配问题（自动检测与重建），修复 MongoDB prompts 集合旧索引冲突，修复 Prompt 模板 JSON 示例花括号转义问题，优化提示词同步任务错误处理
 
 ---
 
@@ -1722,3 +1723,196 @@ export const flowGuideApi = {
 - 流程提取（LLM）：~3-5s（异步后台执行，不阻塞上传响应）
 - MCP 认证：~5ms（API Key 数据库查询）
 - 速率限制检查：< 0.1ms（内存操作）
+
+---
+
+## 十七、v1.3.1 版本修复详情（2026-04-07）
+
+### 17.1 ChromaDB 向量维度自动检测与修复
+
+**问题描述：**
+ChromaDB 集合的向量维度与当前 embedding 模型不匹配时，文档处理会报错：
+```
+InvalidDimensionException: Embedding dimension 1536 does not match collection dimensionality 1024
+```
+
+**根本原因：**
+- 不同 embedding 模型生成不同维度的向量
+- ChromaDB 集合创建时会锁定第一个插入向量的维度
+- 更换 embedding 模型后，旧集合维度与新模型不兼容
+
+**解决方案：**
+在 `app/core/chroma.py` 中新增维度检测与自动修复功能：
+
+```python
+EMBEDDING_DIMENSIONS = {
+    "text-embedding-v1": 1536,
+    "text-embedding-v2": 1536,
+    "text-embedding-v3": 1024,
+    "text-embedding-ada-002": 1536,
+    "text-embedding-3-small": 1536,
+    "text-embedding-3-large": 3072,
+}
+
+def get_expected_dimension() -> int:
+    """获取当前 embedding 模型期望的维度"""
+    model = settings.embedding_model
+    return EMBEDDING_DIMENSIONS.get(model, 1536)
+
+def get_collection_dimension(collection) -> Optional[int]:
+    """获取集合当前的维度"""
+    if collection.count() == 0:
+        return None
+    sample = collection.get(limit=1, include=["embeddings"])
+    if sample["embeddings"] and len(sample["embeddings"]) > 0:
+        return len(sample["embeddings"][0])
+    return None
+
+def reset_collections(force: bool = False):
+    """检查并修复维度不匹配问题"""
+    client = get_chroma_client()
+    expected_dim = get_expected_dimension()
+    
+    if not force:
+        docs_collection = client.get_collection("documents")
+        current_dim = get_collection_dimension(docs_collection)
+        
+        if current_dim is not None and current_dim != expected_dim:
+            logger.warning(f"维度不匹配: 集合维度={current_dim}, 期望维度={expected_dim}")
+            need_reset = True
+    
+    if need_reset:
+        client.delete_collection("documents")
+        client.delete_collection("conversations")
+        logger.info(f"集合已重建，embedding 维度: {expected_dim}")
+```
+
+**启动流程变更：**
+```python
+# app/main.py startup_event
+from app.core.chroma import reset_collections
+reset_collections()  # 检测维度，不匹配时自动重建
+init_chroma()
+```
+
+---
+
+### 17.2 MongoDB prompts 集合旧索引冲突修复
+
+**问题描述：**
+提示词同步时报错：
+```
+DuplicateKeyError: E11000 duplicate key error collection: agent.prompts index: id_1 dup key: { id: null }
+```
+
+**根本原因：**
+- 旧版本使用 `id` 字段作为主键
+- 新版本改用 `prompt_id` 字段
+- MongoDB 中存在旧的 `id_1` 唯一索引
+- 插入新文档时 `id` 字段为 null，触发唯一约束冲突
+
+**解决方案：**
+在 `app/core/mongodb.py` 的索引创建函数中添加旧索引清理：
+
+```python
+async def _create_indexes():
+    # ... 其他索引 ...
+    
+    # prompts 集合索引
+    try:
+        await mongodb.database.prompts.drop_index("id_1")
+        logger.info("已删除旧的 id 索引")
+    except Exception:
+        pass
+    await mongodb.database.prompts.create_index([("prompt_id", 1)], unique=True)
+    await mongodb.database.prompts.create_index([("category", 1)])
+    await mongodb.database.prompts.create_index([("enabled", 1)])
+    await mongodb.database.prompts.create_index([("updated_at", -1)])
+```
+
+---
+
+### 17.3 Prompt 模板 JSON 示例花括号转义
+
+**问题描述：**
+`flow_extract` 提示词渲染时报错：
+```
+KeyError: '\n    "name"'
+```
+
+**根本原因：**
+- 模板中包含 JSON 示例，如 `{"name": "流程名称"}`
+- Python 的 `str.format()` 方法将 `{...}` 解析为占位符
+- `"name"` 被当作变量名查找，导致 KeyError
+
+**解决方案：**
+将模板中的 JSON 花括号转义为双花括号：
+
+```json
+{
+  "template": {
+    "user": "请以 JSON 格式返回：\n[\n  {{\n    \"name\": \"流程名称\",\n    ...\n  }}\n]"
+  }
+}
+```
+
+转义后，`format()` 会将 `{{` 输出为 `{`，`}}` 输出为 `}`。
+
+---
+
+### 17.4 提示词同步任务错误处理优化
+
+**问题描述：**
+首次同步时 27 个 prompt 只有 1 个成功写入，26 个失败，但下次启动时跳过初始化。
+
+**解决方案：**
+优化 `prompt_sync_task.py` 的初始化检查逻辑：
+
+```python
+async def _ensure_db_initialized(self) -> None:
+    config_path = Path(__file__).parent.parent / "prompts" / "config.json"
+    with open(config_path, "r", encoding="utf-8") as f:
+        config = json.load(f)
+    expected_count = len(config.get("prompts", {}))
+    
+    existing = await prompt_config_service.get_all(enabled_only=False)
+    existing_count = len(existing)
+    
+    if existing_count == expected_count:
+        logger.info("[PromptSync] 数据库已有 %d 个 prompt，与配置文件一致", existing_count)
+        return
+    
+    if existing_count > 0 and existing_count < expected_count:
+        logger.warning("[PromptSync] 数据不完整，将清空并重新同步")
+        await mongodb.database.prompts.delete_many({})
+    
+    # 执行同步...
+```
+
+---
+
+### 17.5 v1.3.1 技术指标
+
+**修复文件：**
+| 文件 | 修改内容 |
+|------|---------|
+| `app/core/chroma.py` | 新增维度检测、自动重建功能 |
+| `app/core/mongodb.py` | 清理旧索引 `id_1` |
+| `app/prompts/config.json` | `flow_extract` 模板花括号转义 |
+| `app/tasks/prompt_sync_task.py` | 数据完整性检查 |
+| `app/main.py` | 启动时调用 `reset_collections()` |
+
+**支持的 Embedding 模型维度：**
+
+| 模型 | 维度 |
+|------|------|
+| text-embedding-v1 | 1536 |
+| text-embedding-v2 | 1536 |
+| text-embedding-v3 | 1024 |
+| text-embedding-ada-002 | 1536 |
+| text-embedding-3-small | 1536 |
+| text-embedding-3-large | 3072 |
+
+**性能影响：**
+- 维度检测：< 10ms（仅查询一条记录）
+- 集合重建：仅在不匹配时触发，~100ms

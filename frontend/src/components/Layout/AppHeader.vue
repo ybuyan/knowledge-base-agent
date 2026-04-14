@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Moon, Sunny, Setting, User } from '@element-plus/icons-vue'
-import logoUrl from '../../../public/logo.png?url'
+import logoUrl from '../../../public/logo.svg?url'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
@@ -72,10 +72,10 @@ const navigateToSettings = () => {
 
 .logo-icon {
   width: 52px;
-  height: 32px;
+  height: 41px;
   object-fit: contain;
   position: relative;
-  top: 4px;
+  top: -6px;
 }
 
 .logo-text {

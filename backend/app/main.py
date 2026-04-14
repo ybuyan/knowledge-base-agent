@@ -60,6 +60,8 @@ async def app_exception_handler(request: Request, exc: AppException):
 @app.on_event("startup")
 async def startup_event():
     logger.info("初始化 ChromaDB...")
+    from app.core.chroma import reset_collections
+    reset_collections()
     init_chroma()
     logger.info("ChromaDB 初始化完成")
     

@@ -1,0 +1,1778 @@
+[{
+  "_id": "69c5f5ea3b742abfd5e0a556",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-03-27T03:13:46.540000",
+  "updated_at": "2026-03-27T05:51:46.705000",
+  "message_count": 16,
+  "last_message": "在本次对话中，您共提出了以下5个问题：\n\n1. **“我刚才都询问过你什么”**（首次提问）  \n2. **“我刚才都询问过你什么”**（重复提问，第二次）  \n3. **“加班工资怎么算”**  \n",
+  "is_archived": false
+},
+{
+  "_id": "69c61b0538fbc8426667c4e1",
+  "user_id": "default_user",
+  "title": "公司有哪些节假日？",
+  "created_at": "2026-03-27T05:52:05.351000",
+  "updated_at": "2026-03-27T05:53:29.547000",
+  "message_count": 3,
+  "last_message": "根据提供的知识库内容，关于春节假期天数的说明仅有一处：\n\n> “国家每年共有13天公共节假日：……春节 4天”  \n> [Staff Handbook.pdf - Page 19]\n\n该条目**未说明",
+  "is_archived": false
+},
+{
+  "_id": "69c61b7638fbc8426667c4e8",
+  "user_id": "default_user",
+  "title": "公司叫什么名字你知道吗",
+  "created_at": "2026-03-27T05:53:58.780000",
+  "updated_at": "2026-03-27T05:59:43.187000",
+  "message_count": 5,
+  "last_message": "根据《Staff Handbook.pdf》原文，对**总经理（GM）**与**高级经理（Senior Manager / SM）**在**权责重心、汇报对象、客户关联性**三个维度进行严格比对，结论",
+  "is_archived": false
+},
+{
+  "_id": "69c61cdb38fbc8426667c4f3",
+  "user_id": "default_user",
+  "title": "出差报销流程是什么",
+  "created_at": "2026-03-27T05:59:55.496000",
+  "updated_at": "2026-03-27T06:05:46.264000",
+  "message_count": 4,
+  "last_message": "✅ 已确认《Staff Handbook.pdf》文档已就绪（128个知识块，含全部报销与发票条款），现为你生成 **专业、得体、中英双语的「重开发票申请邮件模板」**，已严格依据手册第122–126",
+  "is_archived": false
+},
+{
+  "_id": "69c61e7838fbc8426667c4fc",
+  "user_id": "default_user",
+  "title": "公司有那些福利",
+  "created_at": "2026-03-27T06:06:48.712000",
+  "updated_at": "2026-03-27T06:11:09.774000",
+  "message_count": 4,
+  "last_message": "根据《Staff Handbook.pdf》，ABC服务中心的**长期服务奖励（Long Service Award）** 是一项表彰员工忠诚与持续贡献的激励政策，具体规定如下：\n\n---\n\n### ",
+  "is_archived": false
+},
+{
+  "_id": "69c63d6b785f6a29204bedc7",
+  "user_id": "default_user",
+  "title": "加班以及补偿",
+  "created_at": "2026-03-27T08:18:51.659000",
+  "updated_at": "2026-03-27T08:35:05.867000",
+  "message_count": 4,
+  "last_message": "根据知识库内容，您已获得**加班审批通过**，接下来申请调休（即 TOIL，Time Off in Lieu）需严格遵循以下规则和流程。请注意：**TOIL 仅适用于综合工时制和不定时工时制员工**，",
+  "is_archived": false
+},
+{
+  "_id": "69c648c7785f6a29204bedd1",
+  "user_id": "default_user",
+  "title": "病假和年假有什么区别？",
+  "created_at": "2026-03-27T09:07:19.409000",
+  "updated_at": "2026-03-28T06:50:26.179000",
+  "message_count": 19,
+  "last_message": "根据《Staff Handbook.pdf》，服务中心**没有统一的“请假流程”**，而是按**假期类型实行分类管理**，每类假期有独立的申请前提、审批权限、系统操作及材料要求。所有请假均须通过 **",
+  "is_archived": false
+},
+{
+  "_id": "69c77a70f102c1e5e88171ec",
+  "user_id": "default_user",
+  "title": "总经理的职务",
+  "created_at": "2026-03-28T06:51:28.870000",
+  "updated_at": "2026-03-29T11:48:19.239000",
+  "message_count": 32,
+  "last_message": "**离职办理流程**：员工离职办理标准流程，包括申请提交、工作交接、手续办理等\n\n### 相关规定\n\n[1] [Staff Handbook.pdf - Page 35]\n总监            ",
+  "is_archived": false
+},
+{
+  "_id": "69c912492c8ac7f0f29355f5",
+  "user_id": "default_user",
+  "title": "出差回来后差旅费怎么报销？需要哪些发票和单据？",
+  "created_at": "2026-03-29T11:51:37.041000",
+  "updated_at": "2026-03-29T12:22:25.667000",
+  "message_count": 4,
+  "last_message": "**请假申请流程**：适用于员工各类请假申请，包括年假、病假、事假、婚假、产假等\n\n### 相关规定\n\n[1] 公司人事管理制度汇编\n\n第一章 请假管理制度\n\n一、请假类型及天数\n\n二、年假申请流程\n",
+  "is_archived": false
+},
+{
+  "_id": "69c92586c6b4875e80e0462b",
+  "user_id": "default_user",
+  "title": "出差回来后差旅费怎么报销？需要哪些发票和单据？",
+  "created_at": "2026-03-29T13:13:42.878000",
+  "updated_at": "2026-03-30T04:05:49.189000",
+  "message_count": 12,
+  "last_message": "**请假申请流程**：修改描述\n\n### 相关规定\n\n在遇到紧急情况来不及走正常请假流程时，应**立即通过电话或微信等方式通知直属主管**，说明缺勤原因及预计请假时间。根据员工手册规定，若因紧急情况、",
+  "is_archived": false
+},
+{
+  "_id": "69ca062294a06e6beca56194",
+  "user_id": "default_user",
+  "title": "入职需要哪些材料",
+  "created_at": "2026-03-30T05:12:02.279000",
+  "updated_at": "2026-03-30T08:28:29.915000",
+  "message_count": 5,
+  "last_message": "在审批期间，**是否需要补充材料取决于您已提交的资料是否完整且符合公司要求**。根据知识库内容，以下是相关判断标准和可能被要求补充的情形：\n\n| 情形 | 是否可能被要求补充材料 | 说明 | 来源 ",
+  "is_archived": false
+},
+{
+  "_id": "69ca1c7991a54a5e2424d5bb",
+  "user_id": "default_user",
+  "title": "桌面清理制度",
+  "created_at": "2026-03-30T06:47:21.492000",
+  "updated_at": "2026-03-30T06:50:18.230000",
+  "message_count": 2,
+  "last_message": "根据知识库内容，关于碎纸处理的具体操作流程如下：\n\n- 打印件、信函、客户资料或任何文件如不再需要，禁止直接放入垃圾桶或废纸箱，必须进行碎纸处理[1 - Page 1]。\n- 员工应使用碎纸机对敏感文",
+  "is_archived": false
+},
+{
+  "_id": "69ca3931e0fc0c796e3c2f45",
+  "user_id": "default_user",
+  "title": "jay是哪个的组员",
+  "created_at": "2026-03-30T08:49:53.667000",
+  "updated_at": "2026-03-30T09:11:07.860000",
+  "message_count": 3,
+  "last_message": "您观察得非常准确。\n\n根据我之前构建的表格内容，确实将 **Jay C Tian** 列在了 **Kris Y Chen** 作为 Team Leader 的组员列表中。这是基于原始数据记录的顺序进行",
+  "is_archived": false
+},
+{
+  "_id": "69ca3e993262c4df48d039c9",
+  "user_id": "default_user",
+  "title": "经理每日都干些什么东西？为什么Jay不是总经理？",
+  "created_at": "2026-03-30T09:12:57.727000",
+  "updated_at": "2026-03-30T13:32:15.575000",
+  "message_count": 11,
+  "last_message": "**请假申请流程**：请假相关流程，适用于通用类型\n\n### 相关规定\n\n申请年假需按以下流程操作：\n\n1. **申请条件**：员工入职满一年后方可享受年假。\n2. **申请时间**：需**提前3天*",
+  "is_archived": false
+},
+{
+  "_id": "69ca92e251619d63ca75e39d",
+  "user_id": "default_user",
+  "title": "出差回来后差旅费怎么报销？需要哪些发票和单据？",
+  "created_at": "2026-03-30T15:12:34.241000",
+  "updated_at": "2026-03-30T15:12:55.821000",
+  "message_count": 1,
+  "last_message": "**报销流程**：添加报销流程\n\n### 相关规定\n\n出差回来后报销差旅费的流程及相关要求如下：\n\n### 一、报销基本流程：\n1. **使用系统提交申请**：所有费用报销必须通过公司 **vExpe",
+  "is_archived": false
+},
+{
+  "_id": "69ca9df2a22c45464ad6f211",
+  "user_id": "default_user",
+  "title": "出差回来后差旅费怎么报销？需要哪些发票和单据？",
+  "created_at": "2026-03-30T15:59:46.124000",
+  "updated_at": "2026-03-30T16:09:36.570000",
+  "message_count": 1,
+  "last_message": "出差回来后报销差旅费，需按照公司规定的流程和要求准备相关发票与单据。以下是详细的报销指南：\n\n---\n\n### ✅ 一、差旅费报销基本流程（参考《流程文档.docx》）\n\n1. **收集并整理发票**",
+  "is_archived": false
+},
+{
+  "_id": "69caa36f96b3c52ca380c65e",
+  "user_id": "default_user",
+  "title": "出差回来后差旅费怎么报销？需要哪些发票和单据？",
+  "created_at": "2026-03-30T16:23:11.161000",
+  "updated_at": "2026-03-31T02:17:33.192000",
+  "message_count": 16,
+  "last_message": "根据公司《员工手册》及报销制度，以下是**出差回来后差旅费报销的完整流程、所需发票和单据要求**：\n\n---\n\n### ✅ **一、差旅费报销基本流程**\n\n| 步骤 | 操作内容 | 责任人 | 预",
+  "is_archived": false
+},
+{
+  "_id": "69cb358b5fbd886f1ace845c",
+  "user_id": "default_user",
+  "title": "出差回来后差旅费怎么报销？需要哪些发票和单据？",
+  "created_at": "2026-03-31T02:46:35.237000",
+  "updated_at": "2026-03-31T02:47:22.226000",
+  "message_count": 1,
+  "last_message": "出差回来后报销差旅费，需按照公司规定的流程准备相关发票和单据。以下是详细的报销指南：\n\n---\n\n### ✅ **一、差旅费报销基本流程**\n\n1. **收集并整理发票**  \n   - 出差期间的所",
+  "is_archived": false
+},
+{
+  "_id": "69cb3c170c4d8f18d3a46a47",
+  "user_id": "default_user",
+  "title": "年假有多少天？怎么申请？",
+  "created_at": "2026-03-31T03:14:31.839000",
+  "updated_at": "2026-03-31T03:14:37.570000",
+  "message_count": 0,
+  "last_message": null,
+  "is_archived": false
+},
+{
+  "_id": "69cb3d5a91fd8059dfbc6550",
+  "user_id": "default_user",
+  "title": "怎么申请年假？需要提前多久？",
+  "created_at": "2026-03-31T03:19:54.419000",
+  "updated_at": "2026-03-31T08:20:46.766000",
+  "message_count": 15,
+  "last_message": "根据您提供的知识库内容，以下是关于辞职申请、工作交接及离职证明处理的详细说明：\n\n---\n\n### ✅ 一、辞职需要提前多久申请？\n\n- **需提前3个月提交书面通知**。\n- 辞职员工必须向**直属",
+  "is_archived": false
+},
+{
+  "_id": "69cb8462e05e4627dd73ad03",
+  "user_id": "default_user",
+  "title": "试用期到了怎么转正",
+  "created_at": "2026-03-31T08:22:58.233000",
+  "updated_at": "2026-03-31T08:23:48.949000",
+  "message_count": 2,
+  "last_message": "今天早上忘打卡是可以补的，具体操作和规则如下：\n\n### ✅ 是否可以补卡？\n可以。如果忘记打卡，可通过 **SDC - Apps 上的 SDC Office Intelligence 系统** 提交",
+  "is_archived": false
+},
+{
+  "_id": "69cb8579e05e4627dd73ad08",
+  "user_id": "default_user",
+  "title": "想了解一下报销手续",
+  "created_at": "2026-03-31T08:27:37.090000",
+  "updated_at": "2026-03-31T08:28:26.982000",
+  "message_count": 1,
+  "last_message": "您好！关于公司报销手续，以下是根据您提供的资料整理的详细说明：\n\n---\n\n### 一、常见报销范围\n根据《流程文档.docx》，公司支持以下几类费用的报销：\n- **差旅费**：交通费、住宿费、餐饮",
+  "is_archived": false
+},
+{
+  "_id": "69cb874ce05e4627dd73ad0b",
+  "user_id": "default_user",
+  "title": "请假流程",
+  "created_at": "2026-03-31T08:35:24.463000",
+  "updated_at": "2026-03-31T10:32:38.963000",
+  "message_count": 6,
+  "last_message": "根据您提供的《Staff Handbook.pdf》和《公司人事管理制度汇编》，当**年假余额不足时**，可以按照以下方式处理：\n\n---\n\n### ✅ 一、允许年假“透支”使用\n\n根据《Staff ",
+  "is_archived": false
+},
+{
+  "_id": "69cc8c1728160efe7e7b3592",
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": "2026-04-01T03:08:07.833000",
+  "updated_at": "2026-04-01T08:02:47.969000",
+  "message_count": 10,
+  "last_message": "根据知识库内容，关于年假的详细规定如下：\n\n---\n\n### 一、年假构成\n\n员工的带薪年休假由两部分组成：\n- **法定年休假**：依据国家法律法规享有；\n- **福利年休假**：服务中心额外提供的",
+  "is_archived": false
+},
+{
+  "_id": "69ccd59ef6761af3cd19e334",
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": "2026-04-01T08:21:50.104000",
+  "updated_at": "2026-04-01T08:51:37.261000",
+  "message_count": 12,
+  "last_message": "看起来你在记录或询问与“年假”相关的信息，并提到了日期“4月1号到3号”。你可能是想安排或确认这段时间的年假。以下是一些可能对你有帮助的信息：\n\n✅ 如果你计划在 **4月1日至3日** 休年假，请注",
+  "is_archived": false
+},
+{
+  "_id": "69ccee8de6236fd7163f7719",
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": "2026-04-01T10:08:13.905000",
+  "updated_at": "2026-04-01T10:09:03.048000",
+  "message_count": 4,
+  "last_message": "根据公司规定，您的年假申请需遵循以下流程：\n\n1. **提前申请**：需至少提前3天提交申请。\n2. **填写申请表**：请填写年假申请表，注明请假时间为1月15日至1月18日（共4天）。\n3. **",
+  "is_archived": false
+},
+{
+  "_id": "69cd05be8acf0b826a6cd5c1",
+  "user_id": "default_user",
+  "title": "请假怎么申请",
+  "created_at": "2026-04-01T11:47:10.792000",
+  "updated_at": "2026-04-01T12:08:34.470000",
+  "message_count": 2,
+  "last_message": "您好！如果您想请假，请根据您的请假类型和具体情况，按照以下步骤操作：\n\n---\n\n### ✅ **第一步：确定您的请假类型**\n请先确认您要申请的假期种类。以下是常见假期类型及依据：\n\n| 请假类型 ",
+  "is_archived": false
+},
+{
+  "_id": "69cd218e50427639dde94edf",
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": "2026-04-01T13:45:50.984000",
+  "updated_at": "2026-04-01T13:56:15.367000",
+  "message_count": 3,
+  "last_message": "📍 **请假流程说明**\n\n您好！以下是公司标准的**请假流程**，共包含 4 个步骤，帮助您顺利完成请假申请：\n\n---\n\n### 📋 请假流程图（简化版）\n```mermaid\ngraph TD\n",
+  "is_archived": false
+},
+{
+  "_id": "69cd25a75f9eebe4e4fa0fb5",
+  "user_id": "default_user",
+  "title": "请假流程是什么？",
+  "created_at": "2026-04-01T14:03:19.022000",
+  "updated_at": "2026-04-01T14:06:54.054000",
+  "message_count": 2,
+  "last_message": "抱歉，我在知识库中没有找到相关信息",
+  "is_archived": false
+},
+{
+  "_id": "69cd2b31fefccc296a8a0e60",
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": "2026-04-01T14:26:57.658000",
+  "updated_at": "2026-04-01T14:27:04.864000",
+  "message_count": 0,
+  "last_message": null,
+  "is_archived": false
+},
+{
+  "_id": "69cd3008fefccc296a8a0e61",
+  "user_id": "default_user",
+  "title": "请假的流程是什么",
+  "created_at": "2026-04-01T14:47:36.296000",
+  "updated_at": "2026-04-01T14:47:42.162000",
+  "message_count": 0,
+  "last_message": null,
+  "is_archived": false
+},
+{
+  "_id": "69cd3027fefccc296a8a0e62",
+  "user_id": "default_user",
+  "title": "请假的流程是什么",
+  "created_at": "2026-04-01T14:48:07.789000",
+  "updated_at": "2026-04-01T14:48:16.379000",
+  "message_count": 0,
+  "last_message": null,
+  "is_archived": false
+},
+{
+  "_id": "69cd30f56eedb688d6ffc281",
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": "2026-04-01T14:51:33.033000",
+  "updated_at": "2026-04-01T14:51:40.884000",
+  "message_count": 1,
+  "last_message": "📋 **请假流程**\n\n📋 **请假流程**\n共 4 个步骤\n📄 提供 2 个表单模板\n\n点击查看详细流程图和步骤说明\n\n**流程步骤：**\n1. 填写请假申请表 - 即时\n2. 提交主管审批 - 1",
+  "is_archived": false
+},
+{
+  "_id": "69cd31076eedb688d6ffc284",
+  "user_id": "default_user",
+  "title": "请假的流程是什么",
+  "created_at": "2026-04-01T14:51:51.023000",
+  "updated_at": "2026-04-01T14:52:38.762000",
+  "message_count": 2,
+  "last_message": "📍 **请假流程详细指引**\n\n```mermaid\ngraph TD\n    A[填写请假申请表] --> B{请假类型}\n    B -->|年假| C[提交主管审批]\n    B -->|病假|",
+  "is_archived": false
+},
+{
+  "_id": "69cd31686eedb688d6ffc289",
+  "user_id": "default_user",
+  "title": "我想请假，我已经填写了申请表并且得到了审批，接下来该干什么",
+  "created_at": "2026-04-01T14:53:28.170000",
+  "updated_at": "2026-04-01T14:54:00.931000",
+  "message_count": 1,
+  "last_message": "📋 **请假流程**\n\n📋 **请假流程**\n共 4 个步骤\n📄 提供 2 个表单模板\n\n点击查看详细流程图和步骤说明\n\n**流程步骤：**\n1. 填写请假申请表 - 即时\n2. 提交主管审批 - 1",
+  "is_archived": false
+},
+{
+  "_id": "69cd325a44af873cb1c5b83b",
+  "user_id": "default_user",
+  "title": "我想请假，我已经填写了申请表并且得到了审批，接下来该干什么",
+  "created_at": "2026-04-01T14:57:30.601000",
+  "updated_at": "2026-04-01T14:57:45.949000",
+  "message_count": 1,
+  "last_message": "📋 **请假流程**\n\n✅ 您已完成：**填写请假申请表**\n\n🎯 **下一步操作：**\n\n**第2步：提交主管审批**\n\n将请假申请表提交至直属主管进行审批\n\n📋 **需要准备：**\n   • 请假",
+  "is_archived": false
+},
+{
+  "_id": "69cd33808800ab881e5bf186",
+  "user_id": "default_user",
+  "title": "我想请假，我已经填写了申请表并且得到了审批，接下来该干什么",
+  "created_at": "2026-04-01T15:02:24.605000",
+  "updated_at": "2026-04-01T15:02:32.829000",
+  "message_count": 1,
+  "last_message": "📋 **请假流程**\n\n✅ 您已完成：**填写请假申请表**\n\n🎯 **下一步操作：**\n\n**第2步：提交主管审批**\n\n将请假申请表提交至直属主管进行审批\n\n📋 **需要准备：**\n   • 请假",
+  "is_archived": false
+},
+{
+  "_id": "69cd346ef67a42de204f8e25",
+  "user_id": "default_user",
+  "title": "我想请假，我已经填写了申请表并且得到了审批，接下来该干什么",
+  "created_at": "2026-04-01T15:06:22.012000",
+  "updated_at": "2026-04-01T15:06:29.456000",
+  "message_count": 1,
+  "last_message": "📋 **请假流程**\n\n✅ 您已完成：**提交主管审批**\n\n🎯 **下一步操作：**\n\n**第3步：HR备案**\n\n审批通过后，HR部门进行备案登记\n\n📋 **需要准备：**\n   • 审批通过的请",
+  "is_archived": false
+},
+{
+  "_id": "69cd36dc63164bcdf8f6ab85",
+  "user_id": "default_user",
+  "title": "我想请假，我已经填写了申请表并且得到了审批，接下来该干什么",
+  "created_at": "2026-04-01T15:16:44.735000",
+  "updated_at": "2026-04-01T15:16:54.451000",
+  "message_count": 1,
+  "last_message": "📋 **请假流程**\n\n✅ 您已完成：**提交主管审批**\n\n🎯 **下一步操作：**\n\n**第3步：HR备案**\n\n审批通过后，HR部门进行备案登记\n\n📋 **需要准备：**\n   • 审批通过的请",
+  "is_archived": false
+},
+{
+  "_id": "69cd3834e2a2f7dcb3e3bbee",
+  "user_id": "default_user",
+  "title": "我想请假，我已经填写了申请表并且得到了审批，接下来该干什么",
+  "created_at": "2026-04-01T15:22:28.944000",
+  "updated_at": "2026-04-01T15:28:15.157000",
+  "message_count": 3,
+  "last_message": "📋 **报销流程**\n\n📍 **报销流程**\n\n📋 流程共 5 个步骤\n\n🎯 **第一步：准备报销材料**\n   收集整理报销所需的所有原始凭证和发票\n   ✅ 需要准备：原始发票, 费用明细清单, ",
+  "is_archived": false
+},
+{
+  "_id": "69cd3a60629c0bea627e3524",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-01T15:31:44.684000",
+  "updated_at": "2026-04-01T15:31:50.867000",
+  "message_count": 1,
+  "last_message": "📋 **请假流程**\n\n📋 **请假流程**\n共 4 个步骤\n📄 提供 2 个表单模板\n\n点击查看详细流程图和步骤说明\n\n**流程步骤：**\n1. 填写请假申请表 - 即时\n2. 提交主管审批 - 1",
+  "is_archived": false
+},
+{
+  "_id": "69cd3a9cea30037fcdf27c1e",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-01T15:32:44.892000",
+  "updated_at": "2026-04-01T15:32:50.650000",
+  "message_count": 1,
+  "last_message": "📋 **请假流程**\n\n📋 **请假流程**\n共 4 个步骤\n📄 提供 2 个表单模板\n\n点击查看详细流程图和步骤说明\n\n**流程步骤：**\n1. 填写请假申请表 - 即时\n2. 提交主管审批 - 1",
+  "is_archived": false
+},
+{
+  "_id": "69cd3b0f8cda9ad8cd0d1ca8",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-01T15:34:39.698000",
+  "updated_at": "2026-04-01T15:34:46.184000",
+  "message_count": 1,
+  "last_message": "📋 **请假流程**\n\n📋 **请假流程**\n共 4 个步骤\n📄 提供 2 个表单模板\n\n点击查看详细流程图和步骤说明\n\n💡 [Staff Handbook.pdf - Page 31]\n备注：请在 ",
+  "is_archived": false
+},
+{
+  "_id": "69cd404fa932bcb7d12ce84b",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-01T15:57:03.536000",
+  "updated_at": "2026-04-01T15:57:09.770000",
+  "message_count": 1,
+  "last_message": "📋 **请假流程**\n\n📋 **请假流程**\n共 4 个步骤\n📄 提供 2 个表单模板\n\n点击查看详细流程图和步骤说明\n\n💡 [Staff Handbook.pdf - Page 31]\n备注：请在 ",
+  "is_archived": false
+},
+{
+  "_id": "69cd41d295712ffd2cc41b8a",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-01T16:03:30.194000",
+  "updated_at": "2026-04-01T16:03:35.128000",
+  "message_count": 1,
+  "last_message": "📋 **请假流程**\n\n📋 **请假流程**\n共 4 个步骤\n📄 提供 2 个表单模板\n\n点击查看详细流程图和步骤说明\n\n💡 [Staff Handbook.pdf - Page 31]\n备注：请在 ",
+  "is_archived": false
+},
+{
+  "_id": "69cd422b7c36fbfeef84a903",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-01T16:04:59.088000",
+  "updated_at": "2026-04-01T16:05:06.610000",
+  "message_count": 1,
+  "last_message": "📋 **请假流程**\n\n📋 **请假流程**\n共 4 个步骤\n📄 提供 2 个表单模板\n\n点击查看详细流程图和步骤说明\n\n💡 [Staff Handbook.pdf - Page 31]\n备注：请在 ",
+  "is_archived": false
+},
+{
+  "_id": "69cd4295f8240b82584e60c2",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-01T16:06:45.254000",
+  "updated_at": "2026-04-01T16:06:52.197000",
+  "message_count": 1,
+  "last_message": "📋 **请假流程**\n\n📋 **请假流程**\n共 4 个步骤\n📄 提供 2 个表单模板\n\n点击查看详细流程图和步骤说明\n\n💡 [Staff Handbook.pdf - Page 31]\n备注：请在 ",
+  "is_archived": false
+},
+{
+  "_id": "69cd42b8933d9341e0e0ced3",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-01T16:07:20.726000",
+  "updated_at": "2026-04-01T16:07:29.948000",
+  "message_count": 1,
+  "last_message": "📋 **请假流程**\n\n📋 **请假流程**\n共 4 个步骤\n📄 提供 2 个表单模板\n\n点击查看详细流程图和步骤说明\n\n💡 [Staff Handbook.pdf - Page 31]\n备注：请在 ",
+  "is_archived": false
+},
+{
+  "_id": "69cd43c28c09b9a6c340aea6",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-01T16:11:46.313000",
+  "updated_at": "2026-04-01T16:13:25.676000",
+  "message_count": 2,
+  "last_message": "根据知识库内容，总经理的主要职责包括：\n\n1. 负责服务中心的全面管理及运营 [Staff Handbook.pdf - Page 13]\n2. 向服务中心监管委员会汇报工作 [Staff Handb",
+  "is_archived": false
+},
+{
+  "_id": "69cd455ecd3b464c833e7753",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-01T16:18:38.562000",
+  "updated_at": "2026-04-01T16:22:58.350000",
+  "message_count": 5,
+  "last_message": "📘 **主管审批环节注意事项**\n\n根据公司请假流程，以下是您在主管审批环节需要特别注意的事项：\n\n**1. 提交方式**\n- ✅ 通过OA系统提交电子申请\n- ✅ 同时发送邮件通知主管（建议抄送HR",
+  "is_archived": false
+},
+{
+  "_id": "69cd48755051e0a9b5a1484a",
+  "user_id": "default_user",
+  "title": "请假流程是什么？",
+  "created_at": "2026-04-01T16:31:49.322000",
+  "updated_at": "2026-04-01T16:32:03.994000",
+  "message_count": 2,
+  "last_message": "📋 **请假流程**\n\n✅ 您已完成：**填写请假申请表**\n\n🎯 **下一步操作：**\n\n**第2步：提交主管审批**\n\n将请假申请表提交至直属主管进行审批\n\n📋 **需要准备：**\n   • 请假",
+  "is_archived": false
+},
+{
+  "_id": "69cd48f9f8846f2c918809a1",
+  "user_id": "default_user",
+  "title": "请假流程是什么？",
+  "created_at": "2026-04-01T16:34:01.658000",
+  "updated_at": "2026-04-01T16:34:39.786000",
+  "message_count": 3,
+  "last_message": "📋 **请假流程**\n\n📋 **请假流程**\n共 4 个步骤\n📄 提供 2 个表单模板\n\n点击查看详细流程图和步骤说明\n\n**流程步骤：**\n1. 填写请假申请表 - 即时\n2. 提交主管审批 - 1",
+  "is_archived": false
+},
+{
+  "_id": "69cd4928f8846f2c918809a8",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-01T16:34:48.534000",
+  "updated_at": "2026-04-01T16:44:16.385000",
+  "message_count": 8,
+  "last_message": "抱歉，刚才系统出现了一些技术问题，我正在重新为您加载报销单填写引导。\n\n让我手动为您提供详细的**报销单填写指南**：\n\n---\n\n📋 **费用报销单填写步骤（逐项说明）**\n\n请按以下顺序填写您的报",
+  "is_archived": false
+},
+{
+  "_id": "69cd4e1afee2bb625539d179",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-01T16:55:54.130000",
+  "updated_at": "2026-04-01T17:01:17.066000",
+  "message_count": 4,
+  "last_message": "📋 **请假流程**\n\n📋 **请假流程**\n共 4 个步骤\n📄 提供 2 个表单模板\n\n点击查看详细流程图和步骤说明\n\n**流程步骤：**\n1. 填写请假申请表 - 即时\n2. 提交主管审批 - 1",
+  "is_archived": false
+},
+{
+  "_id": "69cdc73f06733f761a72053f",
+  "user_id": "default_user",
+  "title": "请假流程是什么",
+  "created_at": "2026-04-02T01:32:47.569000",
+  "updated_at": "2026-04-02T01:34:11.325000",
+  "message_count": 4,
+  "last_message": "📋 **请假流程**\n\n📋 **请假流程**\n共 4 个步骤\n📄 提供 2 个表单模板\n\n点击查看详细流程图和步骤说明\n\n**流程步骤：**\n1. 填写请假申请表 - 即时\n2. 提交主管审批 - 1",
+  "is_archived": false
+},
+{
+  "_id": "69cdcd082a3146e75f0eb17f",
+  "user_id": "default_user",
+  "title": "请假流程是什么",
+  "created_at": "2026-04-02T01:57:28.398000",
+  "updated_at": "2026-04-02T01:58:27.384000",
+  "message_count": 3,
+  "last_message": "📋 **请假流程**\n\n📋 **请假流程**\n共 4 个步骤\n📄 提供 2 个表单模板\n\n点击查看详细流程图和步骤说明\n\n**流程步骤：**\n1. 填写请假申请表 - 即时\n2. 提交主管审批 - 1",
+  "is_archived": false
+},
+{
+  "_id": "69cdd75c9a7bbd9ce0625453",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-02T02:41:32.919000",
+  "updated_at": "2026-04-02T02:58:21.805000",
+  "message_count": 2,
+  "last_message": "📋 **请假流程**\n\n共 4 个步骤  \n📄 提供 2 个表单模板  \n\n点击查看详细流程图和步骤说明  \n\n**流程步骤：**  \n1. **填写请假申请表** - 即时  \n2. **提交主管审",
+  "is_archived": false
+},
+{
+  "_id": "69cde171c6a1b342b8ca510b",
+  "user_id": "default_user",
+  "title": "休几天假",
+  "created_at": "2026-04-02T03:24:33.787000",
+  "updated_at": "2026-04-02T03:29:09.693000",
+  "message_count": 6,
+  "last_message": "以下是请假流程的详细说明：\n\n---\n\n### 📌 请假流程\n\n#### **流程图**\n```plaintext\ngraph TD\n    A[填写请假申请表] --> B{请假类型}\n    B ",
+  "is_archived": false
+},
+{
+  "_id": "69ce14f2bc5a4b325804118d",
+  "user_id": "default_user",
+  "title": "公司有哪些节假日？",
+  "created_at": "2026-04-02T07:04:18.224000",
+  "updated_at": "2026-04-02T09:01:09.020000",
+  "message_count": 2,
+  "last_message": "如果你计划请假3天，这将被视为无薪假，因为根据公司政策，5天以下的无薪假可以直接由 approver 批复 [Staff Handbook.pdf - Page 28]。\n\n为了顺利申请这3天的无薪假",
+  "is_archived": false
+},
+{
+  "_id": "69ce321057ba30760022eb72",
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": "2026-04-02T09:08:32.253000",
+  "updated_at": "2026-04-02T09:15:45.682000",
+  "message_count": 5,
+  "last_message": "根据您提供的关键词“流程”、“报销”、“怎样”以及相关文档《流程文档.docx》，以下是公司费用报销的标准流程说明：\n\n---\n\n### ✅ **一、报销范围**\n以下费用可申请报销：\n- **差旅费",
+  "is_archived": false
+},
+{
+  "_id": "69ce3475453f05818f56990f",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-02T09:18:45.465000",
+  "updated_at": "2026-04-02T09:21:51.800000",
+  "message_count": 4,
+  "last_message": "您提到“1月15日到1月18日”，看起来像是计划请年假的时间。请问您想了解以下哪方面内容呢？例如：\n\n1. **年假天数计算**：您在这个时间段能休几天年假？（需确认是否包含周末或调休）\n2. **年",
+  "is_archived": false
+},
+{
+  "_id": "69ce35e4499245e536072360",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-02T09:24:52.802000",
+  "updated_at": "2026-04-02T09:29:09.522000",
+  "message_count": 3,
+  "last_message": "请告诉我您的请假日期范围？例如：1月15日到1月18日",
+  "is_archived": false
+},
+{
+  "_id": "69ce37c695ee4c8a467d1dba",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-02T09:32:54.434000",
+  "updated_at": "2026-04-02T09:33:33.946000",
+  "message_count": 3,
+  "last_message": "请告诉我您的请假日期范围？例如：1月15日到1月18日",
+  "is_archived": false
+},
+{
+  "_id": "69ce389f0cfc28f68b299809",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-02T09:36:31.295000",
+  "updated_at": "2026-04-02T09:37:13.297000",
+  "message_count": 4,
+  "last_message": "您提到“1月15日到1月18日”，看起来像是计划请年假的时间。请问您想了解以下哪方面内容呢？  \n\n例如：  \n- 这几天请假是否需要调休？  \n- 年假天数是否足够？  \n- 请假流程怎么走？（如公",
+  "is_archived": false
+},
+{
+  "_id": "69ce3aab56dfa24b2b1ecace",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-02T09:45:15.885000",
+  "updated_at": "2026-04-02T09:45:53.758000",
+  "message_count": 4,
+  "last_message": "已为您生成个性化流程指引：",
+  "is_archived": false
+},
+{
+  "_id": "69ce3f67e37136d4803bf254",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-02T10:05:27.319000",
+  "updated_at": "2026-04-02T10:09:26.413000",
+  "message_count": 0,
+  "last_message": null,
+  "is_archived": false
+},
+{
+  "_id": "69ce442461e7a0defed1d115",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-02T10:25:40.069000",
+  "updated_at": "2026-04-02T11:17:39.882000",
+  "message_count": 0,
+  "last_message": null,
+  "is_archived": false
+},
+{
+  "_id": "69ce5083c46d2d51b118d414",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-02T11:18:27.024000",
+  "updated_at": "2026-04-02T11:28:15.629000",
+  "message_count": 4,
+  "last_message": "已为您生成个性化流程指引：",
+  "is_archived": false
+},
+{
+  "_id": "69ce5b8024c2097e3516aabe",
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": "2026-04-02T12:05:20.699000",
+  "updated_at": "2026-04-02T12:05:56.323000",
+  "message_count": 4,
+  "last_message": "已为您生成年假流程指引（1天），1月15日到1月18日",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69ce70c98c2f7ab735d40991"
+  },
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": {
+    "$date": "2026-04-02T13:36:09.429Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-02T13:37:27.025Z"
+  },
+  "message_count": 1,
+  "last_message": "员工申请休假需遵循以下流程和要求，具体依据休假类型而定：\n\n### 1. **通用申请流程**\n- 所有假期应**提前在假期管理系统（LMS）中提交申请**，并获得直属上司或经理的批准 [Staff ",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69ce83778cb886d392a80403"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-02T14:55:51.495Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-02T15:23:02.300Z"
+  },
+  "message_count": 4,
+  "last_message": "根据公司《员工手册》及相关政策，**报销流程**如下：\n\n---\n\n### ✅ 标准报销流程（适用于正常情况）\n\n1. **准备材料**\n   - 收集所有与业务相关的发票或收据原件。\n   - 确保",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69ce8b003df66226bc1af260"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-02T15:28:00.251Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-02T15:32:35.933Z"
+  },
+  "message_count": 5,
+  "last_message": "🎉 您的请假申请已成功提交！\n\n- **申请单号**：REQ-BB83B33F  \n- **请假类型**：年假  \n- **请假时间**：2026年4月3日 至 2026年4月6日（共4天）  \n- ",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf17b1ad1eec91f2b5d3d4"
+  },
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": {
+    "$date": "2026-04-03T01:28:17.631Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T01:31:25.050Z"
+  },
+  "message_count": 3,
+  "last_message": "您好，您的请假申请已成功提交！\n\n**申请详情如下：**  \n- 姓名：yuan  \n- 员工编号：CN123456  \n- 部门：开发部门  \n- 假期类型：事假  \n- 请假时间：2025年4月5",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf1b18e1de53c6666a904d"
+  },
+  "user_id": "default_user",
+  "title": "请假",
+  "created_at": {
+    "$date": "2026-04-03T01:42:48.969Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T01:45:37.073Z"
+  },
+  "message_count": 5,
+  "last_message": "根据公司《员工手册》规定，申请病假需提交以下材料：\n\n| 材料类型 | 具体要求 | 依据 |\n|---------|--------|------|\n| **核心证明** | 由正规医院医生出具的病",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf1d672baa5ab302c645c1"
+  },
+  "user_id": "default_user",
+  "title": "请假",
+  "created_at": {
+    "$date": "2026-04-03T01:52:39.505Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T01:53:51.555Z"
+  },
+  "message_count": 2,
+  "last_message": "抱歉，系统暂时无法识别您的账户信息。请您提供以下信息，以便我为您提交病假申请：\n\n- 姓名\n- 工号（如有）\n- 部门\n\n您刚才填写的请假信息已记录：\n- 请假类型：病假\n- 时间：2024年4月5日",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf1e87941377323127d32b"
+  },
+  "user_id": "default_user",
+  "title": "请假",
+  "created_at": {
+    "$date": "2026-04-03T01:57:27.974Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T02:03:44.524Z"
+  },
+  "message_count": 1,
+  "last_message": "**请假申请** — 步骤 1/6：获取用户信息\n\n正在获取您的账户信息…",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf22f8ac18e78ec1e98e33"
+  },
+  "user_id": "default_user",
+  "title": "请假",
+  "created_at": {
+    "$date": "2026-04-03T02:16:24.800Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T02:16:30.639Z"
+  },
+  "message_count": 1,
+  "last_message": "**请假申请** — 步骤 1/6：获取用户信息\n\n正在获取您的账户信息…",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf26374ce2da868b05e9c1"
+  },
+  "user_id": "default_user",
+  "title": "请假",
+  "created_at": {
+    "$date": "2026-04-03T02:30:15.384Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T02:35:34.357Z"
+  },
+  "message_count": 5,
+  "last_message": "**请假申请** — 步骤 2/6：选择假期类型\n\n请选择您要申请的假期类型。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf28dc960918748a664412"
+  },
+  "user_id": "default_user",
+  "title": "请假",
+  "created_at": {
+    "$date": "2026-04-03T02:41:32.152Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T02:41:37.455Z"
+  },
+  "message_count": 0,
+  "last_message": null,
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf29a57d2bdb43e186ec9f"
+  },
+  "user_id": "default_user",
+  "title": "请假",
+  "created_at": {
+    "$date": "2026-04-03T02:44:53.145Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T02:45:21.467Z"
+  },
+  "message_count": 1,
+  "last_message": "您好！欢迎使用请假申请流程，我将一步步协助您完成申请。\n\n请先告诉我以下信息，以便我帮您填写请假申请：\n1. 请假类型（如：事假、病假、年假、婚假等）\n2. 请假开始时间\n3. 请假结束时间（或时长）",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf2a9b4af9647a92abb7d9"
+  },
+  "user_id": "default_user",
+  "title": "请假",
+  "created_at": {
+    "$date": "2026-04-03T02:48:59.770Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T02:52:48.437Z"
+  },
+  "message_count": 1,
+  "last_message": "您是想发起「引导员工完成请假申请，收集假期类型、日期、原因并提交」吗？\n\n如果是，请回复「是的，帮我申请」；如果只是查询相关信息，请继续描述您的问题。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf2c47261accec9c9b13b8"
+  },
+  "user_id": "default_user",
+  "title": "请假",
+  "created_at": {
+    "$date": "2026-04-03T02:56:07.099Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T02:56:14.512Z"
+  },
+  "message_count": 1,
+  "last_message": "您是想发起「引导员工完成请假申请，收集假期类型、日期、原因并提交」吗？\n\n如果是，请回复「是的，帮我申请」；如果只是查询相关信息，请继续描述您的问题。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf32f28d10fc2815b6a2cf"
+  },
+  "user_id": "default_user",
+  "title": "请假",
+  "created_at": {
+    "$date": "2026-04-03T03:24:34.622Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T03:25:59.544Z"
+  },
+  "message_count": 3,
+  "last_message": "**请假申请** — 步骤 1/6：获取用户信息\n\n正在获取您的账户信息…",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf73ac1391d5528dc4df25"
+  },
+  "user_id": "default_user",
+  "title": "如何申请休假？",
+  "created_at": {
+    "$date": "2026-04-03T08:00:44.919Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T08:00:52.342Z"
+  },
+  "message_count": 1,
+  "last_message": "**请假申请** — 步骤 1/6：获取用户信息\n\n正在获取您的账户信息…",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf73ca1391d5528dc4df28"
+  },
+  "user_id": "default_user",
+  "title": "请假",
+  "created_at": {
+    "$date": "2026-04-03T08:01:14.674Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T08:01:21.890Z"
+  },
+  "message_count": 1,
+  "last_message": "您是想发起「引导员工完成请假申请，收集假期类型、日期、原因并提交」吗？\n\n如果是，请回复「是的，帮我申请」；如果只是查询相关信息，请继续描述您的问题。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf79821391d5528dc4df2b"
+  },
+  "user_id": "default_user",
+  "title": "我想请高温假",
+  "created_at": {
+    "$date": "2026-04-03T08:25:38.075Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T08:25:53.568Z"
+  },
+  "message_count": 2,
+  "last_message": "**请假申请** — 步骤 1/6：获取用户信息\n\n正在获取您的账户信息…",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf809b2bc36da866d8feba"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T08:55:55.964Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T09:00:16.955Z"
+  },
+  "message_count": 3,
+  "last_message": "抱歉，我在知识库中没有找到相关信息",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf8328e558ebf12b278167"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T09:06:48.719Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T09:07:07.531Z"
+  },
+  "message_count": 2,
+  "last_message": "**请假申请** — 步骤 1/6：获取用户信息\n\n正在获取您的账户信息…",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf850fc88f705a1140877f"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T09:14:55.169Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T09:15:41.130Z"
+  },
+  "message_count": 2,
+  "last_message": "您的请假申请已成功提交！\n\n- **申请单号**：REQ-C1F5F198  \n- **请假类型**：年假  \n- **时间**：2023年12月1日 至 2023年12月5日（共5天）  \n- **",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf862cddc5fbeaf5288e9e"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T09:19:40.474Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T09:19:47.599Z"
+  },
+  "message_count": 1,
+  "last_message": "您是想发起「请假」吗？\n\n如果是，请回复「是的，帮我申请」；如果只是查询相关信息，请继续描述您的问题。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf8696e965673baa0145c6"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T09:21:26.291Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T09:21:33.343Z"
+  },
+  "message_count": 1,
+  "last_message": "您是想发起「document_upload」吗？\n\n如果是，请回复「是的，帮我申请」；如果只是查询相关信息，请继续描述您的问题。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf8767af5a0471d38f450c"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T09:24:55.122Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T09:25:01.481Z"
+  },
+  "message_count": 1,
+  "last_message": "您是想发起「请假」吗？\n\n如果是，请回复「是的，帮我申请」；如果只是查询相关信息，请继续描述您的问题。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf88a080a1d09f8aa035e6"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T09:30:08.897Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T09:30:20.223Z"
+  },
+  "message_count": 1,
+  "last_message": "您是想发起「请假」吗？\n\n如果是，请回复「是的，帮我申请」；如果只是查询相关信息，请继续描述您的问题。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf89a92c757770458d244e"
+  },
+  "user_id": "default_user",
+  "title": "我要请假",
+  "created_at": {
+    "$date": "2026-04-03T09:34:33.817Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T09:44:02.748Z"
+  },
+  "message_count": 2,
+  "last_message": "您是想发起「请假」吗？\n\n如果是，请回复「是的，帮我申请」；如果只是查询相关信息，请继续描述您的问题。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf8c3f1ddf8695903367f3"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T09:45:35.847Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T09:45:40.105Z"
+  },
+  "message_count": 0,
+  "last_message": null,
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf8e6d35a3a3d190d81f02"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T09:54:53.827Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T09:56:16.526Z"
+  },
+  "message_count": 2,
+  "last_message": "您好，我是您的请假助手。为了帮您顺利办理请假，我需要先确认一下您的身份信息。\n\n请问您的登录用户名是？这将用于获取您的个人信息并提交请假申请。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf9329f2cd4f248943f276"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T10:15:05.963Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T10:17:17.870Z"
+  },
+  "message_count": 2,
+  "last_message": "如果您想申请**学习假**，请根据您参加的资格考试类型参考以下政策：\n\n### 一、学习假适用条件\n\n| 考试类型 | 可享受学习假次数 | 每次天数 | 备注 | 来源 |\n|--------|--",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf94cef2cd4f248943f27b"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T10:22:06.765Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T10:22:52.100Z"
+  },
+  "message_count": 1,
+  "last_message": "您好，您想请假需要根据具体的假期类型来办理。以下是服务中心支持的主要假期类型及相关申请要求：\n\n| 假期类型 | 申请条件 | 所需证明 | 提前通知时间 | 来源 |\n|--------|-----",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf96b9a0b76cbb82461e30"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T10:30:17.365Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T10:30:46.420Z"
+  },
+  "message_count": 1,
+  "last_message": "您好，您想请假需要根据具体的假期类型来办理。以下是服务中心常见的假期类型及申请要点，请您参考：\n\n| 假期类型 | 申请条件与要求 | 相关证明 | 来源 |\n|--------|----------",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf9e12a2f1b36fcc24fc27"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T11:01:38.229Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T11:02:13.169Z"
+  },
+  "message_count": 1,
+  "last_message": "您好，您想请假需要根据具体的假期类型来办理。以下是服务中心常见的假期类型及相关申请要求：\n\n### 常见假期类型及申请要点\n\n| 假期类型 | 资格/条件 | 申请要求 | 相关证明 | 来源 |\n|",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cf9ecdcfeb60208875912c"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T11:04:45.153Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T11:05:14.627Z"
+  },
+  "message_count": 1,
+  "last_message": "您好，您想请假需要根据具体的假期类型来办理。以下是服务中心常见的假期类型及相关要求：\n\n| 假期类型 | 申请条件 | 所需证明 | 提前通知时间 | 来源 |\n|--------|--------|",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cfa6fa75b94b377e6b2a92"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T11:39:38.947Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T11:44:22.955Z"
+  },
+  "message_count": 2,
+  "last_message": "如果您的孩子生病了，您可以根据具体情况申请以下假期：\n\n### 1. **育儿假（Childcare Leave）**\n- **适用条件**：子女三周岁以下。\n- **额度**：每年可享受累计10个工",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cfaacc922eeb844f9de3f5"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T11:55:56.012Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T12:05:00.202Z"
+  },
+  "message_count": 3,
+  "last_message": "根据《员工手册》内容，公司不强制要求提交书面请假申请信，所有假期应通过**假期管理系统（LMS）**在线提交。但如需在特殊情况下提交书面说明或邮件申请，可参考以下格式和要求：\n\n---\n\n### 一、",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cfb03a8af87868c1f63a27"
+  },
+  "user_id": "default_user",
+  "title": "请假申请怎么写",
+  "created_at": {
+    "$date": "2026-04-03T12:19:06.895Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T12:30:47.516Z"
+  },
+  "message_count": 2,
+  "last_message": "您好！如果您想请假，根据公司《员工手册》的规定，请按照以下步骤操作：\n\n---\n\n### ✅ 一、请假流程（来自知识库内容）\n\n1. **登录假期管理系统（LMS）**\n   - 所有请假必须通过公司",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cfb4985f97ef6e9feeea51"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-03T12:37:44.415Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T12:39:10.341Z"
+  },
+  "message_count": 2,
+  "last_message": "根据您的情况，您可能需要申请的是**婚假**，而非一般事假。以下是关于婚假的具体规定和申请要求：\n\n### 婚假（Marriage Leave）  \n#### 一、资格和条件  \n- 根据《四川省人口",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cfb6fd66d95e296464af0a"
+  },
+  "user_id": "default_user",
+  "title": "我想请婚假",
+  "created_at": {
+    "$date": "2026-04-03T12:47:57.042Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T12:48:24.563Z"
+  },
+  "message_count": 1,
+  "last_message": "如果您想请婚假，请注意以下事项：\n\n### 一、资格和条件\n根据《四川省人口与计划生育条例》规定，**2024年11月28日及之后依法办理结婚登记的员工**，可享受20天婚假（包含法定节假日及周末）。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cfb84d4ce5cc2cc2e21c29"
+  },
+  "user_id": "default_user",
+  "title": "我想请婚嫁",
+  "created_at": {
+    "$date": "2026-04-03T12:53:33.318Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T12:53:57.456Z"
+  },
+  "message_count": 1,
+  "last_message": "如果您想申请婚假，请注意以下要求：\n\n**一、资格和条件**  \n根据《四川省人口与计划生育条例》规定，2024年11月28日及之后依法办理结婚登记的员工，享有20天婚假（含法定假期及周末）。在结婚登",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cfb8824ce5cc2cc2e21c2c"
+  },
+  "user_id": "default_user",
+  "title": "我想请婚假",
+  "created_at": {
+    "$date": "2026-04-03T12:54:26.695Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T12:54:45.098Z"
+  },
+  "message_count": 1,
+  "last_message": "如果您想申请婚假，请注意以下要求：\n\n### 一、资格和条件\n根据《四川省人口与计划生育条例》规定，2024年11月28日及之后依法办理结婚登记的员工，享有20天婚假（含法定假期及周末）。在结婚登记前",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cfb8fb36cc0cbf9f7a3bfc"
+  },
+  "user_id": "default_user",
+  "title": "我想请婚假",
+  "created_at": {
+    "$date": "2026-04-03T12:56:27.753Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T12:56:55.290Z"
+  },
+  "message_count": 1,
+  "last_message": "如果您想申请婚假，请注意以下要求：\n\n### 一、资格和条件\n根据《四川省人口与计划生育条例》规定，2024年11月28日及之后依法办理结婚登记的员工，享有20天婚假（含法定假期及周末）。在结婚登记前",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cfba7e54b6c07fca34b1b2"
+  },
+  "user_id": "default_user",
+  "title": "我想请婚假",
+  "created_at": {
+    "$date": "2026-04-03T13:02:54.105Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T13:03:23.087Z"
+  },
+  "message_count": 1,
+  "last_message": "如果您想申请婚假，请注意以下要求（依据《四川省人口与计划生育条例》及服务中心规定）：\n\n### 一、资格和条件 [Staff Handbook.pdf - Page 24]\n- 须在2024年11月2",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cfbfd2957024e9f7fb0d43"
+  },
+  "user_id": "default_user",
+  "title": "我想请婚假",
+  "created_at": {
+    "$date": "2026-04-03T13:25:38.257Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T13:25:55.096Z"
+  },
+  "message_count": 1,
+  "last_message": "好的，申请婚假需要了解一些具体信息，我来一步步帮您确认。\n\n首先，请问您的**结婚登记日期**是什么时候呢？  \n（根据公司规定，婚假通常需要在领取结婚证后的6个月或1年内休完，我们需要确认是否在有效",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cfc275d7117a4ef881cda3"
+  },
+  "user_id": "default_user",
+  "title": "我想请婚假",
+  "created_at": {
+    "$date": "2026-04-03T13:36:53.103Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T13:37:12.954Z"
+  },
+  "message_count": 1,
+  "last_message": "好的，申请婚假需要了解一些具体信息，我来一步步帮您确认。\n\n首先，请问您的**结婚登记日期**是什么时候呢？  \n（根据公司规定，婚假通常需要在领取结婚证后的6个月或1年内休完，我们需要确认是否在有效",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cfc8340354995b014f3a4b"
+  },
+  "user_id": "default_user",
+  "title": "我想请婚嫁",
+  "created_at": {
+    "$date": "2026-04-03T14:01:24.584Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T14:06:16.454Z"
+  },
+  "message_count": 7,
+  "last_message": "抱歉，我暂时无法提供该流程的指引。请联系管理员。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cfd3ca18996bdd75bc854c"
+  },
+  "user_id": "default_user",
+  "title": "我想请婚假",
+  "created_at": {
+    "$date": "2026-04-03T14:50:50.105Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T14:54:30.419Z"
+  },
+  "message_count": 5,
+  "last_message": "抱歉，我暂时无法提供该流程的指引。请联系管理员。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69cfd97d3f1ab4c835de8e30"
+  },
+  "user_id": "default_user",
+  "title": "我想请婚假",
+  "created_at": {
+    "$date": "2026-04-03T15:15:09.508Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-03T15:16:21.854Z"
+  },
+  "message_count": 5,
+  "last_message": "感谢确认！信息无误，已完整收集。\n\n以下是为您定制的**婚假申请操作指引**，包含所需材料、申请步骤、注意事项等，请您参考执行：\n\n---\n\n🎉 **婚假申请个性化指引**（张伟 / 员工）\n\n###",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d07df4e3f86414cb7f622a"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-04T02:56:52.132Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-04T05:45:06.805Z"
+  },
+  "message_count": 5,
+  "last_message": "太好了！感谢确认，您的年假额度充足，可以顺利申请。\n\n目前我已收集到以下信息：\n✅ 假期类型：年假  \n✅ 请假天数：5天（连续）  \n✅ 开始时间：下周二  \n✅ 余额确认：充足  \n\n让我为您生成",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d0a5b6668a65c57508a1e3"
+  },
+  "user_id": "default_user",
+  "title": "我想请假",
+  "created_at": {
+    "$date": "2026-04-04T05:46:30.311Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-04T05:47:29.488Z"
+  },
+  "message_count": 4,
+  "last_message": "太好了！信息已确认无误 ✅\n\n为您汇总请假信息如下，请您核对：\n\n🔹 假期类型：年假  \n🔹 请假天数：3天  \n🔹 开始时间：2025年4月8日（星期二）  \n🔹 结束时间：2025年4月10日（星",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d0a713d89a3cba89f266d0"
+  },
+  "user_id": "default_user",
+  "title": "我想下周三开始请年假3天",
+  "created_at": {
+    "$date": "2026-04-04T05:52:19.178Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-04T05:52:36.238Z"
+  },
+  "message_count": 1,
+  "last_message": "好的，我帮您申请年假。根据您的描述，您想请3天年假，从下周三开始。\n\n为了为您生成准确的申请指引，请问这3天是包含周末吗？也就是说：\n- 您是想从下周三开始连续请3个工作日（到周五），还是\n- 包含周",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d0a77fed6181391f541454"
+  },
+  "user_id": "default_user",
+  "title": "我想下周三开始请年假3天",
+  "created_at": {
+    "$date": "2026-04-04T05:54:07.595Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-04T05:54:56.237Z"
+  },
+  "message_count": 2,
+  "last_message": "感谢确认！我已记录您的请假信息：\n\n✅ 假期类型：年假  \n✅ 开始时间：2024年6月12日（星期三）  \n✅ 结束时间：2024年6月14日（星期五）  \n✅ 请假天数：3天  \n✅ 年假余额：充",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d0a86a0f60d90621302040"
+  },
+  "user_id": "default_user",
+  "title": "我想请3天年假",
+  "created_at": {
+    "$date": "2026-04-04T05:58:02.509Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-04T05:58:46.980Z"
+  },
+  "message_count": 3,
+  "last_message": "好的，已确认：您计划从 **2024年5月21日（下周二）** 开始，请 **3天年假**。\n\n我来为您汇总一下当前信息，以便生成个性化指引：\n\n- 假期类型：年假  \n- 请假天数：3天  \n- 开",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d0f76db2929d9d5aff98e7"
+  },
+  "user_id": "default_user",
+  "title": "我想请婚假",
+  "created_at": {
+    "$date": "2026-04-04T11:35:09.421Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-04T11:36:47.658Z"
+  },
+  "message_count": 5,
+  "last_message": "太好了！信息已确认无误，以下是为你定制的**婚假申请全流程操作指引**，请查收👇\n\n---\n\n🎉 **【你的婚假申请专属指引】**\n\n### 一、假期情况概览\n- **假期类型**：婚假  \n- **",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d10059f68f342488fbf55b"
+  },
+  "user_id": "default_user",
+  "title": "我的年假还剩多少",
+  "created_at": {
+    "$date": "2026-04-04T12:13:13.371Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-04T12:17:54.587Z"
+  },
+  "message_count": 2,
+  "last_message": "抱歉，我无法获取您的年假余额信息，因为系统缺少必要的认证上下文。请您登录公司的人力资源系统或联系人事部门查询具体的年假剩余情况。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d102e98b61e706a0ae545a"
+  },
+  "user_id": "default_user",
+  "title": "我的年假还剩多少",
+  "created_at": {
+    "$date": "2026-04-04T12:24:09.922Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-04T12:26:19.056Z"
+  },
+  "message_count": 2,
+  "last_message": "您好，目前我无法获取您的年假余额，因为系统提示“缺少认证上下文”，说明尚未登录或未授权访问您的个人信息。\n\n建议您：\n1. 登录公司的人力资源系统（如飞书、企业微信、OA系统等）查看假期余额；\n2. ",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d10392c2d7dd1f72be2386"
+  },
+  "user_id": "default_user",
+  "title": "我的年假还剩多少",
+  "created_at": {
+    "$date": "2026-04-04T12:26:58.543Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-04T12:27:13.860Z"
+  },
+  "message_count": 1,
+  "last_message": "抱歉，我目前无法获取您的年假余额信息，因为系统缺少必要的认证上下文（例如登录信息或权限）。请您：\n\n1. 确认是否已登录公司的人力资源系统；\n2. 检查是否有查看假期余额的权限；\n3. 直接通过公司H",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d10558bbbe03e2fec3d050"
+  },
+  "user_id": "default_user",
+  "title": "我的年假还剩多少",
+  "created_at": {
+    "$date": "2026-04-04T12:34:32.263Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-04T12:34:49.477Z"
+  },
+  "message_count": 1,
+  "last_message": "抱歉，我目前无法获取您的年假余额信息，因为缺少必要的认证上下文（例如登录信息或权限）。请您登录公司的人力资源系统（如OA、飞书、企业微信等）查看具体的年假余额，或联系人事部门进行确认。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d10595bbbe03e2fec3d053"
+  },
+  "user_id": "default_user",
+  "title": "我的年假还剩多少",
+  "created_at": {
+    "$date": "2026-04-04T12:35:33.610Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-04T12:35:47.485Z"
+  },
+  "message_count": 1,
+  "last_message": "抱歉，我目前无法获取您的年假余额信息，因为系统缺少必要的认证上下文（例如登录信息或权限）。请您登录公司的人力资源系统（如OA、钉钉、企业微信等）查看具体的年假余额，或联系人事部门进行确认。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d106798afcc8a402609bff"
+  },
+  "user_id": "default_user",
+  "title": "我的年假还剩多少",
+  "created_at": {
+    "$date": "2026-04-04T12:39:21.216Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-04T12:39:37.239Z"
+  },
+  "message_count": 1,
+  "last_message": "抱歉，我目前无法获取您的年假余额信息，因为系统缺少必要的认证上下文（例如登录信息或权限）。请您：\n\n1. 确认是否已登录公司的人力资源系统；\n2. 前往公司HR系统或OA平台查询年假余额；\n3. 联系",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d108799e504bdfeb8e6a90"
+  },
+  "user_id": "default_user",
+  "title": "我的年假还剩多少",
+  "created_at": {
+    "$date": "2026-04-04T12:47:53.407Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-04T12:58:07.222Z"
+  },
+  "message_count": 4,
+  "last_message": "📊 hr 的假期余额\n查询时间：2026-04-04 20:58:07\n\n• 事假：无限额（按需申请）\n• 产假：总额 98.0 天，已用 29.4 天，剩余 68.6 天\n• 婚假：总额 10.0 ",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d11efa854b36eb96015e16"
+  },
+  "user_id": "default_user",
+  "title": "怎么报销",
+  "created_at": {
+    "$date": "2026-04-04T14:23:54.035Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-04T14:25:47.632Z"
+  },
+  "message_count": 2,
+  "last_message": "根据知识库中的信息，以下是关于报销的主要流程和注意事项：\n\n---\n\n### 一、通用报销流程（适用于大多数费用）\n1. **使用系统提交申请**  \n   所有员工必须通过公司 **vExpense",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d1bf46dade00e5c569ac20"
+  },
+  "user_id": "default_user",
+  "title": "我想请年假",
+  "created_at": {
+    "$date": "2026-04-05T01:47:50.170Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-05T01:48:13.718Z"
+  },
+  "message_count": 1,
+  "last_message": "抱歉，我暂时无法提供该流程的指引。请联系管理员。",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d1bfb0759a361e11a3a67c"
+  },
+  "user_id": "default_user",
+  "title": "我想请年假",
+  "created_at": {
+    "$date": "2026-04-05T01:49:36.114Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-05T02:07:33.454Z"
+  },
+  "message_count": 7,
+  "last_message": "确认无误！以下是为您生成的**年假申请操作指引**：\n\n---\n\n### 📅 信息汇总  \n- **请假类型**：年假  \n- **请假时间**：2024年6月3日（下周一）至 2024年6月4日（下",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d1c3fa7686e9d4683da35d"
+  },
+  "user_id": "default_user",
+  "title": "我想报销",
+  "created_at": {
+    "$date": "2026-04-05T02:07:54.279Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-05T02:09:41.807Z"
+  },
+  "message_count": 5,
+  "last_message": "非常好！您已确认持有正规住宿发票。\n\n📌 现在我们汇总一下您提供的信息：\n\n- 报销类型：出差住宿费  \n- 报销金额：600元（未超过5000元，无需财务总监审批）  \n- 费用发生时间：上个月中旬",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d1c594ecc2610910b0bf45"
+  },
+  "user_id": "default_user",
+  "title": "我想了解入职流程",
+  "created_at": {
+    "$date": "2026-04-05T02:14:44.423Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-05T02:15:53.786Z"
+  },
+  "message_count": 4,
+  "last_message": "太好了！您已准备好所有入职材料，并将于 **2025年4月15日** 正式入职，且已收到录用通知。\n\n✅ 我们来汇总一下您的信息：  \n- 入职时间：2025年4月15日  \n- 录用通知：已收到  ",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d1cc7b49668234c1bafc1f"
+  },
+  "user_id": "default_user",
+  "title": "我想请年假",
+  "created_at": {
+    "$date": "2026-04-05T02:44:11.268Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-05T02:47:53.747Z"
+  },
+  "message_count": 7,
+  "last_message": "感谢提供信息！您此次出差时间为：**2025年3月10日至2025年3月12日**（共3天）。\n\n接下来，请问您此次出差的**目的地**是？  \n（例如：北京市、上海市，或具体城市/地区）",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d1ce9486520f0d4491272c"
+  },
+  "user_id": "default_user",
+  "title": "我要请假",
+  "created_at": {
+    "$date": "2026-04-05T02:53:08.071Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-05T02:54:44.525Z"
+  },
+  "message_count": 5,
+  "last_message": "您好！您要申请**出差费用报销**，我来为您生成专属的操作指引。\n\n为了更准确地指导您，请问此次出差的**总报销金额是多少元**？（例如：2800元、5200元等）",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d1d10503418ea03c74b9e4"
+  },
+  "user_id": "default_user",
+  "title": "我要报销出差费用",
+  "created_at": {
+    "$date": "2026-04-05T03:03:33.780Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-05T03:03:50.492Z"
+  },
+  "message_count": 1,
+  "last_message": "您好！我来帮您一步步完成差旅报销。为了给您提供准确的操作指引，请先告诉我：  \n**这次出差的总费用金额是多少？（例如：3800元）**",
+  "is_archived": false
+},
+{
+  "_id": {
+    "$oid": "69d38fa4766463ed12bcbce4"
+  },
+  "user_id": "default_user",
+  "title": "我的工资是多少",
+  "created_at": {
+    "$date": "2026-04-06T10:49:08.605Z"
+  },
+  "updated_at": {
+    "$date": "2026-04-06T11:02:55.519Z"
+  },
+  "message_count": 1,
+  "last_message": "抱歉，关于「工资」相关的问题属于禁止回答的主题。\n\n根据公司政策，此类信息属于保密或敏感内容。\n\n如有疑问，请联系：\n电话：12345\n邮箱：support@company.com",
+  "is_archived": false
+}]

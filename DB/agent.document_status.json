@@ -1,0 +1,76 @@
+[{
+  "_id": "69c4f6e6cf0c734941634c3d",
+  "id": "2589fe10-71dd-41ca-b346-82fcc0530572",
+  "chunk_count": 128,
+  "created_at": "2026-03-26T09:05:42.601000",
+  "error": null,
+  "error_detail": null,
+  "file_path": "data/uploads\\2589fe10-71dd-41ca-b346-82fcc0530572_Staff Handbook.pdf",
+  "filename": "Staff Handbook.pdf",
+  "size": 1850935,
+  "status": "READY",
+  "updated_at": "2026-03-26T09:05:58.205000",
+  "uploadTime": "2026-03-26T17:05:42.601430"
+},
+{
+  "_id": "69c64d1dcf0c734941634c3f",
+  "id": "52218314-69df-4a05-91b4-4fd2f123aaad",
+  "chunk_count": 1,
+  "created_at": "2026-03-27T09:25:49.447000",
+  "error": null,
+  "error_detail": null,
+  "file_path": "data/uploads\\52218314-69df-4a05-91b4-4fd2f123aaad_LMS 使用指引.pdf",
+  "filename": "LMS 使用指引.pdf",
+  "size": 87575,
+  "status": "READY",
+  "updated_at": "2026-03-27T09:25:51.320000",
+  "uploadTime": "2026-03-27T17:25:49.447769"
+},
+{
+  "_id": "69ca1dd5cf0c734941634c42",
+  "id": "ec3a3bad-6419-4e5b-b68b-fa38e7665a7a",
+  "chunk_count": 2,
+  "created_at": "2026-03-30T06:53:09.911000",
+  "error": null,
+  "error_detail": null,
+  "file_path": "data/uploads\\ec3a3bad-6419-4e5b-b68b-fa38e7665a7a_前端团队成员结构.xlsx",
+  "filename": "前端团队成员结构.xlsx",
+  "size": 10551,
+  "status": "READY",
+  "updated_at": "2026-03-30T06:53:12.777000",
+  "uploadTime": "2026-03-30T14:53:09.911068"
+},
+{
+  "_id": "69ca41b9cf0c734941634c43",
+  "id": "fa078e48-85f9-449c-812f-1d93264c447b",
+  "chunk_count": 15,
+  "created_at": "2026-03-30T09:26:17.957000",
+  "error": null,
+  "error_detail": null,
+  "file_path": "data/uploads\\fa078e48-85f9-449c-812f-1d93264c447b_办公室行政管理制度.pdf",
+  "filename": "办公室行政管理制度.pdf",
+  "size": 340175,
+  "status": "READY",
+  "updated_at": "2026-03-30T09:26:21.773000",
+  "uploadTime": "2026-03-30T17:26:17.957197"
+},
+{
+  "_id": {
+    "$oid": "69d07f6c970c861775c12f3f"
+  },
+  "id": "21f26cfd-dbd3-464f-b79d-b59d62cb6ffe",
+  "chunk_count": 3,
+  "created_at": {
+    "$date": "2026-04-04T03:03:08.653Z"
+  },
+  "error": null,
+  "error_detail": null,
+  "file_path": "data/uploads\\21f26cfd-dbd3-464f-b79d-b59d62cb6ffe_流程文档.docx",
+  "filename": "流程文档.docx",
+  "size": 15471,
+  "status": "READY",
+  "updated_at": {
+    "$date": "2026-04-04T03:03:10.277Z"
+  },
+  "uploadTime": "2026-04-04T11:03:08.653393"
+}]

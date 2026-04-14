@@ -1,0 +1,120 @@
+[{
+  "_id": {
+    "$oid": "69d0f0134f53102c8d52935b"
+  },
+  "timestamp": {
+    "$date": "2026-04-04T11:03:47.277Z"
+  },
+  "user_id": "test_mcp_user",
+  "username": "Test MCP User",
+  "api_key": "mcp_44af...bb9d",
+  "method": "resources/list",
+  "resource_uri": null,
+  "tool_name": null,
+  "success": true,
+  "error_code": null,
+  "error_message": null,
+  "ip_address": "unknown",
+  "user_agent": "Unknown",
+  "response_time_ms": 2
+},
+{
+  "_id": {
+    "$oid": "69d0f0144f53102c8d52935f"
+  },
+  "timestamp": {
+    "$date": "2026-04-04T11:03:47.317Z"
+  },
+  "user_id": "test_mcp_user",
+  "username": "Test MCP User",
+  "api_key": "mcp_44af...bb9d",
+  "method": "resources/read",
+  "resource_uri": "knowledge://public/faq",
+  "tool_name": null,
+  "success": true,
+  "error_code": null,
+  "error_message": null,
+  "ip_address": "unknown",
+  "user_agent": "Unknown",
+  "response_time_ms": 3
+},
+{
+  "_id": {
+    "$oid": "69d0f0144f53102c8d529360"
+  },
+  "timestamp": {
+    "$date": "2026-04-04T11:03:47.327Z"
+  },
+  "user_id": "test_mcp_user",
+  "username": "Test MCP User",
+  "api_key": "mcp_44af...bb9d",
+  "method": "resources/read",
+  "resource_uri": "knowledge://internal/policy",
+  "tool_name": null,
+  "success": true,
+  "error_code": null,
+  "error_message": null,
+  "ip_address": "unknown",
+  "user_agent": "Unknown",
+  "response_time_ms": 2
+},
+{
+  "_id": {
+    "$oid": "69d0f0144f53102c8d529361"
+  },
+  "timestamp": {
+    "$date": "2026-04-04T11:03:47.342Z"
+  },
+  "user_id": "test_mcp_user",
+  "username": "Test MCP User",
+  "api_key": "mcp_44af...bb9d",
+  "method": "resources/read",
+  "resource_uri": "knowledge://confidential/salary",
+  "tool_name": null,
+  "success": false,
+  "error_code": 403,
+  "error_message": "Access denied to resource: knowledge://confidential/salary",
+  "ip_address": "unknown",
+  "user_agent": "Unknown",
+  "response_time_ms": 3
+},
+{
+  "_id": {
+    "$oid": "69d0f0154f53102c8d529364"
+  },
+  "timestamp": {
+    "$date": "2026-04-04T11:03:48.552Z"
+  },
+  "user_id": "guest",
+  "username": "Guest User",
+  "api_key": "guest",
+  "method": "resources/list",
+  "resource_uri": null,
+  "tool_name": null,
+  "success": true,
+  "error_code": null,
+  "error_message": null,
+  "ip_address": "unknown",
+  "user_agent": "Unknown",
+  "response_time_ms": 2
+},
+{
+  "_id": {
+    "$oid": "69d0f0154f53102c8d529365"
+  },
+  "timestamp": {
+    "$date": "2026-04-04T11:03:48.561Z"
+  },
+  "user_id": "guest",
+  "username": "Guest User",
+  "api_key": "guest",
+  "method": "resources/read",
+  "resource_uri": "knowledge://internal/policy",
+  "tool_name": null,
+  "success": false,
+  "error_code": 403,
+  "error_message": "Access denied to resource: knowledge://internal/policy",
+  "ip_address": "unknown",
+  "user_agent": "Unknown",
+  "response_time_ms": 2
+}]
